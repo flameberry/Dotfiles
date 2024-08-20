@@ -1,0 +1,12 @@
+[submodule "alacritty/themes"]
+	path = alacritty/themes
+	url = https://github.com/alacritty/alacritty-theme
+[submodule "tmux/plugins/tmux"]
+	path = tmux/plugins/tmux
+	url = https://git::@github.com/catppuccin/tmux
+[submodule "tmux/plugins/tmux-sensible"]
+	path = tmux/plugins/tmux-sensible
+	url = https://git::@github.com/tmux-plugins/tmux-sensible
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
