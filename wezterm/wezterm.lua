@@ -34,9 +34,9 @@ config.font_size = 15
 
 config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
--- config.window_background_opacity = 0.9
-config.window_background_opacity = 1
-config.macos_window_background_blur = 15
+config.window_background_opacity = 0.8
+-- config.window_background_opacity = 1
+config.macos_window_background_blur = 20
 
 -- config.window_background_gradient = {
 -- 	orientation = "Vertical",

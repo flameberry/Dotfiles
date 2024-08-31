@@ -166,6 +166,7 @@ return {
 					objc = { "clang-format" },
 					objcpp = { "clang-format" },
 					cuda = { "clang-format" },
+					cmake = { "cmake-format" },
 					proto = { "clang-format" },
 					python = { "black" },
 					lua = { "stylua" },
