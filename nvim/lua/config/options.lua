@@ -59,3 +59,6 @@ vim.cmd([[
 ]])
 
 vim.cmd([[set listchars=tab:\ \  list]])
+
+-- LazyVim Disable Snacks animation globally
+vim.g.snacks_animate = false

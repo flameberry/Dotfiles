@@ -10,11 +10,13 @@ end
 -- This is where you actually apply your config choices
 -- config.color_scheme = "Solarized Dark Higher Contrast"
 -- config.color_scheme = "Catppuccin Mocha"
+-- config.color_scheme = "rose-pine"
 
 -- Coolnight colorscheme
 config.colors = {
 	foreground = "#CBE0F0",
-	background = "#011423",
+	-- background = "#011423",
+	background = "#000000",
 	cursor_bg = "#47FF9C",
 	cursor_border = "#47FF9C",
 	cursor_fg = "#011423",
@@ -24,10 +26,10 @@ config.colors = {
 	brights = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
 }
 
--- config.font = wezterm.font("JetbrainsMono Nerd Font")
+config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "Bold" })
 -- config.font = wezterm.font("OperatorMonoSSmLig Nerd Font")
 -- config.font = wezterm.font("Liga SFMono Nerd Font")
-config.font = wezterm.font("MesloLGS Nerd Font", { weight = "Bold" })
+-- config.font = wezterm.font("MesloLGS Nerd Font", { weight = "Bold" })
 -- config.font = wezterm.font("Hack")
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font")
 config.font_size = 15

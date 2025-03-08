@@ -19,8 +19,11 @@ set -x PATH "/Users/flameberry/Library/Application Support/Code/User/globalStora
 # Rust
 set -x PATH "$HOME/.cargo/bin" $PATH
 
+# Postgres 17
+set -x PATH "/opt/homebrew/opt/postgresql@17/bin" $PATH
+
 # Source Vulkan SDK setup
-bass source /Users/flameberry/VulkanSDK/1.3.283.0/setup-env.sh
+bass source /Users/flameberry/VulkanSDK/1.3.296.0/setup-env.sh
 
 # Eval Homebrew shell environment
 eval ( /opt/homebrew/bin/brew shellenv )
@@ -81,3 +84,10 @@ alias lg lazygit
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
+
+# pnpm
+set -gx PNPM_HOME "/Users/flameberry/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
