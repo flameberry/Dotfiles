@@ -32,12 +32,12 @@ config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "Bold" })
 -- config.font = wezterm.font("MesloLGS Nerd Font", { weight = "Bold" })
 -- config.font = wezterm.font("Hack")
 -- config.font = wezterm.font("CaskaydiaCove Nerd Font")
-config.font_size = 15
+config.font_size = 14
 
 config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.8
--- config.window_background_opacity = 1
+config.window_background_opacity = 1
 config.macos_window_background_blur = 20
 
 -- config.window_background_gradient = {

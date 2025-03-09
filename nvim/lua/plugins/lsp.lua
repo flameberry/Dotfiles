@@ -168,6 +168,7 @@ return {
 					cuda = { "clang-format" },
 					cmake = { "cmake-format" },
 					proto = { "clang-format" },
+					rust = { "rustfmt" },
 					python = { "black" },
 					lua = { "stylua" },
 					fish = { "fish_indent" },
