@@ -149,6 +149,14 @@ return {
 						},
 					},
 				},
+				gopls = {
+					settings = {
+						gopls = {
+							staticcheck = true, -- Enable static analysis
+							gofumpt = true, -- Use gofumpt for better formatting
+						},
+					},
+				},
 			},
 			setup = {},
 		},
@@ -173,6 +181,7 @@ return {
 					lua = { "stylua" },
 					fish = { "fish_indent" },
 					sh = { "shfmt" },
+					go = { "gofumpt" },
 				},
 				formatters = {
 					black = {

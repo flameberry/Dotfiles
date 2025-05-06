@@ -1,59 +1,222 @@
--- Pull in the wezterm API
+-- vim: tabstop=2 shiftwidth=2 expandtab
+
 local wezterm = require("wezterm")
+local config = wezterm.config_builder()
+local appearance = require("appearance")
+local projects = require("projects")
 
-local config = {}
-
-if wezterm.config_builder then
-	config = wezterm.config_builder()
-end
-
--- This is where you actually apply your config choices
--- config.color_scheme = "Solarized Dark Higher Contrast"
--- config.color_scheme = "Catppuccin Mocha"
--- config.color_scheme = "rose-pine"
-
--- Coolnight colorscheme
-config.colors = {
-	foreground = "#CBE0F0",
-	-- background = "#011423",
-	background = "#000000",
-	cursor_bg = "#47FF9C",
-	cursor_border = "#47FF9C",
-	cursor_fg = "#011423",
-	selection_bg = "#033259",
-	selection_fg = "#CBE0F0",
-	ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
-	brights = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
+config.set_environment_variables = {
+	PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
 }
+
+-- if appearance.is_dark() then
+-- 	config.color_scheme = "Tokyo Night"
+-- else
+-- 	config.color_scheme = "Tokyo Night Day"
+-- end
+
+appearance.coolnight(config)
 
 config.font = wezterm.font("JetbrainsMono Nerd Font", { weight = "Bold" })
--- config.font = wezterm.font("OperatorMonoSSmLig Nerd Font")
--- config.font = wezterm.font("Liga SFMono Nerd Font")
--- config.font = wezterm.font("MesloLGS Nerd Font", { weight = "Bold" })
--- config.font = wezterm.font("Hack")
--- config.font = wezterm.font("CaskaydiaCove Nerd Font")
-config.font_size = 14
+config.font_size = 13
 
-config.enable_tab_bar = false
+config.default_cursor_style = "SteadyBlock"
+-- Slightly transparent and blurred background
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 30
+-- Removes the title bar, leaving only the tab bar. Keeps
+-- the ability to resize by dragging the window's edges.
+-- On macOS, 'RESIZE|INTEGRATED_BUTTONS' also looks nice if
+-- you want to keep the window controls visible and integrate
+-- them into the tab bar.
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.8
-config.window_background_opacity = 1
-config.macos_window_background_blur = 20
-
--- config.window_background_gradient = {
--- 	orientation = "Vertical",
--- 	colors = {
--- 		"#1E1E2F",
--- 		"#1E1E2F",
--- 	},
--- 	blend = "Rgb",
--- 	interpolation = "Linear",
--- }
-
-config.inactive_pane_hsb = {
-	saturation = 0.9,
-	brightness = 0.8,
+-- Sets the font for the window frame (tab bar)
+config.window_frame = {
+	-- Berkeley Mono for me again, though an idea could be to try a
+	-- serif font here instead of monospace for a nicer look?
+	font = wezterm.font({ family = "JetbrainsMono Nerd Font", weight = "Bold" }),
+	font_size = 11,
 }
 
--- and finally, return the configuration to wezterm
+local function segments_for_right_status(window)
+	return {
+		window:active_workspace(),
+		wezterm.strftime("%a %b %-d %H:%M"),
+		wezterm.hostname(),
+	}
+end
+
+function update_status(window, _)
+	local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
+	local segments = segments_for_right_status(window)
+
+	local color_scheme = window:effective_config().resolved_palette
+	-- Note the use of wezterm.color.parse here, this returns
+	-- a Color object, which comes with functionality for lightening
+	-- or darkening the colour (amongst other things).
+	local bg =
+		wezterm.color.parse(color_scheme.background ~= nil and color_scheme.background or config.colors.background)
+	local fg = color_scheme.foreground ~= nil and color_scheme.foreground or config.colors.foreground
+
+	-- Each powerline segment is going to be coloured progressively
+	-- darker/lighter depending on whether we're on a dark/light colour
+	-- scheme. Let's establish the "from" and "to" bounds of our gradient.
+	local gradient_to, gradient_from = bg, bg
+	if appearance.is_dark() then
+		gradient_from = gradient_to:lighten(0.2)
+	else
+		gradient_from = gradient_to:darken(0.2)
+	end
+
+	-- Yes, WezTerm supports creating gradients, because why not?! Although
+	-- they'd usually be used for setting high fidelity gradients on your terminal's
+	-- background, we'll use them here to give us a sample of the powerline segment
+	-- colours we need.
+	local gradient = wezterm.color.gradient(
+		{
+			orientation = "Horizontal",
+			colors = { gradient_from, gradient_to },
+		},
+		#segments -- only gives us as many colours as we have segments.
+	)
+
+	-- We'll build up the elements to send to wezterm.format in this table.
+	local elements = {}
+
+	for i, seg in ipairs(segments) do
+		local is_first = i == 1
+
+		if is_first then
+			table.insert(elements, { Background = { Color = "none" } })
+		end
+		table.insert(elements, { Foreground = { Color = gradient[i] } })
+		table.insert(elements, { Text = SOLID_LEFT_ARROW })
+
+		table.insert(elements, { Foreground = { Color = fg } })
+		table.insert(elements, { Background = { Color = gradient[i] } })
+		table.insert(elements, { Text = " " .. seg .. " " })
+	end
+
+	window:set_right_status(wezterm.format(elements))
+end
+
+-- IMPORTANT: Enable this to have a status section on the top right of the title bar
+-- wezterm.on("update-status", update_status)
+
+local function move_pane(key, direction)
+	return {
+		key = key,
+		mods = "LEADER",
+		action = wezterm.action.ActivatePaneDirection(direction),
+	}
+end
+
+local function resize_pane(key, direction)
+	return {
+		key = key,
+		action = wezterm.action.AdjustPaneSize({ direction, 3 }),
+	}
+end
+
+-- If you're using emacs you probably wanna choose a different leader here,
+-- since we're gonna be making it a bit harder to CTRL + A for jumping to
+-- the start of a line
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
+
+-- Table mapping keypresses to actions
+config.keys = {
+	-- Sends ESC + b and ESC + f sequence, which is used
+	-- for telling your shell to jump back/forward.
+	{
+		-- When the left arrow is pressed
+		key = "LeftArrow",
+		-- With the "Option" key modifier held down
+		mods = "OPT",
+		-- Perform this action, in this case - sending ESC + B
+		-- to the terminal
+		action = wezterm.action.SendString("\x1bb"),
+	},
+	{
+		key = "RightArrow",
+		mods = "OPT",
+		action = wezterm.action.SendString("\x1bf"),
+	},
+
+	{
+		key = ",",
+		mods = "SUPER",
+		action = wezterm.action.SpawnCommandInNewTab({
+			cwd = wezterm.home_dir,
+			args = { "nvim", wezterm.config_file },
+		}),
+	},
+
+	{
+		-- I'm used to tmux bindings, so am using the quotes (") key to
+		-- split horizontally, and the percent (%) key to split vertically.
+		key = '"',
+		-- Note that instead of a key modifier mapped to a key on your keyboard
+		-- like CTRL or ALT, we can use the LEADER modifier instead.
+		-- This means that this binding will be invoked when you press the leader
+		-- (CTRL + A), quickly followed by quotes (").
+		mods = "LEADER",
+		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "%",
+		mods = "LEADER",
+		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+
+	{
+		key = "a",
+		-- When we're in leader mode _and_ CTRL + A is pressed...
+		mods = "LEADER|CTRL",
+		-- Actually send CTRL + A key to the terminal
+		action = wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
+	},
+
+	move_pane("j", "Down"),
+	move_pane("k", "Up"),
+	move_pane("h", "Left"),
+	move_pane("l", "Right"),
+
+	{
+		-- When we push LEADER + R...
+		key = "r",
+		mods = "LEADER",
+		-- Activate the `resize_panes` keytable
+		action = wezterm.action.ActivateKeyTable({
+			name = "resize_panes",
+			-- Ensures the keytable stays active after it handles its
+			-- first keypress.
+			one_shot = false,
+			-- Deactivate the keytable after a timeout.
+			timeout_milliseconds = 1000,
+		}),
+	},
+
+	{
+		key = "p",
+		mods = "LEADER",
+		-- Present in to our project picker
+		action = projects.choose_project(),
+	},
+	{
+		key = "f",
+		mods = "LEADER",
+		-- Present a list of existing workspaces
+		action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+	},
+}
+
+config.key_tables = {
+	resize_panes = {
+		resize_pane("j", "Down"),
+		resize_pane("k", "Up"),
+		resize_pane("h", "Left"),
+		resize_pane("l", "Right"),
+	},
+}
+
 return config

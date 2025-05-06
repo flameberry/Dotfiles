@@ -1,0 +1,5 @@
+font-thicken = true
+theme = CoolNight
+background-opacity = 0.9
+macos-window-shadow = false
+macos-titlebar-proxy-icon = hidden
