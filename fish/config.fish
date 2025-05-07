@@ -45,6 +45,9 @@ set -g FZF_LEGACY_KEYBINDINGS 0
 
 # fish options
 set -U fish_cursor_external block
+set -U fish_cursor_insert block
+set -U fish_cursor_default block
+set -U fish_cursor_visual block
 set -g fish_prompt_pwd_dir_length 1
 set -g theme_display_user yes
 set -g theme_hide_hostname no

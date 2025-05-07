@@ -22,7 +22,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
 # accordion-padding = 30
-accordion-padding = 50
+accordion-padding = 75 
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
@@ -46,7 +46,7 @@ automatically-unhide-macos-hidden-apps = false
 
 # Keep these windows floating by default as they are generally for quick interaction
 [[on-window-detected]]
-if.app-name-regex-substring = 'whatsapp|finder|flameberry|discord|notes|quicktime|appcleaner'
+if.app-name-regex-substring = 'chatgpt|whatsapp|finder|flameberry|discord|notes|quicktime|appcleaner'
 run = 'layout floating'
 
 # Possible values: (qwerty|dvorak|colemak)
@@ -113,13 +113,13 @@ run = 'layout floating'
     alt-k = 'focus up'
     alt-l = 'focus right'
 
+    alt-f = 'fullscreen'
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
     alt-shift-h = 'move left'
     alt-shift-j = 'move down'
     alt-shift-k = 'move up'
     alt-shift-l = 'move right'
-
-    alt-shift-f = 'fullscreen'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#resize
     alt-minus = 'resize smart -50'
@@ -198,10 +198,10 @@ run = 'layout floating'
     alt-shift-semicolon = 'mode service'
     
     alt-a = 'exec-and-forget open -a /Applications/Arc.app'
+    alt-g = 'exec-and-forget open -na /Applications/Ghostty.app'
 
     # Focus on the existing WezTerm window or open a new one if doesn't exist already
     alt-w = 'exec-and-forget open -a /Applications/WezTerm.app'
-
     # Open WezTerm new window every time alt-enter is pressed
     alt-enter = 'exec-and-forget wezterm'
 
