@@ -5,7 +5,7 @@ sbar.bar({
 	topmost = "window",
 	height = 32,
 	color = colors.bar.bg,
-	shadow = false,
+	shadow = true,
 	position = "top",
 	sticky = true,
 	padding_right = 8,
@@ -14,5 +14,5 @@ sbar.bar({
 	margin = 8,
 	blur_radius = 20,
 	corner_radius = 32,
-	notch_width = 30,
+	notch_width = 200,
 })

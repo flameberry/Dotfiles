@@ -20,23 +20,38 @@ for i, workspace in ipairs(workspaces) do
 			font = { family = settings.font },
 			string = workspace,
 			color = colors.white,
-			highlight_color = colors.yellow,
-			padding_right = 12,
+			highlight_color = colors.magenta,
+			padding_left = 8,
+			padding_right = 8,
 			y_offset = 1,
+		},
+		background = {
+			border_width = 1,
+			border_color = colors.bg2,
+			color = colors.bg2,
+			corner_radius = 32,
+			height = 24,
 		},
 		label = { drawing = false },
 		padding_left = 1,
 		padding_right = 1,
 
-		click_script = "aerospace workspace " .. i,
+		click_script = "aerospace workspace " .. workspace,
 	})
+
+	space:subscribe("display_change", function(env) end)
 
 	space:subscribe("aerospace_workspace_change", function(env)
 		local selected = env.FOCUSED_WORKSPACE == workspace
 		space:set({
-			icon = { highlight = selected },
+			icon = {
+				highlight = selected,
+			},
 			label = { highlight = selected },
-			background = { border_color = selected and colors.white or colors.bg2 },
+			background = {
+				border_width = 2,
+				border_color = selected and colors.magenta or colors.bg2,
+			},
 		})
 	end)
 end

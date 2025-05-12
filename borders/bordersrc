@@ -5,7 +5,9 @@ options=(
     width=5.0
     hidpi=on
     # active_color="gradient(top_left=0xffD8B9FF,bottom_right=0xffB9FFE8)"
-    active_color="gradient(top_left=0xffa6c5e5,bottom_right=0xfff0a8e0)"
+    # active_color="gradient(top_left=0xffa6c5e5,bottom_right=0xfff0a8e0)"
+    # active_color=0xff66f7ff
+    active_color=0xffc6a0f6
     inactive_color=0xff494d64
     # inactive_color="gradient(top_left=0xffE0E0E5,bottom_right=0xffF5E8D3)"
 )
