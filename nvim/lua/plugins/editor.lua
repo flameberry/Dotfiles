@@ -49,7 +49,7 @@ return {
 	},
 
 	{
-		"telescope.nvim",
+		"nvim-telescope/telescope.nvim",
 		tag = "0.1.8",
 		dependencies = {
 			{
@@ -157,6 +157,9 @@ return {
 			local telescope = require("telescope")
 			local actions = require("telescope.actions")
 			local fb_actions = require("telescope").extensions.file_browser.actions
+
+			-- Removing this line causes errors in the next line saying `expected table, got nil``
+			opts.defaults = {}
 
 			opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
 				wrap_results = true,

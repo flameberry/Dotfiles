@@ -6,6 +6,7 @@ local icons = require("icons")
 
 local apple = sbar.add("item", {
 	icon = {
+		y_offset = 1,
 		font = { size = 16.0 },
 		color = colors.green,
 		string = icons.apple,

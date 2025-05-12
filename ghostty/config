@@ -1,9 +1,10 @@
 font-thicken = true
 font-family = JetbrainsMono Nerd Font
-font-style = medium
+# font-style = bold
 
-theme = CoolNight
-background-opacity = 0.9
+theme = rose-pine
+background = #000000
+background-opacity = 0.85
 background-blur = true
 
 cursor-style = block
@@ -16,3 +17,5 @@ mouse-hide-while-typing = true
 
 window-padding-x = 8 
 window-padding-y = 8 
+
+adjust-box-thickness = 2

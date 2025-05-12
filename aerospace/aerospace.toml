@@ -14,6 +14,11 @@ after-startup-command = []
 # Start AeroSpace at login
 start-at-login = true
 
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -67,7 +72,7 @@ run = 'layout floating'
     inner.vertical =   8
     outer.left =       8
     outer.bottom =     8
-    outer.top =        8
+    outer.top =        14
     outer.right =      8
 
 # 'main' binding mode declaration
@@ -135,6 +140,7 @@ run = 'layout floating'
     alt-7 = 'workspace 7'
     alt-8 = 'workspace 8'
     alt-9 = 'workspace 9'
+    alt-0 = 'workspace 10'
     # alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
     # alt-b = 'workspace B'
     # alt-c = 'workspace C'
@@ -167,6 +173,7 @@ run = 'layout floating'
     alt-shift-7 = 'move-node-to-workspace 7'
     alt-shift-8 = 'move-node-to-workspace 8'
     alt-shift-9 = 'move-node-to-workspace 9'
+    alt-shift-0 = 'move-node-to-workspace 10'
     # alt-shift-a = 'move-node-to-workspace A'
     # alt-shift-b = 'move-node-to-workspace B'
     # alt-shift-c = 'move-node-to-workspace C'

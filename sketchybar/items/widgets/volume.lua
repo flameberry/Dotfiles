@@ -41,10 +41,7 @@ local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {
 	volume_icon.name,
 	volume_percent.name,
 }, {
-	background = {
-		color = colors.bg1,
-		border_width = 1,
-	},
+	background = settings.widget_bracket_bg,
 	popup = { align = "center" },
 })
 
