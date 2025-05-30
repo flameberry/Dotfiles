@@ -20,14 +20,11 @@ for i, workspace in ipairs(workspaces) do
 			font = { family = settings.font },
 			string = workspace,
 			color = colors.white,
-			highlight_color = colors.magenta,
 			padding_left = 8,
 			padding_right = 8,
 			y_offset = 1,
 		},
 		background = {
-			border_width = 1,
-			border_color = colors.bg2,
 			color = colors.bg2,
 			corner_radius = 32,
 			height = 24,
@@ -45,12 +42,10 @@ for i, workspace in ipairs(workspaces) do
 		local selected = env.FOCUSED_WORKSPACE == workspace
 		space:set({
 			icon = {
-				highlight = selected,
+				color = selected and colors.black or colors.white,
 			},
-			label = { highlight = selected },
 			background = {
-				border_width = 2,
-				border_color = selected and colors.magenta or colors.bg2,
+				color = selected and colors.magenta or colors.bg2,
 			},
 		})
 	end)

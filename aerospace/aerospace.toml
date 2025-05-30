@@ -51,7 +51,7 @@ automatically-unhide-macos-hidden-apps = false
 
 # Keep these windows floating by default as they are generally for quick interaction
 [[on-window-detected]]
-if.app-name-regex-substring = 'chatgpt|whatsapp|finder|flameberry|discord|notes|quicktime|appcleaner'
+if.app-name-regex-substring = 'chatgpt|whatsapp|finder|flameberry|discord|notes|quicktime|appcleaner|font'
 run = 'layout floating'
 
 # Possible values: (qwerty|dvorak|colemak)
@@ -211,6 +211,8 @@ run = 'layout floating'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
+
+    alt-g = 'exec-and-forget open -a /Applications/Ghostty.app'
 
     # Open WezTerm new window every time alt-enter is pressed
     alt-enter = 'exec-and-forget wezterm'

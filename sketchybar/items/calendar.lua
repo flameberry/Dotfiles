@@ -24,11 +24,6 @@ local cal = sbar.add("item", {
 	position = "right",
 	update_freq = 30,
 	padding_left = 15,
-	-- background = {
-	-- 	color = colors.bg2,
-	-- 	border_color = colors.black,
-	-- 	border_width = 1,
-	-- },
 })
 
 -- Double border for calendar using a single item bracket

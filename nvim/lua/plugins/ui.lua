@@ -9,6 +9,16 @@ return {
 		},
 	},
 
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local harpoon = require("harpoon")
+			harpoon:setup()
+		end,
+	},
+
 	-- messages, cmdline and the popupmenu
 	{
 		"folke/noice.nvim",
@@ -69,17 +79,6 @@ return {
 			timeout = 5000,
 		},
 	},
-
-	-- animations
-	-- {
-	-- 	"echasnovski/mini.animate",
-	-- 	event = "VeryLazy",
-	-- 	opts = function(_, opts)
-	-- 		opts.scroll = {
-	-- 			enable = false,
-	-- 		}
-	-- 	end,
-	-- },
 
 	-- buffer line
 	{

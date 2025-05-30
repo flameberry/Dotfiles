@@ -63,3 +63,4 @@ vim.cmd([[set listchars=tab:\ \  list]])
 
 -- LazyVim Disable Snacks animation globally
 vim.g.snacks_animate = false
+vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
