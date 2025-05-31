@@ -1,43 +1,46 @@
 local colors = require("colors")
 local settings = require("settings")
 
-function parse_string_to_table(s)
-	local result = {}
-	for line in s:gmatch("([^\n]+)") do
-		table.insert(result, line)
+-- Function to execute a command and return its output as a table of lines
+local function exec_to_table(cmd)
+	local handle = io.popen(cmd)
+	local result = handle:read("*a")
+	handle:close()
+	local lines = {}
+	for line in result:gmatch("[^\n]+") do
+		lines[#lines + 1] = line
 	end
-	return result
+	return lines
 end
 
-local file = io.popen("aerospace list-workspaces --all")
-local result = file:read("*a")
-file:close()
+-- Get all workspaces and focused workspace in one go
+local workspaces = exec_to_table("aerospace list-workspaces --all")
+local focused_workspace = exec_to_table("aerospace list-workspaces --focused")[1]
 
-local workspaces = parse_string_to_table(result)
 for i, workspace in ipairs(workspaces) do
+	local is_focused = workspace == focused_workspace
+
 	local space = sbar.add("item", "space." .. i, {
 		icon = {
 			font = { family = settings.font },
 			string = workspace,
-			color = colors.white,
+			color = is_focused and colors.black or colors.white,
 			padding_left = 8,
 			padding_right = 8,
 			y_offset = 1,
 		},
 		background = {
-			color = colors.bg2,
+			color = is_focused and colors.magenta or colors.bg2,
 			corner_radius = 32,
 			height = 24,
 		},
 		label = { drawing = false },
 		padding_left = 1,
 		padding_right = 1,
-
 		click_script = "aerospace workspace " .. workspace,
 	})
 
-	space:subscribe("display_change", function(env) end)
-
+	-- Respond to workspace changes
 	space:subscribe("aerospace_workspace_change", function(env)
 		local selected = env.FOCUSED_WORKSPACE == workspace
 		space:set({

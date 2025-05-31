@@ -1,66 +1,55 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+
 vim.g.mapleader = " "
 vim.opt.guicursor = ""
 
-vim.opt.encoding = "utf-8"
-vim.opt.fileencoding = "utf-8"
-
-vim.opt.number = true
-vim.opt.colorcolumn = "120"
-vim.opt.title = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.hlsearch = true
-vim.opt.backup = false
-vim.opt.showcmd = true
-vim.opt.cmdheight = 1
-vim.opt.laststatus = 3
-vim.opt.expandtab = true
-vim.opt.scrolloff = 10
-vim.opt.shell = "fish"
-vim.opt.backupskip = { "/tmp/*", "/private/tmp/*" }
-vim.opt.inccommand = "split"
-vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
-vim.opt.smarttab = true
-vim.opt.breakindent = true
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.wrap = false -- No Wrap lines
+vim.opt.number = true               -- Show line numbers.
+vim.opt.colorcolumn = "120"         -- Show a vertical line at column 120.
+vim.opt.title = true                -- Show the filename in the terminal title.
+vim.opt.autoindent = true           -- Auto-indent new lines to match previous.
+vim.opt.smartindent = true          -- Smarter auto-indenting for code blocks.
+vim.opt.hlsearch = true             -- Highlight all matches of search pattern.
+vim.opt.backup = false              -- Don’t create backup files.
+vim.opt.showcmd = true              -- Show (part of) the last command in the bottom right.
+vim.opt.cmdheight = 1               -- Height of the command line area.
+vim.opt.laststatus = 3              -- Show a global statusline instead of one per window.
+vim.opt.expandtab = true            -- Use spaces instead of tabs.
+vim.opt.scrolloff = 10              -- Keep 10 lines above/below the cursor when scrolling.
+vim.opt.shell = "fish"              -- Use Fish shell for commands.
+vim.opt.inccommand = "split"        -- Show live preview of substitutions in a split.
+vim.opt.ignorecase = true           -- Ignore case in search unless uppercase used.
+vim.opt.smarttab = true             -- Use shiftwidth when pressing tab at line start.
+vim.opt.breakindent = true          -- Preserve indent on wrapped lines.
+vim.opt.shiftwidth = 4              -- Indent by 4 spaces when shifting.
+vim.opt.tabstop = 4                 -- Display a tab as 4 spaces.
+vim.opt.wrap = false                -- Don’t wrap long lines.
 vim.opt.backspace = { "start", "eol", "indent" }
-vim.opt.path:append({ "**" }) -- Finding files - Search down into subfolders
-vim.opt.wildignore:append({ "*/node_modules/*" })
-vim.opt.splitbelow = true -- Put new windows below current
-vim.opt.splitright = true -- Put new windows right of current
-vim.opt.splitkeep = "cursor"
-vim.opt.mouse = ""
-vim.opt.cursorline = false
+vim.opt.path:append({ "**" })       -- Search subdirectories recursively with `:find`.
+vim.opt.wildignore:append({ ... })  -- Ignore node_modules in file completion.
+vim.opt.splitbelow = true           -- Open new horizontal splits below.
+vim.opt.splitright = true           -- Open new vertical splits to the right.
+vim.opt.splitkeep = "cursor"        -- Preserve cursor position when splitting.
+vim.opt.mouse = ""                  -- Disable mouse support.
+vim.opt.cursorline = false          -- Don’t highlight the current line.
 
--- Turn off autoformat & trailing whitespaces
 vim.g.autoformat = true
 vim.opt.list = false
-
--- Undercurl
-vim.cmd([[let &t_Cs = "\e[4:3m"]])
-vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })
 
-vim.cmd([[au BufNewFile,BufRead *.astro setf astro]])
-vim.cmd([[au BufNewFile,BufRead Podfile setf ruby]])
-
-if vim.fn.has("nvim-0.8") == 1 then
-	vim.opt.cmdheight = 0
-end
-
 -- Set file types for GLSL files
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.frag setfiletype glsl
-  autocmd BufNewFile,BufRead *.vert setfiletype glsl
-  autocmd BufNewFile,BufRead *.comp setfiletype glsl
-]])
+vim.filetype.add({
+  extension = {
+    frag = "glsl",
+    vert = "glsl",
+    comp = "glsl",
+  },
+})
 
 vim.cmd([[set listchars=tab:\ \  list]])
 
 -- LazyVim Disable Snacks animation globally
 vim.g.snacks_animate = false
-vim.g.lazyvim_rust_diagnostics = "rust-analyzer"

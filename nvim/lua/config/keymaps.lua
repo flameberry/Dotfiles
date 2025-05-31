@@ -1,79 +1,27 @@
-local keymap = vim.keymap
-local opts = { noremap = true, silent = true }
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
 
-local harpoon = require("harpoon")
-harpoon:setup() -- Required
+-- Move line up and down
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-keymap.set("n", "<leader>a", function()
-	harpoon:list():add()
-end)
-keymap.set("n", "<C-e>", function()
-	harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
-
--- Find a workaround for these shortcuts
-keymap.set("n", "<C-1>", function()
-	harpoon:list():select(1)
-end)
-keymap.set("n", "<C-2>", function()
-	harpoon:list():select(2)
-end)
-keymap.set("n", "<C-3>", function()
-	harpoon:list():select(3)
-end)
-keymap.set("n", "<C-4>", function()
-	harpoon:list():select(4)
-end)
-
--- Toggle previous & next buffers stored within Harpoon list
-keymap.set("n", "<C-S-P>", function()
-	harpoon:list():prev()
-end)
-keymap.set("n", "<C-S-N>", function()
-	harpoon:list():next()
-end)
-
-keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
-keymap.set("x", "<Leader>p", '"_dP')
-keymap.set("n", "x", '"_x')
-keymap.set("n", "<Leader>c", '"_c')
-keymap.set("n", "<Leader>C", '"_C')
-keymap.set("v", "<Leader>c", '"_c')
-keymap.set("v", "<Leader>C", '"_C')
-keymap.set("n", "<Leader>d", '"_d')
-keymap.set("n", "<Leader>D", '"_D')
-keymap.set("v", "<Leader>d", '"_d')
-keymap.set("v", "<Leader>D", '"_D')
+vim.keymap.set("x", "<Leader>p", '"_dP')
+vim.keymap.set("n", "x", '"_x')
 
 -- Increment/decrement
-keymap.set("n", "+", "<C-a>")
-keymap.set("n", "-", "<C-x>")
-
--- Save with root permission (not working for now)
---vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
-
--- Disable continuations
-keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
-keymap.set("n", "<Leader>O", "O<Esc>^Da", opts)
-
--- Jumplist
-keymap.set("n", "<C-m>", "<C-i>", opts)
-
--- Move window
-keymap.set("n", "sh", "<C-w>h")
-keymap.set("n", "sk", "<C-w>k")
-keymap.set("n", "sj", "<C-w>j")
-keymap.set("n", "sl", "<C-w>l")
+vim.keymap.set("n", "+", "<C-a>")
+vim.keymap.set("n", "-", "<C-x>")
 
 -- Resize window
-keymap.set("n", "<C-w><left>", "<C-w><")
-keymap.set("n", "<C-w><right>", "<C-w>>")
-keymap.set("n", "<C-w><up>", "<C-w>+")
-keymap.set("n", "<C-w><down>", "<C-w>-")
+vim.keymap.set("n", "<C-w><left>", "<C-w><")
+vim.keymap.set("n", "<C-w><right>", "<C-w>>")
+vim.keymap.set("n", "<C-w><up>", "<C-w>+")
+vim.keymap.set("n", "<C-w><down>", "<C-w>-")
 
 -- Diagnostics
-keymap.set("n", "<C-n>", function()
-	vim.diagnostic.jump({ count = 1, float = true })
+local opts = { noremap = true, silent = true }
+
+vim.keymap.set("n", "<C-n>", function()
+  vim.diagnostic.jump({ count = 1, float = true })
 end, opts)
