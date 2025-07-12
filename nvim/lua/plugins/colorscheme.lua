@@ -66,6 +66,11 @@ local config = {
     PmenuSel = { bg = "overlay" }, -- Opaque selected item
     CmpItemMenu = { bg = "base" }, -- Opaque nvim-cmp menu
     CmpItemKind = { bg = "base" }, -- Opaque nvim-cmp kind icons
+    CurSearch = { fg = "base", bg = "leaf", inherit = false },
+    Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
+    TreesitterContext = { bg = "surface" },
+    TreesitterContextLineNumber = { bg = "surface", fg = "rose" },
+    StatusLine = { bg = "base" },
   },
 
   before_highlight = function(group, highlight, palette)

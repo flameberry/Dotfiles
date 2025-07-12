@@ -9,10 +9,12 @@ return {
 	magenta = 0xffc6a0f6,
 	grey = 0xff939ab7,
 	transparent = 0x00000000,
+	accent = 0xffeed49f,
 
 	bar = {
 		-- bg = 0xa024273a,
 		bg = 0xff000000,
+		-- bg = 0xdd000000,
 		border = 0xff2c2e34,
 	},
 	popup = {

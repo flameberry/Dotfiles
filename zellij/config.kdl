@@ -292,11 +292,11 @@ theme "rose-pine"
 // Default: "default"
 // 
 default_layout "compact"
- 
+
 // The folder in which Zellij will look for layouts
 // (Requires restart)
 // 
-layout_dir "~/.config/zellij/config/layouts"
+layout_dir "/Users/flameberry/.config/zellij/layouts"
  
 // The folder in which Zellij will look for themes
 // (Requires restart)

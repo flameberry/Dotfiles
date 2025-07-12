@@ -6,7 +6,7 @@ vim.g.mapleader = " "
 vim.opt.guicursor = ""
 
 vim.opt.number = true               -- Show line numbers.
-vim.opt.colorcolumn = "120"         -- Show a vertical line at column 120.
+vim.opt.colorcolumn = "100"         -- Show a vertical line at column 120.
 vim.opt.title = true                -- Show the filename in the terminal title.
 vim.opt.autoindent = true           -- Auto-indent new lines to match previous.
 vim.opt.smartindent = true          -- Smarter auto-indenting for code blocks.
@@ -31,11 +31,13 @@ vim.opt.wildignore:append({ ... })  -- Ignore node_modules in file completion.
 vim.opt.splitbelow = true           -- Open new horizontal splits below.
 vim.opt.splitright = true           -- Open new vertical splits to the right.
 vim.opt.splitkeep = "cursor"        -- Preserve cursor position when splitting.
-vim.opt.mouse = ""                  -- Disable mouse support.
-vim.opt.cursorline = false          -- Don’t highlight the current line.
+vim.opt.cursorline = false           -- Don’t highlight the current line.
+-- vim.opt.mouse = ""                  -- Disable mouse support.
+-- vim.opt.cursorlineopt = "number"
 
 vim.g.autoformat = true
 vim.opt.list = false
+-- vim.opt.fillchars = { eob = "~" }
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })

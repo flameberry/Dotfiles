@@ -4,7 +4,7 @@ local colors = require("colors")
 -- Padding item required because of bracket
 -- sbar.add("item", { position = "right", width = settings.group_paddings })
 
-local cal = sbar.add("item", {
+local cal = sbar.add("item", "widgets.calendar", {
 	icon = {
 		color = colors.white,
 		-- padding_left = 15,
@@ -23,7 +23,7 @@ local cal = sbar.add("item", {
 	},
 	position = "right",
 	update_freq = 30,
-	padding_left = 15,
+	-- padding_left = 15,
 })
 
 -- Double border for calendar using a single item bracket

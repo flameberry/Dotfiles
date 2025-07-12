@@ -5,20 +5,11 @@ if not set -q SSH_AUTH_SOCK
     set -Ux SSH_AGENT_PID $SSH_AGENT_PID
 end
 
-# CMake Path
-set -x PATH "/Applications/CMake.app/Contents/bin" $PATH
-
-# Flutter Path
+set -x PATH "/Applications/CMake.app/Contents/bin" $PATH # CMake Path
 set -x PATH /Users/flameberry/Installations/flutter/bin $PATH
 set -x PATH $PATH "$HOME/.pub-cache/bin"
-
-# Zig Path
 set -x PATH "/Users/flameberry/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zls_install" $PATH
-
-# Rust
 set -x PATH "$HOME/.cargo/bin" $PATH
-
-# Postgres 17
 set -x PATH "/opt/homebrew/opt/postgresql@17/bin" $PATH
 
 # Source Vulkan SDK setup
@@ -28,7 +19,7 @@ bass source /Users/flameberry/Installations/VulkanSDK/1.4.313.0/setup-env.sh
 eval ( /opt/homebrew/bin/brew shellenv )
 
 # Starship prompt
-source (/opt/homebrew/bin/starship init fish --print-full-init | psub)
+starship init fish | source
 
 # global variables
 set -x LS_COLORS (vivid generate catppuccin-mocha)
@@ -56,7 +47,6 @@ set -g fish_greeting
 
 # |====== Aliases  ======|
 alias vi nvim
-alias vim nvim
 alias c clear
 
 # |======  LS  ======|
@@ -67,15 +57,8 @@ alias ll "ls -l"
 alias lt "eza -lAh --icons=always --git --tree --level=4 --long --ignore-glob='node_modules|.git' "
 
 # |======  Config App  ======|
-alias nrc "vim ~/.config/nvim/lua/"
-alias frc "vim ~/.config/fish/config.fish" # fish shell rc
+alias frc "vi ~/.config/fish/config.fish" # fish shell rc
 alias sfs "source ~/.config/fish/config.fish" # source fish shell
-alias nrc "vim ~/.config/nvim/init.lua"
-alias arc "vim ~/.config/alacritty/alacritty.toml"
-alias wrc "vim ~/.config/wezterm/wezterm.lua"
-alias trc "vim ~/.config/tmux/tmux.conf"
-alias zelrc "vim ~/.config/zellij/config.kdl"
-alias zshrc "vim ~/.config/.zshrc"
 
 # |======  Applications  ======|
 alias ff fastfetch
@@ -92,5 +75,4 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-# Run fastfetch when a terminal window opens
 fastfetch

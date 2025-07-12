@@ -51,7 +51,7 @@ automatically-unhide-macos-hidden-apps = false
 
 # Keep these windows floating by default as they are generally for quick interaction
 [[on-window-detected]]
-if.app-name-regex-substring = 'chatgpt|whatsapp|finder|flameberry|discord|notes|quicktime|appcleaner|font'
+if.app-name-regex-substring = 'chatgpt|whatsapp|finder|flameberry|discord|notes|quicktime|appcleaner|font|vmware'
 run = 'layout floating'
 
 # Possible values: (qwerty|dvorak|colemak)
@@ -68,12 +68,12 @@ run = 'layout floating'
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-    inner.horizontal = 8
-    inner.vertical =   8
-    outer.left =       8
-    outer.bottom =     8
-    outer.top =        [{ monitor.main = 14 }, { monitor.secondary = 46 }, 24]
-    outer.right =      8
+    inner.horizontal = 16
+    inner.vertical =   16
+    outer.left =       16
+    outer.bottom =     16
+    outer.top =        [{ monitor.main = 24 }, { monitor.secondary = 64 }, 24]
+    outer.right =      16
 
 # Force some workspaces to be specific to the secondary monitor, specifically all alphabets
 [workspace-to-monitor-force-assignment]
@@ -121,10 +121,10 @@ run = 'layout floating'
     alt-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    alt-h = 'focus left'
-    alt-j = 'focus down'
-    alt-k = 'focus up'
-    alt-l = 'focus right'
+    alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
+    alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
+    alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
+    alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
 
     alt-f = 'fullscreen'
 

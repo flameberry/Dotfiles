@@ -25,3 +25,19 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<C-n>", function()
   vim.diagnostic.jump({ count = 1, float = true })
 end, opts)
+
+vim.keymap.set("n", "<C-S-n>", function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end, opts)
+
+-- CPP => Jump between source and header files
+vim.keymap.set(
+  "n",
+  "<leader>ch",
+  "<cmd>ClangdSwitchSourceHeader<CR>",
+  { desc = "Switch header/source", noremap = true, silent = true }
+)
+
+vim.keymap.set("n", "<leader>k", function()
+  require("treesitter-context").go_to_context(vim.v.count1)
+end, { silent = true, desc = "Go to outer Treesitter context" })

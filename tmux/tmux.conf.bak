@@ -16,7 +16,6 @@ set-option -ga terminal-features ",xterm-256color:usstyle"
 
 # Enable mouse support for easier navigation
 set -g mouse on
-set -g renumber-windows on
 
 # Set prefix to Ctrl-a for easier access
 unbind C-b
@@ -56,18 +55,17 @@ set -g @rose_pine_left_separator '  ' # Separator for left status
 set -g @rose_pine_right_separator '  ' # Separator for right status
 set -g @rose_pine_field_separator ' ┃ ' # Separator for fields
 set -g @rose_pine_window_separator ' ─ ' # Separator between window number and name
-set -g @rose_pine_session_icon '' # Custom session icon (terminal icon)
+set -g @rose_pine_session_icon '' # Custom session icon (terminal icon)
 set -g @rose_pine_current_window_icon '' # Current window icon
 set -g @rose_pine_folder_icon '' # Folder icon for directory
 
 # Custom status bar sections with Rosé Pine colors
-# set -g @rose_pine_status_left_prepend_section '#{tmux_mode_indicator} #[fg=#3e8fb0]#[fg=#232136,bg=#3e8fb0]#{?client_prefix,Prefix,Normal}#[fg=#3e8fb0,bg=default]'
-# set -g @rose_pine_status_right_append_section '#[fg=#ea9a97]#[fg=#232136,bg=#ea9a97]#{user}#[fg=#ea9a97,bg=default] #[fg=#9ccfd8]#[fg=#232136,bg=#9ccfd8]%Y-%m-%d %H:%M#[fg=#9ccfd8,bg=default]'
-set -g @rose_pine_status_left_append_section '#[fg=green]Tmux tabs ->| '
+set -g @rose_pine_status_left_prepend_section '#{tmux_mode_indicator} #[fg=#3e8fb0]#[fg=#232136,bg=#3e8fb0]#{?client_prefix,Prefix,Normal}#[fg=#3e8fb0,bg=default]'
+set -g @rose_pine_status_right_append_section '#[fg=#ea9a97]#[fg=#232136,bg=#ea9a97]#{user}#[fg=#ea9a97,bg=default] #[fg=#9ccfd8]#[fg=#232136,bg=#9ccfd8]%Y-%m-%d %H:%M#[fg=#9ccfd8,bg=default]'
 
 # Status bar styling
-set -g status-position bottom
-set -g status-justify left # Center window list for a balanced look
+set -g status-position top
+set -g status-justify centre # Center window list for a balanced look
 set -g status-style 'bg=#232136 fg=#e0def4' # Base background, Text foreground
 
 # Custom window naming with more detail

@@ -17,6 +17,7 @@ end
 local workspaces = exec_to_table("aerospace list-workspaces --all")
 local focused_workspace = exec_to_table("aerospace list-workspaces --focused")[1]
 
+local spaces = {}
 for i, workspace in ipairs(workspaces) do
 	local is_focused = workspace == focused_workspace
 
@@ -30,15 +31,17 @@ for i, workspace in ipairs(workspaces) do
 			y_offset = 1,
 		},
 		background = {
-			color = is_focused and colors.magenta or colors.bg2,
+			color = is_focused and colors.accent or colors.transparent,
 			corner_radius = 32,
 			height = 24,
 		},
 		label = { drawing = false },
 		padding_left = 1,
-		padding_right = 1,
+		padding_right = (i == #workspaces) and 8 or 1,
 		click_script = "aerospace workspace " .. workspace,
 	})
+
+	spaces[i] = space.name
 
 	-- Respond to workspace changes
 	space:subscribe("aerospace_workspace_change", function(env)
@@ -48,8 +51,10 @@ for i, workspace in ipairs(workspaces) do
 				color = selected and colors.black or colors.white,
 			},
 			background = {
-				color = selected and colors.magenta or colors.bg2,
+				color = selected and colors.accent or colors.transparent,
 			},
 		})
 	end)
 end
+
+return spaces

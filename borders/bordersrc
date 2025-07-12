@@ -2,11 +2,14 @@
 
 options=(
     style=round
-    width=5.0
+    width=4.0
     hidpi=on
+    # active_color="gradient(top_left=0xff30c0f0,bottom_right=0xff02f091)"
+    inactive_color=0xff3e4345
     # active_color="gradient(top_left=0xffD8B9FF,bottom_right=0xffB9FFE8)"
     # active_color="gradient(top_left=0xffa6c5e5,bottom_right=0xfff0a8e0)"
-    active_color=0xffe2e2e3
+    # active_color=0xffe2e2e3 # White
+    active_color=0xffeed49f
     # active_color=0xff66f7ff
     # active_color=0xffc6a0f6
     # active_color=0xffffc457
@@ -15,7 +18,8 @@ options=(
     # active_color=0xffc4a7e7 # Rose-pine Magenta
     # active_color=0xfff6c177 # Rose-pine Gold
     # active_color=0xffebbcba # Rose-pine Rose
-    inactive_color=0xff494d64
+    # inactive_color=0xff494d64
+    # inactive_color=0xff696d84
     # inactive_color="gradient(top_left=0xffE0E0E5,bottom_right=0xffF5E8D3)"
 )
 

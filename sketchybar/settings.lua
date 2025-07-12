@@ -23,7 +23,7 @@ return {
 	},
 
 	widget_bracket_bg = {
-		color = 0x00000000,
+		color = colors.transparent,
 		border_width = 0,
 		corner_radius = 32,
 		height = 24,
