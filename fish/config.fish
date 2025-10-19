@@ -13,13 +13,17 @@ set -x PATH "$HOME/.cargo/bin" $PATH
 set -x PATH "/opt/homebrew/opt/postgresql@17/bin" $PATH
 
 # Source Vulkan SDK setup
-bass source /Users/flameberry/Installations/VulkanSDK/1.4.313.0/setup-env.sh
+bass source /Users/flameberry/Installations/VulkanSDK/1.4.328.1/setup-env.sh
 
 # Eval Homebrew shell environment
 eval ( /opt/homebrew/bin/brew shellenv )
 
 # Starship prompt
 starship init fish | source
+
+# ${UserConfigDir}/fish/config.fish
+set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense' # optional
+carapace _carapace | source
 
 # global variables
 set -x LS_COLORS (vivid generate catppuccin-mocha)

@@ -70,7 +70,7 @@ local config = {
     Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
     TreesitterContext = { bg = "surface" },
     TreesitterContextLineNumber = { bg = "surface", fg = "rose" },
-    StatusLine = { bg = "base" },
+    -- StatusLine = { bg = "base" },
   },
 
   before_highlight = function(group, highlight, palette)
@@ -88,12 +88,15 @@ local config = {
 
 return {
   {
-    "rose-pine/neovim",
+    -- "rose-pine/neovim",
+    -- name = "rose-pine",
+    "Shatur/neovim-ayu",
     lazy = true,
     priority = 1000,
     config = function()
-      require("rose-pine").setup(config)
-      vim.cmd.colorscheme("rose-pine")
+    -- require("rose-pine").setup(config)
+    -- vim.cmd.colorscheme("rose-pine")
+    require("ayu").colorscheme()
     end,
   },
 }

@@ -1,34 +1,210 @@
-# Make the prompt as close as possible to robbyrussell theme
-format = "[➜](bold green) [$directory](green)[$git_branch](bright-blue)$character "
-right_format = "$cmd_duration"
-continuation_prompt = "[▸▹ ](dimmed white)"
+"$schema" = 'https://starship.rs/config-schema.json'
 
-add_newline = false
+format = """
+[](accent)\
+$os\
+$username\
+[](bg:orange fg:accent)\
+$directory\
+[](bg:yellow fg:orange)\
+$git_branch\
+$git_status\
+[](fg:yellow bg:green)\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:green bg:blue)\
+[ ](fg:purple)\
+$cmd_duration\
+$line_break\
+$character"""
+
+palette = 'ayu_mirage'
+
+[os]
+disabled = false
+style = "bg:accent fg:background"
+
+[os.symbols]
+Windows = ""
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:accent fg:background"
+style_root = "bg:accent fg:background"
+format = '[ $user]($style)'
+
+[directory]
+style = "bg:orange fg:background"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol $branch ](fg:background bg:yellow)]($style)'
+
+[git_status]
+style = "bg:yellow"
+format = '[[($all_status$ahead_behind )](fg:background bg:yellow)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+
+[c]
+symbol = " "
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+
+[php]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+
+[java]
+symbol = " "
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+
+[python]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:background bg:green)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:blue"
+format = '[[ $symbol( $context) ](fg:background bg:blue)]($style)'
+
+[conda]
+symbol = "  "
+style = "fg:background bg:blue"
+format = '[$symbol$environment ]($style)'
+ignore_base = false
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:purple"
+format = '[[  $time ](fg:background bg:purple)]($style)'
+
+[line_break]
+disabled = true
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:green)'
+vimcmd_replace_one_symbol = '[❮](bold fg:purple)'
+vimcmd_replace_symbol = '[❮](bold fg:purple)'
+vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
 [cmd_duration]
-min_time = 500
-format = "[ took: $duration ](italic white)"
+show_milliseconds = true
+format = " in $duration "
+style = "bg:purple"
 disabled = false
+show_notifications = true
+min_time_to_notify = 45000
 
-# Directory configuration
-[directory]
-truncation_length = 0
-style = "green"
+# ---- PALETTES ---- #
 
-# Git branch config
-[git_branch]
-format = 'git:\([$branch](red)\) '
-disabled = false
+[palettes.ayu_mirage]
+background = "#1f2430"
+foreground = "#cbccc6"
+accent = "#ffcc66"
+orange = "#f29e74"
+yellow = "#ffd580"
+green = "#a6cc70"
+blue = "#5ccfe6"
+purple = "#d4bfff"
+red = "#f28779"
+comment = "#5c6773"
+selection = "#33415e"
+panel = "#232834"
+shadow = "#141821"
 
-[git_metrics]
-format = ' ([▴$added]($added_style))([▿$deleted]($deleted_style)) '
-added_style = 'italic green'
-deleted_style = 'italic red'
-ignore_submodules = true
-disabled = false
+[palettes.ayu_dark]
+background = "#0f1419"
+foreground = "#e6e1cf"
+accent = "#e6b450"
+orange = "#ff7733"
+yellow = "#ffcc66"
+green = "#b8cc52"
+blue = "#36a3d9"
+purple = "#ae81ff"
+red = "#ff6666"
+comment = "#5c6773"
+selection = "#253340"
+panel = "#1c1f26"
+shadow = "#11151c"
 
-# Replace the '❯' symbol in the prompt with ''
-[character] # The name of the module we are configuring is 'character'
-success_symbol = '[](bold yellow)'
-error_symbol = '[](bold red)' 
-
+[palettes.ayu_light]
+background = "#fafafa"
+foreground = "#5c6773"
+accent = "#ff9940"
+orange = "#f27935"
+yellow = "#e6b450"
+green = "#86b300"
+blue = "#36a3d9"
+purple = "#a37acc"
+red = "#f07178"
+comment = "#abb0b6"
+selection = "#d0d7de"
+panel = "#f0f0f0"
+shadow = "#e0e0e0"

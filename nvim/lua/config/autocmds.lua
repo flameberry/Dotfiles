@@ -18,3 +18,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end,
 })
+
+-- Disable spell check
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text" },
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})

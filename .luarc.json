@@ -1,0 +1,6 @@
+{
+    "diagnostics.globals": [
+        "menubar_section"
+    ],
+    "runtime.version": "Lua 5.4"
+}

@@ -3,10 +3,10 @@ font-family = JetbrainsMono Nerd Font
 font-style = semibold
 font-size = 14
 
-theme = rose-pine
-background = #000000
-# background-opacity = 0.85
-background-blur = 32
+theme = Ayu
+# background = #000000
+# background-opacity = 0.9
+# background-blur = 32
 
 cursor-style = block
 cursor-style-blink = false
@@ -20,4 +20,4 @@ window-padding-x = 1
 window-padding-y = 1 
 window-padding-balance = true
 
-adjust-box-thickness = 1
+# adjust-box-thickness = 1
