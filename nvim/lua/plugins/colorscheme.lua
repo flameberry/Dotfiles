@@ -88,15 +88,15 @@ local config = {
 
 return {
   {
-    -- "rose-pine/neovim",
-    -- name = "rose-pine",
-    "Shatur/neovim-ayu",
+    "rose-pine/neovim",
+    name = "rose-pine",
+    -- "Shatur/neovim-ayu",
     lazy = true,
     priority = 1000,
     config = function()
-    -- require("rose-pine").setup(config)
-    -- vim.cmd.colorscheme("rose-pine")
-    require("ayu").colorscheme()
+      require("rose-pine").setup(config)
+      vim.cmd.colorscheme("rose-pine")
+      -- require("ayu").colorscheme()
     end,
   },
 }

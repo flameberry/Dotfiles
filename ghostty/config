@@ -3,8 +3,9 @@ font-family = JetbrainsMono Nerd Font
 font-style = semibold
 font-size = 14
 
-theme = Ayu
-# background = #000000
+# theme = Ayu
+theme = Rose Pine
+background = #000000
 # background-opacity = 0.9
 # background-blur = 32
 

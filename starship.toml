@@ -1,15 +1,15 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](accent)\
+[](rose)\
 $os\
 $username\
-[](bg:orange fg:accent)\
+[](bg:gold fg:rose)\
 $directory\
-[](bg:yellow fg:orange)\
+[](bg:foam fg:gold)\
 $git_branch\
 $git_status\
-[](fg:yellow bg:green)\
+[](fg:foam bg:pine)\
 $c\
 $rust\
 $golang\
@@ -19,17 +19,17 @@ $java\
 $kotlin\
 $haskell\
 $python\
-[](fg:green bg:blue)\
-[ ](fg:purple)\
-$cmd_duration\
+[](fg:pine bg:iris)\
+[](fg:iris bg:surface)\
+[ ](fg:surface)\
 $line_break\
 $character"""
 
-palette = 'ayu_mirage'
+palette = 'rose_pine'
 
 [os]
 disabled = false
-style = "bg:accent fg:background"
+style = "bg:rose fg:base"
 
 [os.symbols]
 Windows = ""
@@ -54,12 +54,12 @@ RedHatEnterprise = "󱄛"
 
 [username]
 show_always = true
-style_user = "bg:accent fg:background"
-style_root = "bg:accent fg:background"
+style_user = "bg:rose fg:base"
+style_root = "bg:rose fg:base"
 format = '[ $user]($style)'
 
 [directory]
-style = "bg:orange fg:background"
+style = "bg:gold fg:base"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -73,138 +73,91 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:yellow"
-format = '[[ $symbol $branch ](fg:background bg:yellow)]($style)'
+style = "bg:foam"
+format = '[[ $symbol $branch ](fg:base bg:foam)]($style)'
 
 [git_status]
-style = "bg:yellow"
-format = '[[($all_status$ahead_behind )](fg:background bg:yellow)]($style)'
+style = "bg:foam"
+format = '[[($all_status$ahead_behind )](fg:base bg:foam)]($style)'
 
+# --- LANG TOOLS (pine background) --- #
 [nodejs]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
 
 [c]
 symbol = " "
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
 
 [rust]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
 
 [golang]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
 
 [php]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
 
 [java]
 symbol = " "
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
 
 [kotlin]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
 
 [haskell]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
 
 [python]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:background bg:green)]($style)'
+style = "bg:pine"
+format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:base bg:pine)]($style)'
 
-[docker_context]
-symbol = ""
-style = "bg:blue"
-format = '[[ $symbol( $context) ](fg:background bg:blue)]($style)'
-
-[conda]
-symbol = "  "
-style = "fg:background bg:blue"
-format = '[$symbol$environment ]($style)'
-ignore_base = false
+[cmd_duration]
+show_milliseconds = true
+format = " in $duration "
+style = "bg:iris"
+disabled = false
 
 [time]
 disabled = false
 time_format = "%R"
-style = "bg:purple"
-format = '[[  $time ](fg:background bg:purple)]($style)'
+style = "bg:surface"
+format = "[  $time ]($style)"
 
 [line_break]
 disabled = true
 
 [character]
 disabled = false
-success_symbol = '[❯](bold fg:green)'
-error_symbol = '[❯](bold fg:red)'
-vimcmd_symbol = '[❮](bold fg:green)'
-vimcmd_replace_one_symbol = '[❮](bold fg:purple)'
-vimcmd_replace_symbol = '[❮](bold fg:purple)'
-vimcmd_visual_symbol = '[❮](bold fg:yellow)'
+success_symbol = '[❯](bold fg:foam)'
+error_symbol = '[❯](bold fg:love)'
+vimcmd_symbol = '[❮](bold fg:foam)'
 
-[cmd_duration]
-show_milliseconds = true
-format = " in $duration "
-style = "bg:purple"
-disabled = false
-show_notifications = true
-min_time_to_notify = 45000
-
-# ---- PALETTES ---- #
-
-[palettes.ayu_mirage]
-background = "#1f2430"
-foreground = "#cbccc6"
-accent = "#ffcc66"
-orange = "#f29e74"
-yellow = "#ffd580"
-green = "#a6cc70"
-blue = "#5ccfe6"
-purple = "#d4bfff"
-red = "#f28779"
-comment = "#5c6773"
-selection = "#33415e"
-panel = "#232834"
-shadow = "#141821"
-
-[palettes.ayu_dark]
-background = "#0f1419"
-foreground = "#e6e1cf"
-accent = "#e6b450"
-orange = "#ff7733"
-yellow = "#ffcc66"
-green = "#b8cc52"
-blue = "#36a3d9"
-purple = "#ae81ff"
-red = "#ff6666"
-comment = "#5c6773"
-selection = "#253340"
-panel = "#1c1f26"
-shadow = "#11151c"
-
-[palettes.ayu_light]
-background = "#fafafa"
-foreground = "#5c6773"
-accent = "#ff9940"
-orange = "#f27935"
-yellow = "#e6b450"
-green = "#86b300"
-blue = "#36a3d9"
-purple = "#a37acc"
-red = "#f07178"
-comment = "#abb0b6"
-selection = "#d0d7de"
-panel = "#f0f0f0"
-shadow = "#e0e0e0"
+# ---- ROSE PINE PALETTE ---- #
+[palettes.rose_pine]
+base     = "#191724"
+surface  = "#1f1d2e"
+overlay  = "#26233a"
+muted    = "#6e6a86"
+subtle   = "#908caa"
+text     = "#e0def4"
+love     = "#eb6f92"
+gold     = "#f6c177"
+rose     = "#ebbcba"
+pine     = "#31748f"
+foam     = "#9ccfd8"
+iris     = "#c4a7e7"

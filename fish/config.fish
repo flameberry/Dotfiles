@@ -68,6 +68,10 @@ alias sfs "source ~/.config/fish/config.fish" # source fish shell
 alias ff fastfetch
 alias lg lazygit
 
+# |====== Tmux ======]
+abbr tn "tmux new -As (pwd | sed 's/.*\///g')"
+fish_add_path $HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
@@ -79,4 +83,9 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-fastfetch
+# Postgresql headers and libraries to be found by compiler
+set -gx LDFLAGS "-L/opt/homebrew/opt/postgresql@18/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/postgresql@18/include"
+
+zoxide init fish | source
+# fastfetch
