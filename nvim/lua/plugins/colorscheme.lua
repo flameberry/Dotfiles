@@ -4,8 +4,8 @@ local config = {
 
   dim_inactive_windows = false,
   extend_background_behind_borders = true,
-  disable_background = true, -- Transparent background for editor
-  disable_float_background = false, -- Non-transparent background for popups
+  -- disable_background = true, -- Transparent background for editor
+  -- disable_float_background = false, -- Non-transparent background for popups
 
   enable = {
     terminal = true,
@@ -53,15 +53,17 @@ local config = {
   palette = {
     -- Override the builtin palette per variant
     main = {
-      -- base = "#000000",
+      base = "#0b0a10",
+      base2 = "#141220",
       -- overlay = "#000000",
     },
   },
 
   highlight_groups = {
-    Normal = { bg = "NONE" }, -- Transparent editor
-    NormalFloat = { bg = "NONE" }, -- Keep transparent for Telescope, Lazy, etc.
-    FloatBorder = { fg = "highlight_med", bg = "NONE" }, -- Transparent border for most floats
+    Normal = { bg = "base" }, -- Transparent editor
+    NormalFloat = { bg = "base2" },
+    WinSeparator = { fg = "base" }, -- border contrast
+    FloatBorder = { fg = "highlight_med", bg = "base2" }, -- Transparent border for most floats
     Pmenu = { bg = "base" }, -- Opaque completion menu
     PmenuSel = { bg = "overlay" }, -- Opaque selected item
     CmpItemMenu = { bg = "base" }, -- Opaque nvim-cmp menu
