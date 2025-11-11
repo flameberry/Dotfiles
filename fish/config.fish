@@ -70,7 +70,7 @@ alias lg lazygit
 
 # |====== Tmux ======]
 abbr tn "tmux new -As (pwd | sed 's/.*\///g')"
-fish_add_path $HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin
+abbr tc "sesh connect \$(sesh list | fzf)"
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -89,4 +89,3 @@ set -gx CPPFLAGS "-I/opt/homebrew/opt/postgresql@18/include"
 
 zoxide init fish | source
 fzf --fish | source
-# fastfetch

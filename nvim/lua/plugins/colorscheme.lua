@@ -72,6 +72,7 @@ local config = {
     Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
     TreesitterContext = { bg = "surface" },
     TreesitterContextLineNumber = { bg = "surface", fg = "rose" },
+    OutlineNormalBg = { bg = "base2" },
     -- StatusLine = { bg = "base" },
   },
 

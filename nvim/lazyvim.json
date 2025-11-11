@@ -1,5 +1,6 @@
 {
   "extras": [
+    "lazyvim.plugins.extras.editor.outline",
     "lazyvim.plugins.extras.formatting.prettier"
   ],
   "install_version": 8,
