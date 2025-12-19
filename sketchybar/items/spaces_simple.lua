@@ -28,12 +28,12 @@ for i, workspace in ipairs(workspaces) do
 			color = is_focused and colors.black or colors.white,
 			padding_left = 8,
 			padding_right = 8,
-			y_offset = 1,
+			-- y_offset = 1,
 		},
 		background = {
 			color = is_focused and colors.accent or colors.transparent,
-			corner_radius = 32,
-			height = 24,
+			corner_radius = 20,
+			height = 20,
 		},
 		label = { drawing = false },
 		padding_left = 1,
@@ -46,14 +46,16 @@ for i, workspace in ipairs(workspaces) do
 	-- Respond to workspace changes
 	space:subscribe("aerospace_workspace_change", function(env)
 		local selected = env.FOCUSED_WORKSPACE == workspace
-		space:set({
-			icon = {
-				color = selected and colors.black or colors.white,
-			},
-			background = {
-				color = selected and colors.accent or colors.transparent,
-			},
-		})
+		sbar.animate("tanh", 10, function()
+			space:set({
+				icon = {
+					color = selected and colors.black or colors.white,
+				},
+				background = {
+					color = selected and colors.accent or colors.transparent,
+				},
+			})
+		end)
 	end)
 end
 

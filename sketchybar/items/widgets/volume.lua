@@ -41,13 +41,7 @@ local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {
 	volume_icon.name,
 	volume_percent.name,
 }, {
-	background = settings.widget_bracket_bg,
 	popup = { align = "center" },
-})
-
-sbar.add("item", "widgets.volume.padding", {
-	position = "right",
-	width = settings.group_paddings,
 })
 
 local volume_slider = sbar.add("slider", popup_width, {
@@ -55,8 +49,8 @@ local volume_slider = sbar.add("slider", popup_width, {
 	slider = {
 		highlight_color = colors.blue,
 		background = {
-			height = 6,
-			corner_radius = 3,
+			height = 8,
+			corner_radius = 4,
 			color = colors.bg2,
 		},
 		knob = {
@@ -64,7 +58,11 @@ local volume_slider = sbar.add("slider", popup_width, {
 			drawing = true,
 		},
 	},
-	background = { color = colors.bg1, height = 2, y_offset = -20 },
+	background = {
+		color = colors.transparent,
+		height = 40,
+		y_offset = 0,
+	},
 	click_script = 'osascript -e "set volume output volume $PERCENTAGE"',
 })
 
@@ -87,8 +85,10 @@ volume_percent:subscribe("volume_change", function(env)
 	end
 
 	volume_icon:set({ label = icon })
-	volume_percent:set({ label = lead .. volume .. "%" })
-	volume_slider:set({ slider = { percentage = volume } })
+	sbar.animate("tanh", 10, function()
+		volume_percent:set({ label = lead .. volume .. "%" })
+		volume_slider:set({ slider = { percentage = volume } })
+	end)
 end)
 
 local function volume_collapse_details()
@@ -109,7 +109,9 @@ local function volume_toggle_details(env)
 
 	local should_draw = volume_bracket:query().popup.drawing == "off"
 	if should_draw then
-		volume_bracket:set({ popup = { drawing = true } })
+		sbar.animate("tanh", 15, function()
+			volume_bracket:set({ popup = { drawing = true } })
+		end)
 		sbar.exec("SwitchAudioSource -t output -c", function(result)
 			current_audio_device = result:sub(1, -2)
 			sbar.exec("SwitchAudioSource -a -t output", function(available)
@@ -126,7 +128,11 @@ local function volume_toggle_details(env)
 						position = "popup." .. volume_bracket.name,
 						width = popup_width,
 						align = "center",
-						label = { string = device, color = color },
+						label = {
+							string = device,
+							color = color,
+							font = { style = settings.font.style_map["Semibold"] },
+						},
 						click_script = 'SwitchAudioSource -s "'
 							.. device
 							.. '" && sketchybar --set /volume.device\\.*/ label.color='

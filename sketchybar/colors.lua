@@ -12,14 +12,12 @@ return {
 	accent = 0xffeed49f,
 
 	bar = {
-		-- bg = 0xa024273a,
 		bg = 0xff000000,
-		-- bg = 0xdd000000,
-		border = 0xff2c2e34,
+		border = 0xff45475a,
 	},
 	popup = {
-		bg = 0xc02c2e34,
-		border = 0xff7f8490,
+		bg = 0xf0000000,
+		border = 0xff45475a,
 	},
 	-- bg1 = 0x903c3e4f,
 	-- bg2 = 0x90494d64,

@@ -68,7 +68,6 @@ local wifi_bracket = sbar.add("bracket", "widgets.wifi.bracket", {
 	wifi_up.name,
 	wifi_down.name,
 }, {
-	background = settings.widget_bracket_bg,
 	popup = { align = "center", height = 30 },
 })
 
@@ -95,6 +94,8 @@ local ssid = sbar.add("item", {
 		color = colors.grey,
 		y_offset = -15,
 	},
+	padding_left = 15,
+	padding_right = 15,
 })
 
 local hostname = sbar.add("item", {
@@ -103,12 +104,14 @@ local hostname = sbar.add("item", {
 		align = "left",
 		string = "Hostname:",
 		width = popup_width / 2,
+		padding_left = 15,
 	},
 	label = {
 		max_chars = 20,
 		string = "????????????",
 		width = popup_width / 2,
 		align = "right",
+		padding_right = 15,
 	},
 })
 
@@ -118,11 +121,13 @@ local ip = sbar.add("item", {
 		align = "left",
 		string = "IP:",
 		width = popup_width / 2,
+		padding_left = 15,
 	},
 	label = {
 		string = "???.???.???.???",
 		width = popup_width / 2,
 		align = "right",
+		padding_right = 15,
 	},
 })
 
@@ -132,11 +137,13 @@ local mask = sbar.add("item", {
 		align = "left",
 		string = "Subnet mask:",
 		width = popup_width / 2,
+		padding_left = 15,
 	},
 	label = {
 		string = "???.???.???.???",
 		width = popup_width / 2,
 		align = "right",
+		padding_right = 15,
 	},
 })
 
@@ -146,15 +153,15 @@ local router = sbar.add("item", {
 		align = "left",
 		string = "Router:",
 		width = popup_width / 2,
+		padding_left = 15,
 	},
 	label = {
 		string = "???.???.???.???",
 		width = popup_width / 2,
 		align = "right",
+		padding_right = 15,
 	},
 })
-
-sbar.add("item", { position = "right", width = settings.group_paddings })
 
 wifi_up:subscribe("network_update", function(env)
 	local up_color = (env.upload == "000 Bps") and colors.grey or colors.red

@@ -34,7 +34,7 @@ end, opts)
 vim.keymap.set(
   "n",
   "<leader>ch",
-  "<cmd>ClangdSwitchSourceHeader<CR>",
+  "<cmd>LspClangdSwitchSourceHeader<CR>",
   { desc = "Switch header/source", noremap = true, silent = true }
 )
 

@@ -22,22 +22,13 @@ local cal = sbar.add("item", "widgets.calendar", {
 		font = { family = settings.font },
 	},
 	position = "right",
-	update_freq = 30,
+	update_freq = 1,
 	-- padding_left = 15,
 })
 
--- Double border for calendar using a single item bracket
-sbar.add("bracket", { cal.name }, {
-	background = {
-		color = colors.transparent,
-		height = 30,
-		border_color = colors.grey,
-	},
-})
-
--- Padding item required because of bracket
-sbar.add("item", { position = "right", width = settings.group_paddings })
-
 cal:subscribe({ "forced", "routine", "system_woke" }, function(env)
-	cal:set({ icon = os.date("%a %d %b"), label = os.date("%I:%M") })
+	local time = os.date("%I:%M")
+	sbar.animate("tanh", 5, function()
+		cal:set({ icon = os.date("%a %d %b"), label = time })
+	end)
 end)

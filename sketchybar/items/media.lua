@@ -54,19 +54,34 @@ local media_title = sbar.add("item", {
 
 sbar.add("item", {
 	position = "popup." .. media_cover.name,
-	icon = { string = icons.media.back },
+	icon = {
+		string = icons.media.back,
+		font = { size = 16.0 },
+		padding_left = 12,
+		padding_right = 12,
+	},
 	label = { drawing = false },
 	click_script = "nowplaying-cli previous",
 })
 sbar.add("item", {
 	position = "popup." .. media_cover.name,
-	icon = { string = icons.media.play_pause },
+	icon = {
+		string = icons.media.play_pause,
+		font = { size = 16.0 },
+		padding_left = 12,
+		padding_right = 12,
+	},
 	label = { drawing = false },
 	click_script = "nowplaying-cli togglePlayPause",
 })
 sbar.add("item", {
 	position = "popup." .. media_cover.name,
-	icon = { string = icons.media.forward },
+	icon = {
+		string = icons.media.forward,
+		font = { size = 16.0 },
+		padding_left = 12,
+		padding_right = 12,
+	},
 	label = { drawing = false },
 	click_script = "nowplaying-cli next",
 })

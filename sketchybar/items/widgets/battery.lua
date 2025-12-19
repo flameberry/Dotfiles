@@ -7,7 +7,7 @@ local battery = sbar.add("item", "widgets.battery", {
 	icon = {
 		font = {
 			style = settings.font.style_map["Regular"],
-			size = 19.0,
+			size = 14.0,
 		},
 	},
 	label = { font = { family = settings.font } },
@@ -19,17 +19,19 @@ local remaining_time = sbar.add("item", {
 	position = "popup." .. battery.name,
 	icon = {
 		string = "Time remaining:",
-		width = 100,
+		width = 110,
 		align = "left",
+		padding_left = 15,
 	},
 	label = {
 		string = "??:??h",
-		width = 100,
+		width = 110,
 		align = "right",
+		padding_right = 15,
 	},
 })
 
-battery:subscribe({ "routine", "power_source_change", "system_woke" }, function()
+battery:subscribe({ "routine", "power_source_change", "system_woke", "brightness_change" }, function()
 	sbar.exec("pmset -g batt", function(batt_info)
 		local icon = "!"
 		local label = "?"
@@ -73,6 +75,10 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
 			},
 			label = { string = lead .. label },
 		})
+
+		if charging then
+			sbar.exec("sketchybar --set " .. battery.name .. " icon.symbol_anim=pulse")
+		end
 	end)
 end)
 
@@ -88,12 +94,3 @@ battery:subscribe("mouse.clicked", function(env)
 		end)
 	end
 end)
-
-sbar.add("bracket", "widgets.battery.bracket", { battery.name }, {
-	background = settings.widget_bracket_bg,
-})
-
-sbar.add("item", "widgets.battery.padding", {
-	position = "right",
-	width = settings.group_paddings,
-})

@@ -18,10 +18,14 @@ require("items.media")
 
 -- Right Bracket
 local items = {
+	"widgets.disk",
+	"widgets.ram",
 	"widgets.cpu",
-	"widgets.volume1",
 	"widgets.volume2",
-	"widgets.wifi.bracket",
+	"widgets.volume1",
+	"widgets.wifi.padding",
+	"widgets.wifi1",
+	"widgets.wifi2",
 	"widgets.battery",
 	"widgets.calendar",
 }
