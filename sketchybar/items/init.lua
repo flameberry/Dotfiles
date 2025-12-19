@@ -11,23 +11,40 @@ require("utils")
 menubar_section(spaces)
 print(spaces)
 
--- Right floating section of the bar
+require("utils")
+
+-- Right floating section of the bar (Added from right to left)
 require("items.calendar")
-require("items.widgets")
+menubar_section({ "widgets.calendar" })
+
+sbar.add("item", { position = "right", width = 6 })
+
+require("items.widgets.battery")
+menubar_section({ "widgets.battery" })
+
+sbar.add("item", { position = "right", width = 6 })
+
+require("items.widgets.wifi")
+menubar_section({ "widgets.wifi.padding", "widgets.wifi1", "widgets.wifi2" })
+
+sbar.add("item", { position = "right", width = 6 })
+
+require("items.widgets.volume")
+menubar_section({ "widgets.volume2", "widgets.volume1" })
+
+sbar.add("item", { position = "right", width = 6 })
+
+require("items.widgets.cpu")
+menubar_section({ "widgets.cpu" })
+
+sbar.add("item", { position = "right", width = 6 })
+
+require("items.widgets.ram")
+menubar_section({ "widgets.ram" })
+
+sbar.add("item", { position = "right", width = 6 })
+
+require("items.widgets.disk")
+menubar_section({ "widgets.disk" })
+
 require("items.media")
-
--- Right Bracket
-local items = {
-	"widgets.disk",
-	"widgets.ram",
-	"widgets.cpu",
-	"widgets.volume2",
-	"widgets.volume1",
-	"widgets.wifi.padding",
-	"widgets.wifi1",
-	"widgets.wifi2",
-	"widgets.battery",
-	"widgets.calendar",
-}
-
-menubar_section(items)

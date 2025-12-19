@@ -1,6 +1,1 @@
-require("items.widgets.battery")
-require("items.widgets.volume")
-require("items.widgets.wifi")
-require("items.widgets.cpu")
-require("items.widgets.ram")
-require("items.widgets.disk")
+-- Widgets are now loaded individually in items/init.lua to ensure correct pill gapping.

@@ -46,7 +46,7 @@ for i, workspace in ipairs(workspaces) do
 	-- Respond to workspace changes
 	space:subscribe("aerospace_workspace_change", function(env)
 		local selected = env.FOCUSED_WORKSPACE == workspace
-		sbar.animate("tanh", 10, function()
+		sbar.animate("tanh", 8, function()
 			space:set({
 				icon = {
 					color = selected and colors.black or colors.white,
