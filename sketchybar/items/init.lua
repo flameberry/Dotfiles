@@ -38,13 +38,3 @@ require("items.widgets.cpu")
 menubar_section({ "widgets.cpu" })
 
 sbar.add("item", { position = "right", width = 6 })
-
-require("items.widgets.ram")
-menubar_section({ "widgets.ram" })
-
-sbar.add("item", { position = "right", width = 6 })
-
-require("items.widgets.disk")
-menubar_section({ "widgets.disk" })
-
-require("items.media")

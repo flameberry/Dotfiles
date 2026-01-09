@@ -14,6 +14,7 @@ return {
           header = "",
           prefix = "",
         },
+        virtual_text = false,
       },
     },
   },

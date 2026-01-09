@@ -23,11 +23,11 @@ vim.keymap.set("n", "<C-w><down>", "<C-w>-")
 local opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "<C-n>", function()
-  vim.diagnostic.jump({ count = 1, float = true })
+  vim.diagnostic.jump({ count = 1, float = false }) -- false, because of tiny-inline-diagnostic
 end, opts)
 
 vim.keymap.set("n", "<C-S-n>", function()
-  vim.diagnostic.jump({ count = -1, float = true })
+  vim.diagnostic.jump({ count = -1, float = false }) -- false, because of tiny-inline-diagnostic
 end, opts)
 
 -- CPP => Jump between source and header files
@@ -41,3 +41,5 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>k", function()
   require("treesitter-context").go_to_context(vim.v.count1)
 end, { silent = true, desc = "Go to outer Treesitter context" })
+
+vim.keymap.set("n", ":", ":", { noremap = true })

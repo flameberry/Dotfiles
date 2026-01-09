@@ -87,5 +87,8 @@ end
 set -gx LDFLAGS "-L/opt/homebrew/opt/postgresql@18/lib"
 set -gx CPPFLAGS "-I/opt/homebrew/opt/postgresql@18/include"
 
+# OpenJDK
+fish_add_path /opt/homebrew/opt/openjdk/bin
+
 zoxide init fish | source
 fzf --fish | source

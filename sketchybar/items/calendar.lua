@@ -7,10 +7,10 @@ local colors = require("colors")
 local cal = sbar.add("item", "widgets.calendar", {
 	icon = {
 		color = colors.white,
-		-- padding_left = 15,
+		padding_left = 8,
 		padding_right = 0,
 		font = {
-			style = settings.font.style_map["Black"],
+			style = settings.font,
 			size = 12.0,
 		},
 	},
