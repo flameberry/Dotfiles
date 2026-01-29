@@ -1,0 +1,119 @@
+# Mole Cleanup Preview - 2025-12-27 19:36:51
+#
+# How to protect files:
+# 1. Copy any path below to ~/.config/mole/whitelist
+# 2. Run: mo clean --whitelist
+#
+# Example:
+#   /Users/*/Library/Caches/com.example.app
+#
+
+
+=== User essentials ===
+/Users/flameberry/Library/Caches  # 27.04GB (80 items)
+/Users/flameberry/Library/Logs  # 48.0MB (30 items)
+
+=== Finder metadata ===
+
+=== macOS system caches ===
+/Users/flameberry/Library/Saved Application State  # 384KB (14 items)
+
+=== Sandboxed app caches ===
+
+=== Browsers ===
+/Users/flameberry/Library/Caches/Google/Chrome  # 5.05GB (7 items)
+/Users/flameberry/Library/Application Support/Google/Chrome/Profile 4/GPUCache  # 14.1MB (5 items)
+/Users/flameberry/Library/Application Support/Google/Chrome/Default/GPUCache  # 5.5MB (5 items)
+/Users/flameberry/Library/Application Support/Google/Chrome/Profile 3/GPUCache  # 5.8MB (5 items)
+/Users/flameberry/Library/Application Support/Google/Chrome/Profile 2/GPUCache  # 9.8MB (5 items)
+/Users/flameberry/Library/Application Support/Google/Chrome/Profile 1/GPUCache  # 10.8MB (37 items)
+/Users/flameberry/Library/Caches/company.thebrowser.Browser  # 2.3MB (4 items)
+/Users/flameberry/Library/Caches/company.thebrowser.dia  # 139.0MB (2 items)
+/Users/flameberry/Library/Caches/BraveSoftware/Brave-Browser  # 180.3MB (4 items)
+/Users/flameberry/Library/Caches/Firefox/Profiles  # 1.65GB
+/Users/flameberry/Library/Caches/zen/Profiles  # 53.9MB
+
+=== Cloud storage ===
+
+=== Office applications ===
+
+=== Developer tools ===
+/Users/flameberry/Library/pnpm/store  # 2.38GB (2 items)
+/Users/flameberry/.cache/torch/hub  # 527.7MB
+/Users/flameberry/.cargo/registry/cache  # 58.9MB (2 items)
+/Users/flameberry/.kube/cache  # 19.9MB (2 items)
+/Users/flameberry/Library/Caches/CocoaPods/Pods  # 88.6MB
+/Users/flameberry/.nuget/packages  # 209.9MB (9 items)
+/Users/flameberry/.pub-cache  # 264.5MB (3 items)
+/Users/flameberry/.cache/zig  # 178.8MB (5 items)
+/Users/flameberry/Library/Caches/com.unity3d.unityhub  # 80KB (2 items)
+/Users/flameberry/Library/Caches/com.unity3d.unityhub.ShipIt  # 12KB (2 items)
+/Users/flameberry/Library/Caches/SentryCrash  # 28KB (7 items)
+/Users/flameberry/Library/Caches/Homebrew  # 2.21GB (9 items)
+
+=== Development applications ===
+/Users/flameberry/Library/Caches/com.apple.dt.Xcode  # 2.4MB (4 items)
+/Users/flameberry/Library/Developer/Xcode/DerivedData  # 473.1MB (49 items)
+/Users/flameberry/Library/Application Support/Code/logs  # 6.0MB (11 items)
+/Users/flameberry/Library/Application Support/Code/Cache  # 364.5MB (2 items)
+/Users/flameberry/Library/Application Support/Code/CachedData  # 155.4MB (9 items)
+/Users/flameberry/Library/Application Support/discord/Cache/Cache_Data  # 406.4MB
+/Users/flameberry/Library/Caches/us.zoom.xos  # 84KB (3 items)
+/Users/flameberry/Library/Caches/com.raycast.macos  # 11.8MB (6 items)
+/Users/flameberry/Library/Caches/com.epicgames.EpicGamesLauncher  # 237.3MB (5 items)
+/Users/flameberry/.zcompdump  # 52KB
+/Users/flameberry/.lesshst  # 4KB
+/Users/flameberry/.wget-hsts  # 4KB
+/Users/flameberry/Library/Caches/notion.id  # 80KB (2 items)
+
+=== Virtual machine tools ===
+
+=== Application Support ===
+
+=== Uninstalled app data ===
+/Users/flameberry/Library/Caches/org.Zellij-Contributors.Zellij  # 30.8MB
+/Users/flameberry/Library/Caches/org.swift.swiftpm  # 122.1MB
+/Users/flameberry/Library/Caches/io.branch.network.cache  # 564KB
+/Users/flameberry/Library/WebKit/com.duckduckgo.macos.browser  # 79.1MB
+/Users/flameberry/Library/WebKit/com.grammarly.GRLlamaOnboarding  # 868KB
+/Users/flameberry/Library/WebKit/com.grammarly.ProjectLlama  # 536KB
+/Users/flameberry/Library/WebKit/com.kagi.kagimacOS  # 59.2MB
+/Users/flameberry/Library/HTTPStorages/com.duckduckgo.macos.browser  # 56KB
+/Users/flameberry/Library/HTTPStorages/com.duckduckgo.macos.browser.binarycookies  # 4KB
+/Users/flameberry/Library/HTTPStorages/com.duosecurity.duo-device-health  # 56KB
+/Users/flameberry/Library/HTTPStorages/com.electron.replit  # 72KB
+/Users/flameberry/Library/HTTPStorages/com.epicgames.UnrealEditor  # 424KB
+/Users/flameberry/Library/HTTPStorages/com.google.GoogleUpdater  # 3.0MB
+/Users/flameberry/Library/HTTPStorages/com.google.Keystone  # 296KB
+/Users/flameberry/Library/HTTPStorages/com.grammarly.GRLlamaOnboarding.binarycookies  # 4KB
+/Users/flameberry/Library/HTTPStorages/com.grammarly.ProjectLlama  # 168KB
+/Users/flameberry/Library/HTTPStorages/com.grammarly.ProjectLlama.binarycookies  # 4KB
+/Users/flameberry/Library/HTTPStorages/com.jordanbaird.Ice  # 56KB
+/Users/flameberry/Library/HTTPStorages/com.kagi.kagimacOS  # 2.0MB
+/Users/flameberry/Library/HTTPStorages/com.kagi.kagimacOS.binarycookies  # 16KB
+/Users/flameberry/Library/HTTPStorages/com.microsoft.autoupdate.fba  # 3.0MB
+/Users/flameberry/Library/HTTPStorages/com.microsoft.autoupdate2  # 60KB
+/Users/flameberry/Library/HTTPStorages/com.microsoft.visual-studio  # 296KB
+/Users/flameberry/Library/HTTPStorages/com.microsoft.visual-studio.binarycookies  # 4KB
+/Users/flameberry/Library/HTTPStorages/com.operasoftware.Installer.Opera  # 56KB
+/Users/flameberry/Library/HTTPStorages/com.pieces.os  # 68KB
+/Users/flameberry/Library/HTTPStorages/com.pieces.x  # 64KB
+/Users/flameberry/Library/HTTPStorages/com.roblox.RobloxPlayer  # 64KB
+/Users/flameberry/Library/HTTPStorages/com.roblox.RobloxPlayer.binarycookies  # 4KB
+/Users/flameberry/Library/HTTPStorages/com.spotify.installer  # 56KB
+/Users/flameberry/Library/HTTPStorages/com.xamarin.visualstudioformacinstaller  # 60KB
+/Users/flameberry/Library/HTTPStorages/org.sparkle-project.DownloaderService  # 296KB
+/Users/flameberry/Library/HTTPStorages/org.sparkle-project.DownloaderService.binarycookies  # 4KB
+
+=== Apple Silicon updates ===
+
+=== iOS device backups ===
+
+=== Time Machine incomplete backups ===
+
+# ============================================
+# Summary
+# ============================================
+# Potential cleanup: 42.95GB
+# Items: 389
+# Categories: 69

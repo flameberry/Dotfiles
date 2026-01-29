@@ -11,6 +11,7 @@ set -x PATH $PATH "$HOME/.pub-cache/bin"
 set -x PATH "/Users/flameberry/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zls_install" $PATH
 set -x PATH "$HOME/.cargo/bin" $PATH
 set -x PATH "/opt/homebrew/opt/postgresql@17/bin" $PATH
+set -x PATH "$HOME/.local/share/bob/nvim-bin" $PATH
 
 # Source Vulkan SDK setup
 bass source /Users/flameberry/Installations/VulkanSDK/1.4.328.1/setup-env.sh

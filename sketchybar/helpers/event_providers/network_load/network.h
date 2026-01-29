@@ -38,7 +38,7 @@ static inline void network_init(struct network* net, char* ifname) {
   size_t size = sizeof(uint32_t);
   sysctl(count_option, 5, &interface_count, &size, NULL, 0);
 
-  for (int i = 0; i < interface_count; i++) {
+  for (int i = 0; i <= interface_count; i++) {
     ifdata(i, &net->data);
     if (strcmp(net->data.ifmd_name, ifname) == 0) {
       net->row = i;

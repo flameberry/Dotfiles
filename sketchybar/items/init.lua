@@ -29,12 +29,17 @@ menubar_section({ "widgets.wifi.padding", "widgets.wifi1", "widgets.wifi2" })
 
 sbar.add("item", { position = "right", width = 6 })
 
+require("items.widgets.ethernet")
+menubar_section({ "widgets.ethernet.padding", "widgets.ethernet1", "widgets.ethernet2" })
+
+sbar.add("item", { position = "right", width = 6 })
+
 require("items.widgets.volume")
 menubar_section({ "widgets.volume2", "widgets.volume1" })
 
 sbar.add("item", { position = "right", width = 6 })
 
-require("items.widgets.cpu")
-menubar_section({ "widgets.cpu" })
-
-sbar.add("item", { position = "right", width = 6 })
+-- require("items.widgets.cpu")
+-- menubar_section({ "widgets.cpu" })
+--
+-- sbar.add("item", { position = "right", width = 6 })
