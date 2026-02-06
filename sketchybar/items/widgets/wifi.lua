@@ -28,7 +28,7 @@ local wifi_up = sbar.add("item", "widgets.wifi1", {
 			style = settings.font.style_map["Bold"],
 			size = 9.0,
 		},
-		color = colors.red,
+		color = colors.text,
 		string = "??? Bps",
 	},
 	y_offset = 4,
@@ -51,7 +51,7 @@ local wifi_down = sbar.add("item", "widgets.wifi2", {
 			style = settings.font.style_map["Bold"],
 			size = 9.0,
 		},
-		color = colors.blue,
+		color = colors.text,
 		string = "??? Bps",
 	},
 	y_offset = -4,
@@ -91,7 +91,7 @@ local ssid = sbar.add("item", {
 	},
 	background = {
 		height = 2,
-		color = colors.grey,
+		color = colors.muted,
 		y_offset = -15,
 	},
 	padding_left = 15,
@@ -164,20 +164,20 @@ local router = sbar.add("item", {
 })
 
 wifi_up:subscribe("network_update", function(env)
-	local up_color = (env.upload == "000 Bps") and colors.grey or colors.red
-	local down_color = (env.download == "000 Bps") and colors.grey or colors.blue
+	local up_color = (env.upload == "000 Bps") and colors.muted or colors.love
+	local down_color = (env.download == "000 Bps") and colors.muted or colors.foam
 	wifi_up:set({
 		icon = { color = up_color },
 		label = {
 			string = env.upload,
-			color = up_color,
+			color = colors.text,
 		},
 	})
 	wifi_down:set({
 		icon = { color = down_color },
 		label = {
 			string = env.download,
-			color = down_color,
+			color = colors.text,
 		},
 	})
 end)
@@ -188,7 +188,7 @@ wifi:subscribe({ "wifi_change", "system_woke" }, function(env)
 		wifi:set({
 			icon = {
 				string = connected and icons.wifi.connected or icons.wifi.disconnected,
-				color = connected and colors.white or colors.red,
+				color = connected and colors.text or colors.love,
 			},
 		})
 	end)

@@ -23,12 +23,12 @@ for i, workspace in ipairs(workspaces) do
 
 	local space = sbar.add("item", "space." .. i, {
 		icon = {
-			font = { family = settings.font },
+			font = { family = settings.font.text },
 			string = workspace,
-			color = is_focused and colors.black or colors.white,
+			color = is_focused and colors.base or colors.text,
 			padding_left = 8,
 			padding_right = 8,
-			-- y_offset = 1,
+			y_offset = 1,
 		},
 		background = {
 			color = is_focused and colors.accent or colors.transparent,
@@ -49,7 +49,7 @@ for i, workspace in ipairs(workspaces) do
 		sbar.animate("tanh", 8, function()
 			space:set({
 				icon = {
-					color = selected and colors.black or colors.white,
+					color = selected and colors.base or colors.text,
 				},
 				background = {
 					color = selected and colors.accent or colors.transparent,

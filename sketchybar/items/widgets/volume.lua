@@ -10,7 +10,9 @@ local volume_percent = sbar.add("item", "widgets.volume1", {
 	label = {
 		string = "??%",
 		padding_left = -1,
-		font = { family = settings.font },
+		font = { family = settings.font.numbers },
+		color = colors.text,
+		y_offset = 1,
 	},
 })
 
@@ -21,7 +23,7 @@ local volume_icon = sbar.add("item", "widgets.volume2", {
 		string = icons.volume._100,
 		width = 0,
 		align = "left",
-		color = colors.grey,
+		color = colors.rose,
 		font = {
 			style = settings.font.style_map["Regular"],
 			size = 14.0,
@@ -47,11 +49,11 @@ local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {
 local volume_slider = sbar.add("slider", popup_width, {
 	position = "popup." .. volume_bracket.name,
 	slider = {
-		highlight_color = colors.blue,
+		highlight_color = colors.foam,
 		background = {
 			height = 8,
 			corner_radius = 4,
-			color = colors.bg2,
+			color = colors.highlight_med,
 		},
 		knob = {
 			string = "􀀁",
@@ -116,13 +118,13 @@ local function volume_toggle_details(env)
 			current_audio_device = result:sub(1, -2)
 			sbar.exec("SwitchAudioSource -a -t output", function(available)
 				local current = current_audio_device
-				local color = colors.grey
+				local color = colors.muted
 				local counter = 0
 
 				for device in string.gmatch(available, "[^\r\n]+") do
-					local color = colors.grey
+					local color = colors.muted
 					if current == device then
-						color = colors.white
+						color = colors.text
 					end
 					sbar.add("item", "volume.device." .. counter, {
 						position = "popup." .. volume_bracket.name,
@@ -136,9 +138,9 @@ local function volume_toggle_details(env)
 						click_script = 'SwitchAudioSource -s "'
 							.. device
 							.. '" && sketchybar --set /volume.device\\.*/ label.color='
-							.. colors.grey
+							.. colors.muted
 							.. " --set $NAME label.color="
-							.. colors.white,
+							.. colors.text,
 					})
 					counter = counter + 1
 				end

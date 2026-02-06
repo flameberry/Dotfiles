@@ -7,7 +7,7 @@ sbar.add("item", "apple.logo", {
 	icon = {
 		y_offset = 1,
 		font = { size = 16.0 },
-		color = colors.accent,
+		color = colors.rose,
 		string = icons.apple,
 	},
 	label = { drawing = false },

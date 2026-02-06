@@ -6,20 +6,25 @@ local colors = require("colors")
 
 local cal = sbar.add("item", "widgets.calendar", {
 	icon = {
-		color = colors.white,
+		color = colors.iris,
 		padding_left = 8,
 		padding_right = 0,
 		font = {
-			style = settings.font,
+			family = settings.font.text,
+			style = settings.font.style_map["Bold"],
 			size = 12.0,
 		},
 	},
 	label = {
-		color = colors.white,
+		color = colors.text,
 		padding_right = 8,
 		width = 50,
 		align = "right",
-		font = { family = settings.font },
+		font = {
+			family = settings.font.text,
+			style = settings.font.style_map["Semibold"],
+		},
+		y_offset = 1,
 	},
 	position = "right",
 	update_freq = 1,

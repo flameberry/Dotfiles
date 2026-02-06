@@ -15,8 +15,9 @@ local front_app = sbar.add("item", "front_app_text", {
 	padding_right = 8,
 	y_offset = 1,
 	label = {
-		color = colors.white,
+		color = colors.text,
 		font = {
+			family = settings.font.text,
 			style = settings.font.style_map["Heavy"],
 			size = 12.0,
 		},

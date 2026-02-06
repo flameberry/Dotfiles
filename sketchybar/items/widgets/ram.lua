@@ -4,7 +4,10 @@ local settings = require("settings")
 
 local ram = sbar.add("item", "widgets.ram", {
   position = "right",
-  icon = { string = icons.memory },
+  icon = {
+    string = icons.memory,
+    color = colors.iris,
+  },
   label = { font = { family = settings.font.numbers } },
   update_freq = 10,
   padding_right = settings.paddings,

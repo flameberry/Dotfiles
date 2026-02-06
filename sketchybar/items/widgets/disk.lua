@@ -4,7 +4,10 @@ local settings = require("settings")
 
 local disk = sbar.add("item", "widgets.disk", {
   position = "right",
-  icon = { string = icons.disk },
+  icon = {
+    string = icons.disk,
+    color = colors.rose,
+  },
   label = { font = { family = settings.font.numbers } },
   update_freq = 60,
   padding_right = settings.paddings,

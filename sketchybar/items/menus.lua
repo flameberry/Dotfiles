@@ -22,6 +22,7 @@ for i = 1, max_items, 1 do
     icon = { drawing = false },
     label = {
       font = {
+        family = settings.font.text,
         style = settings.font.style_map[i == 1 and "Heavy" or "Semibold"]
       },
       padding_left = 6,
