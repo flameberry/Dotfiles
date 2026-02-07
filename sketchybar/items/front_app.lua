@@ -32,7 +32,3 @@ end)
 front_app:subscribe("mouse.clicked", function(env)
 	sbar.trigger("swap_menus_and_spaces")
 end)
-
--- Middle section of the menu bar
-require("utils")
-menubar_section({ "front_app_text" })
