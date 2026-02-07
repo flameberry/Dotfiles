@@ -177,6 +177,7 @@ return {
   ["Evernote Legacy"] = ":evernote_legacy:",
   ["OmniFocus"] = ":omni_focus:",
   ["Terminal"] = ":terminal:",
+  ["Ghostty"] = ":terminal:",
   ["终端"] = ":terminal:",
   ["Atom"] = ":atom:",
   ["Kakoune"] = ":kakoune:",

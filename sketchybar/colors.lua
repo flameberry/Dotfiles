@@ -62,7 +62,9 @@ local themes = {
 		transparent = 0x00000000,
 		accent = 0xffebbcba,
 
-		bar = { bg = 0xff1f1d2e, border = 0xff26233a },
+		-- bar = { bg = 0xff1f1d2e, border = 0xff26233a },
+		bar = { bg = 0xf00b0a10, border = 0xff26233a },
+
 		popup = { bg = 0xf01f1d2e, border = 0xff26233a },
 		bg1 = 0x601f1d2e,
 		bg2 = 0x901f1d2e,
@@ -96,7 +98,7 @@ local themes = {
 		transparent = 0x00000000,
 		accent = 0xffea9a97,
 
-		bar = { bg = 0xff2a273f, border = 0xff393552 },
+		bar = { bg = 0xd02a273f, border = 0xff393552 },
 		popup = { bg = 0xf02a273f, border = 0xff393552 },
 		bg1 = 0x602a273f,
 		bg2 = 0x902a273f,
