@@ -19,6 +19,18 @@ end
 local space_items = {}
 local space_names = {}
 
+-- Define a sequence of Rose Pine colors for spaces
+local space_colors = {
+	colors.gold,
+	colors.love,
+	colors.pine,
+	colors.rose,
+	colors.iris,
+	colors.foam,
+	colors.yellow,
+	colors.magenta,
+}
+
 local function update_all_spaces()
 	sbar.exec(
 		"aerospace list-windows --all --format '%{workspace}|%{app-name}' && echo '---' && aerospace list-workspaces --focused",
@@ -51,24 +63,29 @@ local function update_all_spaces()
 			end
 
 			sbar.animate("tanh", 8, function()
+				local i = 1
 				for ws, space in pairs(space_items) do
 					local icons = workspace_icons[ws] or ""
 					local selected = ws == focused
 					local should_draw = selected or icons ~= ""
+					local color = space_colors[(i - 1) % #space_colors + 1]
 
 					space:set({
 						drawing = should_draw,
 						label = {
 							string = icons ~= "" and icons or " —",
-							color = selected and colors.base or colors.text,
+							color = selected and color or colors.with_alpha(color, 0.7),
 						},
 						icon = {
-							color = selected and colors.base or colors.text,
+							color = selected and color or colors.with_alpha(color, 0.7),
 						},
 						background = {
-							color = selected and colors.accent or colors.transparent,
+							color = selected and colors.with_alpha(color, 0.1) or colors.transparent,
+							border_color = selected and colors.with_alpha(color, 0.2) or colors.transparent,
+							border_width = selected and 1 or 0,
 						},
 					})
+					i = i + 1
 				end
 			end)
 		end
@@ -78,11 +95,12 @@ end
 local workspaces = exec_to_table("aerospace list-workspaces --all")
 
 for i, workspace in ipairs(workspaces) do
+	local color = space_colors[(i - 1) % #space_colors + 1]
 	local space = sbar.add("item", "space." .. workspace:gsub("%s+", "_"), {
 		icon = {
 			font = { family = settings.font.text },
 			string = workspace,
-			color = colors.text,
+			color = colors.with_alpha(color, 0.7),
 			padding_left = 8,
 			padding_right = 2,
 			y_offset = 1,
@@ -90,7 +108,7 @@ for i, workspace in ipairs(workspaces) do
 		label = {
 			string = " —",
 			font = "sketchybar-app-font:Regular:16.0",
-			color = colors.text,
+			color = colors.with_alpha(color, 0.7),
 			padding_left = 2,
 			padding_right = 8,
 			y_offset = -1,
@@ -100,6 +118,7 @@ for i, workspace in ipairs(workspaces) do
 			color = colors.transparent,
 			corner_radius = 20,
 			height = 20,
+			border_width = 0,
 		},
 		padding_left = 1,
 		padding_right = 1,
