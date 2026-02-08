@@ -18,9 +18,10 @@ end
 
 local space_items = {}
 local space_names = {}
+local workspace_colors = {}
 
 -- Define a sequence of Rose Pine colors for spaces
-local space_colors = {
+local palette = {
 	colors.gold,
 	colors.love,
 	colors.pine,
@@ -63,12 +64,11 @@ local function update_all_spaces()
 			end
 
 			sbar.animate("tanh", 8, function()
-				local i = 1
 				for ws, space in pairs(space_items) do
 					local icons = workspace_icons[ws] or ""
 					local selected = ws == focused
 					local should_draw = selected or icons ~= ""
-					local color = space_colors[(i - 1) % #space_colors + 1]
+					local color = workspace_colors[ws] or colors.white
 
 					space:set({
 						drawing = should_draw,
@@ -85,7 +85,6 @@ local function update_all_spaces()
 							border_width = selected and 1 or 0,
 						},
 					})
-					i = i + 1
 				end
 			end)
 		end
@@ -95,7 +94,9 @@ end
 local workspaces = exec_to_table("aerospace list-workspaces --all")
 
 for i, workspace in ipairs(workspaces) do
-	local color = space_colors[(i - 1) % #space_colors + 1]
+	local color = palette[(i - 1) % #palette + 1]
+	workspace_colors[workspace] = color
+
 	local space = sbar.add("item", "space." .. workspace:gsub("%s+", "_"), {
 		icon = {
 			font = { family = settings.font.text },
