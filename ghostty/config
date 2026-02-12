@@ -1,13 +1,10 @@
-# font-thicken = true
-font-family = JetbrainsMono Nerd Font 
-font-style = semibold
+font-family = Lilex
 font-size = 14
+# font-style = Medium
+font-thicken = true
 
-# theme = Ayu
 theme = Rose Pine
 background = #0b0a10
-# background-opacity = 0.9
-# background-blur = 32
 
 cursor-style = block
 cursor-style-blink = false
@@ -17,8 +14,9 @@ macos-window-shadow = false
 macos-titlebar-style = hidden
 mouse-hide-while-typing = true
 
-window-padding-x = 1 
-window-padding-y = 1 
+window-padding-x = 2 
+window-padding-y = 2 
 window-padding-balance = true
 
-# adjust-box-thickness = 1
+window-colorspace = "display-p3"
+copy-on-select = clipboard

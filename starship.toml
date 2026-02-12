@@ -1,163 +1,129 @@
-"$schema" = 'https://starship.rs/config-schema.json'
-
 format = """
-[](rose)\
+[](fg:#ffffff)\
 $os\
-$username\
-[](bg:gold fg:rose)\
+[](fg:#ffffff bg:c2)\
 $directory\
-[](bg:foam fg:gold)\
+[](fg:c2 bg:#303030)\
 $git_branch\
-$git_status\
-[](fg:foam bg:pine)\
-$c\
-$rust\
-$golang\
+$fill\
 $nodejs\
-$php\
-$java\
-$kotlin\
-$haskell\
+$dotnet\
 $python\
-[](fg:pine bg:iris)\
-[](fg:iris bg:surface)\
-[ ](fg:surface)\
+$java\
+$c\
+$cmd_duration\
+$shell\
+[](fg:c4 bg:c2)\
+$time\
+[](fg:c2 bg:c1)\
+$username\
+[](fg:#004480)\
+[─╮](fg:c4)\
 $line_break\
-$character"""
+$character\
+"""
 
-palette = 'rose_pine'
+palette = 'main'
+add_newline = true
+
+[palettes.main]
+c1 = '#004480' # blue light
+c2 = '#002240' # blue dark
+c3 = '#c6e7ff' # blue extra light
+c4 = '#303030' # gray
+c5 = '#808080' # gray light
 
 [os]
+format = '[$symbol ](fg:#000000 bg:#ffffff)'
 disabled = false
-style = "bg:rose fg:base"
 
 [os.symbols]
-Windows = ""
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = "󰀵"
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-
-[username]
-show_always = true
-style_user = "bg:rose fg:base"
-style_root = "bg:rose fg:base"
-format = '[ $user]($style)'
+Alpine = ''
+Amazon = ''
+Android = ''
+Arch = ''
+CentOS = ''
+Debian = ''
+EndeavourOS = ''
+Fedora = ''
+FreeBSD = ''
+Garuda = ''
+Gentoo = ''
+Linux = ''
+Macos = ''
+Manjaro = ''
+Mariner = ''
+Mint = ''
+NetBSD = ''
+NixOS = ''
+OpenBSD = '' # ''
+OpenCloudOS = '☁️'
+openEuler = ''
+openSUSE = ''
+OracleLinux = '⊂⊃'
+Pop = '' # ''
+Raspbian = ''
+Redhat = ''
+RedHatEnterprise = ''
+Solus = '' # ' '
+SUSE = ''
+Ubuntu = ''
+Unknown = ''
+Windows = ''
 
 [directory]
-style = "bg:gold fg:base"
-format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
-
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
-"Developer" = "󰲋 "
+format = '[ 󰷏 $path ](fg:c3 bg:c2 italic)'
+truncation_length = 2
 
 [git_branch]
-symbol = ""
-style = "bg:foam"
-format = '[[ $symbol $branch ](fg:base bg:foam)]($style)'
+format = '[ 󰘬 $branch ](fg:#808080 bg:c4)'
 
-[git_status]
-style = "bg:foam"
-format = '[[($all_status$ahead_behind )](fg:base bg:foam)]($style)'
-
-# --- LANG TOOLS (pine background) --- #
 [nodejs]
-symbol = ""
-style = "bg:pine"
-format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
+format = '[ $symbol$version ](fg:#ffffff bg:c4)'
 
-[c]
-symbol = " "
-style = "bg:pine"
-format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
-
-[rust]
-symbol = ""
-style = "bg:pine"
-format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
-
-[golang]
-symbol = ""
-style = "bg:pine"
-format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
-
-[php]
-symbol = ""
-style = "bg:pine"
-format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
-
-[java]
-symbol = " "
-style = "bg:pine"
-format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
-
-[kotlin]
-symbol = ""
-style = "bg:pine"
-format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
-
-[haskell]
-symbol = ""
-style = "bg:pine"
-format = '[[ $symbol( $version) ](fg:base bg:pine)]($style)'
+[dotnet]
+format = '[ $symbol$tfm ](fg:#ffffff bg:c4)'
+symbol = ' .NET '
 
 [python]
-symbol = ""
-style = "bg:pine"
-format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:base bg:pine)]($style)'
+format = '[ $symbol$version ](fg:#ffffff bg:c4)'
+symbol = ' '
+
+[java]
+format = '[ $symbol$version ](fg:#ffffff bg:c4)'
+symbol = ' '
+
+[c]
+format = '[ $symbol$version ](fg:#ffffff bg:c4)'
+symbol = ' '
+
+[fill]
+style = 'fg:c5 bg:c4'
+symbol = '.'
 
 [cmd_duration]
-show_milliseconds = true
-format = " in $duration "
-style = "bg:iris"
+min_time = 500
+format = '[ $duration ](fg:yellow bg:c4 bold)'
+
+[shell]
+format = '[  $indicator ](c5 bg:c4)'
+unknown_indicator = 'shell'
+powershell_indicator = 'powershell'
+fish_indicator = 'fish'
 disabled = false
 
 [time]
 disabled = false
-time_format = "%R"
-style = "bg:surface"
-format = "[  $time ]($style)"
+format = '[ $time ](fg:c3 bg:c2)'
+time_format = '󰦖 %H:%M'
 
-[line_break]
-disabled = true
+[username]
+format = '[  $user ](fg:#ffffff bg:c1)'
+show_always = true
 
 [character]
-disabled = false
-success_symbol = '[❯](bold fg:foam)'
-error_symbol = '[❯](bold fg:love)'
-vimcmd_symbol = '[❮](bold fg:foam)'
-
-# ---- ROSE PINE PALETTE ---- #
-[palettes.rose_pine]
-base     = "#191724"
-surface  = "#1f1d2e"
-overlay  = "#26233a"
-muted    = "#6e6a86"
-subtle   = "#908caa"
-text     = "#e0def4"
-love     = "#eb6f92"
-gold     = "#f6c177"
-rose     = "#ebbcba"
-pine     = "#31748f"
-foam     = "#9ccfd8"
-iris     = "#c4a7e7"
+format = """
+[┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯](fg:c4)
+[╰──$symbol](fg:c4) """
+success_symbol = '[≫](fg:#ffffff)'
+error_symbol = '[×](bold red)'
