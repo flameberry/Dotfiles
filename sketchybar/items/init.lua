@@ -1,10 +1,12 @@
 -- Left floating section of the bar
 require("items.apple")
-local spaces = require("items.spaces_simple")
+local spaces = require("items.spaces")
 require("items.front_app")
 
+menubar_section({ "apple.logo" })
+
 -- Assemble the left section in order
-local left_section = { "apple.logo" }
+local left_section = {}
 
 -- Add spaces items
 for _, space_name in ipairs(spaces) do
@@ -29,24 +31,24 @@ require("utils")
 require("items.calendar")
 menubar_section({ "widgets.calendar" })
 
-sbar.add("item", { position = "right", width = 6 })
+sbar.add("item", { position = "right", width = 8 })
 
 require("items.widgets.battery")
 menubar_section({ "widgets.battery" })
 
-sbar.add("item", { position = "right", width = 6 })
+sbar.add("item", { position = "right", width = 8 })
 
 require("items.widgets.wifi")
 menubar_section({ "widgets.wifi.padding", "widgets.wifi1", "widgets.wifi2" })
 
-sbar.add("item", { position = "right", width = 6 })
+sbar.add("item", { position = "right", width = 8 })
 
 require("items.widgets.ethernet")
 menubar_section({ "widgets.ethernet.padding", "widgets.ethernet1", "widgets.ethernet2" })
 
-sbar.add("item", { position = "right", width = 6 })
+sbar.add("item", { position = "right", width = 8 })
 
 require("items.widgets.volume")
 menubar_section({ "widgets.volume2", "widgets.volume1" })
 
-sbar.add("item", { position = "right", width = 6 })
+sbar.add("item", { position = "right", width = 8 })
