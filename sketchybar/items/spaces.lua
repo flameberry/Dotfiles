@@ -20,23 +20,10 @@ local space_items = {}
 local space_names = {}
 local workspace_colors = {}
 
-local japanese_numbers = {
-	["1"] = "一",
-	["2"] = "二",
-	["3"] = "三",
-	["4"] = "四",
-	["5"] = "五",
-	["6"] = "六",
-	["7"] = "七",
-	["8"] = "八",
-	["9"] = "九",
-	["10"] = "十",
-}
-
 -- Define a sequence of Rose Pine colors for spaces
 local palette = {
-	colors.gold,
 	colors.love,
+	colors.gold,
 	colors.pine,
 	colors.rose,
 	colors.iris,
@@ -86,7 +73,7 @@ local function update_all_spaces()
 					space:set({
 						drawing = should_draw,
 						label = {
-							string = icons ~= "" and icons or " —",
+							string = icons ~= "" and icons or "...",
 							color = selected and color or colors.with_alpha(color, 0.7),
 						},
 						icon = {
@@ -113,14 +100,14 @@ for i, workspace in ipairs(workspaces) do
 	local space = sbar.add("item", "space." .. workspace:gsub("%s+", "_"), {
 		icon = {
 			font = { family = settings.font.text },
-			string = japanese_numbers[workspace] or workspace,
+			string = workspace,
 			color = colors.with_alpha(color, 0.7),
 			padding_left = 8,
 			padding_right = 2,
 			y_offset = 1,
 		},
 		label = {
-			string = " —",
+			string = " ...",
 			font = "sketchybar-app-font:Regular:16.0",
 			color = colors.with_alpha(color, 0.7),
 			padding_left = 2,
