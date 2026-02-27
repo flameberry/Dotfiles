@@ -20,3 +20,10 @@ window-padding-balance = true
 
 window-colorspace = "display-p3"
 copy-on-select = clipboard
+
+adjust-cell-height = 15%
+
+custom-shader = shaders/cursor_blaze_tapered.glsl
+
+# Use pre-release version of ghostty
+auto-update-channel = tip

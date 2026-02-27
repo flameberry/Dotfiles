@@ -6,7 +6,7 @@ return {
     opts = {
       indent = {
         indent = {
-          enabled = false,
+          enabled = true,
           char = "¦", -- Dotted indent lines
         },
         animate = {

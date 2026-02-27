@@ -61,7 +61,7 @@ return {
   ["League of Legends"] = ":league_of_legends:",
   ["Tor Browser"] = ":tor_browser:",
   ["Hyper"] = ":hyper:",
-  ["‎WhatsApp"] = ":whats_app:",
+  ["WhatsApp"] = ":whats_app:",
   ["카카오톡"] = ":kakaotalk:",
   ["Discord"] = ":discord:",
   ["Discord Canary"] = ":discord:",
@@ -209,4 +209,5 @@ return {
   ["Firefox"] = ":firefox:",
   ["WezTerm"] = ":wezterm:",
   ["default"] = ":default:",
+  ["Dia"] = ":arc:",
 }

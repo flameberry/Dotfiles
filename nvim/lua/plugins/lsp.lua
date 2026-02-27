@@ -16,6 +16,22 @@ return {
         },
         virtual_text = false,
       },
+      servers = {
+        jdtls = {
+          settings = {
+            java = {
+              configuration = {
+                runtimes = {},
+              },
+              format = {
+                settings = {
+                  ["org.eclipse.jdt.core.formatter.lineSplit"] = "120",
+                },
+              },
+            },
+          },
+        },
+      },
     },
   },
 }

@@ -15,7 +15,7 @@ local config = {
 
   styles = {
     bold = true,
-    italic = false,
+    italic = true,
     transparency = true,
   },
 
@@ -54,7 +54,8 @@ local config = {
     -- Override the builtin palette per variant
     main = {
       base = "#0b0a10",
-      base2 = "#141220",
+      -- base2 = "#141220",
+      base2 = "#11101c",
       -- overlay = "#000000",
     },
   },
@@ -93,13 +94,12 @@ return {
   {
     "rose-pine/neovim",
     name = "rose-pine",
-    -- "Shatur/neovim-ayu",
     lazy = true,
     priority = 1000,
     config = function()
       require("rose-pine").setup(config)
       vim.cmd.colorscheme("rose-pine")
-      -- require("ayu").colorscheme()
+      -- require("gruvbox-baby").colorscheme()
     end,
   },
 }
