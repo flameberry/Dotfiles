@@ -3,7 +3,7 @@ font-size = 14
 # font-style = Medium
 font-thicken = true
 
-theme = Rose Pine
+theme = Rose Pine 
 background = #0b0a10
 
 cursor-style = block
@@ -14,8 +14,8 @@ macos-window-shadow = false
 macos-titlebar-style = hidden
 mouse-hide-while-typing = true
 
-window-padding-x = 2 
-window-padding-y = 2 
+window-padding-x = 8 
+window-padding-y = 4 
 window-padding-balance = true
 
 window-colorspace = "display-p3"
@@ -24,6 +24,9 @@ copy-on-select = clipboard
 adjust-cell-height = 15%
 
 custom-shader = shaders/cursor_blaze_tapered.glsl
+# custom-shader = shaders/cursor_frozen.glsl
+
+macos-icon-frame = chrome
 
 # Use pre-release version of ghostty
 auto-update-channel = tip

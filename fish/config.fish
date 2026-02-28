@@ -93,3 +93,5 @@ fish_add_path /opt/homebrew/opt/openjdk/bin
 
 zoxide init fish | source
 fzf --fish | source
+
+ff
