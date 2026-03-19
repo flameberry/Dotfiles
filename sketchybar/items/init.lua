@@ -3,10 +3,10 @@ require("items.apple")
 local spaces = require("items.spaces")
 require("items.front_app")
 
-menubar_section({ "apple.logo" })
+-- menubar_section({ "apple.logo" })
 
 -- Assemble the left section in order
-local left_section = {}
+local left_section = { "apple.logo" }
 
 -- Add spaces items
 for _, space_name in ipairs(spaces) do

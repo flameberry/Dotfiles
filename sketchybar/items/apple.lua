@@ -11,7 +11,7 @@ sbar.add("item", "apple.logo", {
 		string = icons.apple,
 	},
 	label = { drawing = false },
-	padding_left = 4,
+	-- padding_left = 4,
 	click_script = "$CONFIG_DIR/helpers/menus/bin/menus -s 0",
 })
 
