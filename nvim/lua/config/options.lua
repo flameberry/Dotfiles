@@ -3,7 +3,7 @@
 -- Add any additional options here
 
 vim.g.mapleader = " "
-vim.opt.guicursor = ""
+vim.opt.guicursor = "a:block-blinkon0"
 
 vim.opt.number = true               -- Show line numbers.
 vim.opt.colorcolumn = "100"         -- Show a vertical line at column 120.
