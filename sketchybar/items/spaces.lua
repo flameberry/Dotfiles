@@ -18,19 +18,6 @@ end
 
 local space_items = {}
 local space_names = {}
-local workspace_colors = {}
-
--- Define a sequence of Rose Pine colors for spaces
-local palette = {
-	colors.love,
-	colors.gold,
-	colors.pine,
-	colors.rose,
-	colors.iris,
-	colors.foam,
-	colors.yellow,
-	colors.magenta,
-}
 
 local function update_all_spaces()
 	sbar.exec(
@@ -97,9 +84,6 @@ end
 local workspaces = exec_to_table("aerospace list-workspaces --all")
 
 for i, workspace in ipairs(workspaces) do
-	local color = palette[(i - 1) % #palette + 1]
-	workspace_colors[workspace] = color
-
 	local space = sbar.add("item", "space." .. workspace:gsub("%s+", "_"), {
 		icon = {
 			font = { family = settings.font.text, style = settings.font.style_map["Bold"], size = 12 },
@@ -114,7 +98,7 @@ for i, workspace in ipairs(workspaces) do
 			font = "sketchybar-app-font:Regular:14.0",
 			color = colors.white,
 			padding_right = 12,
-			y_offset = 0,
+			y_offset = -1,
 			drawing = false,
 		},
 		background = {

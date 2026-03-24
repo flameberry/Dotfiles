@@ -8,13 +8,12 @@ sbar.exec(
 	"killall network_load >/dev/null; $CONFIG_DIR/helpers/event_providers/network_load/bin/network_load en0 network_update 2.0"
 )
 
-local network_down = sbar.add("item", "widgets.network.down", {
+local network_up = sbar.add("item", "widgets.network.up", {
 	position = "right",
 	icon = {
-		string = icons.wifi.download,
+		string = icons.wifi.upload,
 		color = colors.white,
-		padding_left = 0,
-		padding_right = 4,
+		padding_right = 2,
 		font = { size = 12.0 },
 	},
 	label = { drawing = false },
@@ -22,13 +21,6 @@ local network_down = sbar.add("item", "widgets.network.down", {
 
 local network = sbar.add("item", "widgets.network", {
 	position = "right",
-	icon = {
-		string = icons.wifi.upload,
-		color = colors.white,
-		padding_left = 4,
-		padding_right = 4,
-		font = { size = 12.0 },
-	},
 	label = {
 		string = "0K/0K",
 		color = colors.white,
@@ -37,9 +29,19 @@ local network = sbar.add("item", "widgets.network", {
 			style = settings.font.style_map["Bold"],
 			size = 12.0,
 		},
-		padding_right = 4,
 	},
 	update_freq = 2,
+})
+
+local network_down = sbar.add("item", "widgets.network.down", {
+	position = "right",
+	icon = {
+		string = icons.wifi.download,
+		color = colors.white,
+		padding_left = 2,
+		font = { size = 12.0 },
+	},
+	label = { drawing = false },
 })
 
 network:subscribe("network_update", function(env)
