@@ -3,8 +3,9 @@
 -- Add any additional keymaps here
 
 -- Move line up and down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+local opts1 = { noremap = true, silent = true, nowait = true }
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts1)
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts1)
 
 vim.keymap.set("x", "<Leader>p", '"_dP')
 vim.keymap.set("n", "x", '"_x')
