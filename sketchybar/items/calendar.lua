@@ -1,39 +1,44 @@
 local settings = require("settings")
 local colors = require("colors")
 
--- Padding item required because of bracket
--- sbar.add("item", { position = "right", width = settings.group_paddings })
-
 local cal = sbar.add("item", "widgets.calendar", {
+	position = "right",
 	icon = {
-		color = colors.iris,
-		padding_left = 8,
-		padding_right = 0,
+		string = "Tue 03 Feb",
+		color = colors.white,
+		padding_left = 4,
+		padding_right = 4,
 		font = {
 			family = settings.font.text,
 			style = settings.font.style_map["Bold"],
 			size = 12.0,
 		},
 	},
-	label = {
-		color = colors.text,
-		padding_right = 8,
-		width = 50,
-		align = "right",
+	label = { drawing = false },
+	update_freq = 1,
+})
+
+local time = sbar.add("item", "widgets.time", {
+	position = "right",
+	icon = {
+		string = "06:12 PM",
+		color = colors.white,
+		padding_left = 4,
+		padding_right = 4,
 		font = {
 			family = settings.font.text,
-			style = settings.font.style_map["Semibold"],
+			style = settings.font.style_map["Bold"],
+			size = 12.0,
 		},
-		y_offset = 1,
 	},
-	position = "right",
+	label = { drawing = false },
 	update_freq = 1,
-	-- padding_left = 15,
 })
 
 cal:subscribe({ "forced", "routine", "system_woke" }, function(env)
-	local time = os.date("%I:%M")
-	sbar.animate("tanh", 5, function()
-		cal:set({ icon = os.date("%a %d %b"), label = time })
-	end)
+	cal:set({ icon = { string = os.date("%a %d %b") } })
+end)
+
+time:subscribe({ "forced", "routine", "system_woke" }, function(env)
+	time:set({ icon = { string = os.date("%I:%M %p") } })
 end)

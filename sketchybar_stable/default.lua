@@ -10,9 +10,10 @@ sbar.default({
 			style = settings.font.style_map["Bold"],
 			size = 14.0,
 		},
-		color = colors.white,
+		color = colors.text,
 		padding_left = settings.paddings,
 		padding_right = settings.paddings,
+		background = { image = { corner_radius = 12 } },
 	},
 	label = {
 		font = {
@@ -20,15 +21,18 @@ sbar.default({
 			style = settings.font.style_map["Semibold"],
 			size = 13.0,
 		},
-		color = colors.white,
+		color = colors.text,
 		padding_left = settings.paddings,
 		padding_right = settings.paddings,
 	},
 	background = {
-		height = 30,
-		corner_radius = 15,
+		height = 24,
+		corner_radius = 12,
 		border_color = colors.bar.border,
 		color = colors.transparent,
+		image = {
+			corner_radius = 12,
+		},
 	},
 	popup = {
 		background = {

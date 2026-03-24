@@ -62,7 +62,9 @@ local themes = {
 		transparent = 0x00000000,
 		accent = 0xffebbcba,
 
-		bar = { bg = 0xcc0b0a10, border = 0xff26233a },
+		-- bar = { bg = 0xff1f1d2e, border = 0xff26233a },
+		bar = { bg = 0xf00b0a10, border = 0xff26233a },
+
 		popup = { bg = 0xf01f1d2e, border = 0xff26233a },
 		bg1 = 0x601f1d2e,
 		bg2 = 0x901f1d2e,
@@ -101,44 +103,10 @@ local themes = {
 		bg1 = 0x602a273f,
 		bg2 = 0x902a273f,
 	},
-	neon = {
-		base = 0xff1e1e2e,
-		surface = 0xff313244,
-		overlay = 0xff45475a,
-		muted = 0xff6c7086,
-		subtle = 0xff9399b2,
-		text = 0xffffffff,
-		love = 0xfff38ba8,
-		gold = 0xfff9e2af,
-		rose = 0xfff5e0dc,
-		pine = 0xff94e2d5,
-		foam = 0xff89dceb,
-		iris = 0xffcba6f7,
-		highlight_low = 0xff181825,
-		highlight_med = 0xff11111b,
-		highlight_high = 0xff313244,
-
-		black = 0xff11111b,
-		white = 0xffffffff,
-		red = 0xfff38ba8,
-		green = 0xffa6e3a1,
-		blue = 0xff89b4fa,
-		yellow = 0xfff9e2af,
-		orange = 0xfffab387,
-		magenta = 0xffcba6f7,
-		grey = 0xff6c7086,
-		transparent = 0x00000000,
-		accent = 0xffcba6f7,
-
-		bar = { bg = 0xff11111b, border = 0xffcba6f7 },
-		popup = { bg = 0xff11111b, border = 0xffcba6f7 },
-		bg1 = 0x33ffffff,
-		bg2 = 0x55ffffff,
-	},
 }
 
 -- Select the active theme here
-local active_theme = "neon" -- options: "catppuccin", "rose_pine", "rose_pine_moon", "neon"
+local active_theme = "rose_pine" -- options: "catppuccin", "rose_pine", "rose_pine_moon"
 
 local theme = themes[active_theme]
 

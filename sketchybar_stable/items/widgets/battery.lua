@@ -6,22 +6,13 @@ local battery = sbar.add("item", "widgets.battery", {
 	position = "right",
 	icon = {
 		font = {
-			style = settings.font.style_map["Bold"],
+			style = settings.font.style_map["Regular"],
 			size = 14.0,
 		},
-		padding_left = 4,
-		padding_right = 4,
 	},
-	label = {
-		font = {
-			family = settings.font.numbers,
-			style = settings.font.style_map["Bold"],
-			size = 12.0,
-		},
-		color = colors.white,
-		padding_right = 4,
-	},
+	label = { font = { family = settings.font.numbers }, y_offset = 1 },
 	update_freq = 30,
+	popup = { align = "center" },
 })
 
 local remaining_time = sbar.add("item", {

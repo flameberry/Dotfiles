@@ -68,24 +68,21 @@ local function update_all_spaces()
 					local icons = workspace_icons[ws] or ""
 					local selected = ws == focused
 					local should_draw = selected or icons ~= ""
+					local color = workspace_colors[ws] or colors.white
 
-					local has_icons = icons ~= ""
 					space:set({
 						drawing = should_draw,
 						label = {
-							string = has_icons and icons or "",
-							color = selected and colors.base or colors.white,
-							drawing = has_icons,
+							string = icons ~= "" and icons or "...",
+							color = selected and color or colors.with_alpha(color, 0.7),
 						},
 						icon = {
-							color = selected and colors.base or colors.white,
-							padding_left = has_icons and 12 or 9,
-							padding_right = has_icons and 6 or 9,
+							color = selected and color or colors.with_alpha(color, 0.7),
 						},
 						background = {
-							color = selected and colors.magenta or colors.with_alpha(colors.white, 0.1),
-							height = 24,
-							corner_radius = 12,
+							color = selected and colors.with_alpha(color, 0.1) or colors.transparent,
+							border_color = selected and colors.with_alpha(color, 0.2) or colors.transparent,
+							border_width = selected and 1 or 0,
 						},
 					})
 				end
@@ -102,28 +99,30 @@ for i, workspace in ipairs(workspaces) do
 
 	local space = sbar.add("item", "space." .. workspace:gsub("%s+", "_"), {
 		icon = {
-			font = { family = settings.font.text, style = settings.font.style_map["Bold"], size = 12 },
+			font = { family = settings.font.text },
 			string = workspace,
-			color = colors.white,
-			padding_left = 12,
-			padding_right = 6,
-			y_offset = 0,
+			color = colors.with_alpha(color, 0.7),
+			padding_left = 8,
+			padding_right = 2,
+			y_offset = 1,
 		},
 		label = {
-			string = "",
-			font = "sketchybar-app-font:Regular:14.0",
-			color = colors.white,
-			padding_right = 12,
-			y_offset = 0,
-			drawing = false,
+			string = " ...",
+			font = "sketchybar-app-font:Regular:16.0",
+			color = colors.with_alpha(color, 0.7),
+			padding_left = 2,
+			padding_right = 8,
+			y_offset = -1,
+			drawing = true,
 		},
 		background = {
-			color = colors.with_alpha(colors.white, 0.1),
-			corner_radius = 12,
-			height = 24,
+			color = colors.transparent,
+			corner_radius = 20,
+			height = 20,
+			border_width = 0,
 		},
-		padding_left = 2,
-		padding_right = 2,
+		padding_left = 1,
+		padding_right = 1,
 		drawing = false,
 		click_script = 'aerospace workspace "' .. workspace .. '"',
 	})

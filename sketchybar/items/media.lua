@@ -3,140 +3,57 @@ local colors = require("colors")
 local settings = require("settings")
 local whitelist = { ["Spotify"] = true, ["Google Chrome"] = true }
 
-local media_cover = sbar.add("item", {
-	position = "right",
-	background = {
-		image = {
-			string = "media.artwork",
-			scale = 0.85,
-		},
-		color = colors.transparent,
+local media = sbar.add("item", "widgets.media", {
+	position = "center",
+	icon = {
+		string = ":spotify:",
+		font = "sketchybar-app-font:Regular:14.0",
+		color = 0xff1db954, -- Spotify green
+		padding_left = 12,
+		padding_right = 8,
 	},
-	label = { drawing = false },
-	icon = { drawing = false },
+	label = {
+		string = "Artist - Title",
+		font = { family = settings.font.text, style = settings.font.style_map["Bold"], size = 12 },
+		color = colors.white,
+		padding_right = 12,
+		max_chars = 35,
+	},
+	background = {
+		color = colors.bg1,
+		height = 26,
+		corner_radius = 13,
+	},
 	drawing = false,
 	updates = true,
-	popup = {
-		align = "center",
-		horizontal = true,
-	},
 })
 
-local media_artist = sbar.add("item", {
-	position = "right",
-	drawing = false,
-	padding_left = 3,
-	padding_right = 0,
-	width = 0,
-	icon = { drawing = false },
-	label = {
-		width = 0,
-		font = {
-			family = settings.font.text,
-			size = 9,
-		},
-		color = colors.with_alpha(colors.white, 0.6),
-		max_chars = 18,
-		y_offset = 6,
-	},
-})
-
-local media_title = sbar.add("item", {
-	position = "right",
-	drawing = false,
-	padding_left = 3,
-	padding_right = 0,
-	icon = { drawing = false },
-	label = {
-		font = {
-			family = settings.font.text,
-			size = 11,
-		},
-		width = 0,
-		max_chars = 16,
-		y_offset = -5,
-	},
-})
-
-sbar.add("item", {
-	position = "popup." .. media_cover.name,
-	icon = {
-		string = icons.media.back,
-		font = { size = 16.0 },
-		padding_left = 12,
-		padding_right = 12,
-	},
-	label = { drawing = false },
-	click_script = "nowplaying-cli previous",
-})
-sbar.add("item", {
-	position = "popup." .. media_cover.name,
-	icon = {
-		string = icons.media.play_pause,
-		font = { size = 16.0 },
-		padding_left = 12,
-		padding_right = 12,
-	},
-	label = { drawing = false },
-	click_script = "nowplaying-cli togglePlayPause",
-})
-sbar.add("item", {
-	position = "popup." .. media_cover.name,
-	icon = {
-		string = icons.media.forward,
-		font = { size = 16.0 },
-		padding_left = 12,
-		padding_right = 12,
-	},
-	label = { drawing = false },
-	click_script = "nowplaying-cli next",
-})
-
-local interrupt = 0
-local function animate_detail(detail)
-	if not detail then
-		interrupt = interrupt - 1
-	end
-	if interrupt > 0 and not detail then
-		return
-	end
-
-	sbar.animate("tanh", 30, function()
-		media_artist:set({ label = { width = detail and "dynamic" or 0 } })
-		media_title:set({ label = { width = detail and "dynamic" or 0 } })
-	end)
-end
-
-media_cover:subscribe("media_change", function(env)
+media:subscribe("media_change", function(env)
 	if whitelist[env.INFO.app] then
 		local drawing = (env.INFO.state == "playing")
-		media_artist:set({ drawing = drawing, label = env.INFO.artist })
-		media_title:set({ drawing = drawing, label = env.INFO.title })
-		media_cover:set({ drawing = drawing })
+		local title = env.INFO.title
+		local artist = env.INFO.artist
+		local app = env.INFO.app
 
-		if drawing then
-			animate_detail(true)
-			interrupt = interrupt + 1
-			sbar.delay(5, animate_detail)
-		else
-			media_cover:set({ popup = { drawing = false } })
+		local icon = ":default:"
+		local color = colors.text
+
+		if app == "Spotify" then
+			icon = ":spotify:"
+			color = 0xff1db954
+		elseif app == "Google Chrome" then
+			icon = ":google_chrome:"
+			color = colors.blue
 		end
+
+		media:set({
+			drawing = drawing,
+			icon = { string = icon, color = color },
+			label = { string = artist .. " - " .. title },
+		})
 	end
 end)
 
-media_cover:subscribe("mouse.entered", function(env)
-	interrupt = interrupt + 1
-	animate_detail(true)
-end)
-
-media_cover:subscribe("mouse.exited", function(env)
-	animate_detail(false)
-end)
-
-media_cover:subscribe("mouse.clicked", function(env)
-	media_cover:set({ popup = { drawing = "toggle" } })
-end)
-
-media_title:subscribe("mouse.exited.global", function(env)
-	media_cover:set({ popup = { drawing = false } })
+media:subscribe("mouse.clicked", function(env)
+	sbar.exec("nowplaying-cli togglePlayPause")
 end)
