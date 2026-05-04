@@ -95,3 +95,6 @@ zoxide init fish | source
 fzf --fish | source
 
 ff
+
+# Added by Antigravity
+fish_add_path /Users/flameberry/.antigravity/antigravity/bin

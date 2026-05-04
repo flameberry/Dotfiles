@@ -15,7 +15,7 @@ local config = {
 
   styles = {
     bold = true,
-    italic = true,
+    italic = false,
     transparency = true,
   },
 

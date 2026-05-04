@@ -1,4 +1,6 @@
-font-family = Lilex
+# font-family = Lilex
+# font-family = SF Mono
+font-family = psudoFont Liga Mono
 font-size = 14
 # font-style = Medium
 font-thicken = true
@@ -21,7 +23,7 @@ window-padding-balance = true
 window-colorspace = "display-p3"
 copy-on-select = clipboard
 
-adjust-cell-height = 15%
+adjust-cell-height = 20%
 
 custom-shader = shaders/cursor_blaze_tapered.glsl
 # custom-shader = shaders/cursor_frozen.glsl
