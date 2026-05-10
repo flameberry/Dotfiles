@@ -31,11 +31,11 @@ require("items.widgets.wifi")
 -- ══════════════════════════════════════════════════════════════
 
 -- Left pill: Apple logo + Aerospace workspaces
-sbar.add("bracket", "bracket.left", { "apple.logo", "/space\\..*/" }, {
+sbar.add("bracket", "bracket.left", { "apple.logo", "/space\\..*/", "spaces.right_pad" }, {
 	background = {
 		color = colors.bg1,
-		corner_radius = 14,
-		height = 30,
+		corner_radius = 16,
+		height = 28,
 		border_width = 0,
 	},
 })
@@ -50,19 +50,18 @@ sbar.add("bracket", "bracket.center", {
 }, {
 	background = {
 		color = colors.bg1,
-		corner_radius = 14,
-		height = 30,
-		border_width = 1,
-		border_color = colors.with_alpha(colors.accent, 0.22),
+		corner_radius = 16,
+		height = 28,
+		border_width = 0,
 	},
 })
 
 -- Right pill: WiFi + Battery
-sbar.add("bracket", "bracket.right", { "/widgets\\.network.*/" , "widgets.battery" }, {
+sbar.add("bracket", "bracket.right", { "/widgets\\.network.*/", "widgets.battery" }, {
 	background = {
 		color = colors.bg1,
-		corner_radius = 14,
-		height = 30,
+		corner_radius = 16,
+		height = 28,
 		border_width = 0,
 	},
 })

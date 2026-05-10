@@ -55,12 +55,12 @@ local function set_playing(title, artist, app)
 	local icon_str, icon_font, icon_color
 
 	if lookup then
-		icon_str   = lookup
-		icon_font  = { family = "sketchybar-app-font", style = "Regular", size = 14 }
+		icon_str = lookup
+		icon_font = { family = "sketchybar-app-font", style = "Regular", size = 14 }
 		icon_color = (app == "Spotify") and 0xff1db954 or colors.accent
 	else
-		icon_str   = "♫"
-		icon_font  = { family = settings.font.text, style = settings.font.style_map["Bold"], size = 14 }
+		icon_str = "♫"
+		icon_font = { family = settings.font.text, style = settings.font.style_map["Bold"], size = 14 }
 		icon_color = colors.accent
 	end
 
@@ -68,7 +68,7 @@ local function set_playing(title, artist, app)
 
 	sbar.animate("tanh", 10, function()
 		media:set({
-			icon  = { string = icon_str, font = icon_font, color = icon_color },
+			icon = { string = icon_str, font = icon_font, color = icon_color },
 			label = { string = display, color = colors.white },
 		})
 	end)
@@ -76,11 +76,11 @@ end
 
 local function poll()
 	sbar.exec(
-		"printf '%s\\t%s\\t%s' \"$(nowplaying-cli get playbackRate)\" \"$(nowplaying-cli get title)\" \"$(nowplaying-cli get artist)\"",
+		'printf \'%s\\t%s\\t%s\' "$(nowplaying-cli get playbackRate)" "$(nowplaying-cli get title)" "$(nowplaying-cli get artist)"',
 		function(out)
 			local rate_str, title, artist = out:match("([^\t]*)\t([^\t]*)\t(.*)")
 			local rate = tonumber(rate_str) or 0
-			title  = title  and title:gsub("^%s*(.-)%s*$",  "%1") or ""
+			title = title and title:gsub("^%s*(.-)%s*$", "%1") or ""
 			artist = artist and artist:gsub("^%s*(.-)%s*$", "%1") or ""
 
 			if rate > 0 and title ~= "" then
@@ -96,7 +96,9 @@ media:subscribe({ "routine", "system_woke" }, poll)
 media:subscribe("mouse.clicked", function()
 	sbar.exec("nowplaying-cli togglePlayPause")
 	-- poll shortly after to reflect the state change
-	sbar.exec("sleep 0.3 && sketchybar --trigger media_change 2>/dev/null", function() poll() end)
+	sbar.exec("sleep 0.3 && sketchybar --trigger media_change 2>/dev/null", function()
+		poll()
+	end)
 end)
 
 poll()
