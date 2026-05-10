@@ -105,7 +105,8 @@ local function update_all_spaces()
 							padding_right = has_icons and 0 or pad,
 						},
 						background = {
-							color = selected and colors.accent or colors.with_alpha(colors.white, 0.18),
+							-- color = selected and colors.accent or colors.with_alpha(colors.white, 0.18),
+							color = selected and colors.accent or colors.bg2,
 						},
 					})
 				end
@@ -137,7 +138,7 @@ for i, workspace in ipairs(workspaces) do
 			drawing = false,
 		},
 		background = {
-			color = colors.with_alpha(colors.white, 0.12),
+			color = colors.bg2,
 			corner_radius = 16,
 			height = 19,
 		},

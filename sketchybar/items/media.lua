@@ -1,6 +1,27 @@
 local colors = require("colors")
 local settings = require("settings")
 local app_icons = require("helpers.app_icons")
+local icons = require("icons")
+
+-- For position="center", earlier-added items render to the LEFT.
+-- Add prev → media → next so they appear in that order.
+
+local prev = sbar.add("item", "center.media.prev", {
+	position = "center",
+	icon = {
+		string = icons.media.back,
+		font = {
+			family = settings.font.text,
+			style = settings.font.style_map["Bold"],
+			size = 12,
+		},
+		color = colors.with_alpha(colors.accent, 0.65),
+		padding_left = 14,
+		padding_right = 6,
+	},
+	label = { drawing = false },
+	click_script = "nowplaying-cli previous",
+})
 
 local media = sbar.add("item", "center.media", {
 	position = "center",
@@ -12,7 +33,7 @@ local media = sbar.add("item", "center.media", {
 			size = 14,
 		},
 		color = colors.with_alpha(colors.accent, 0.35),
-		padding_left = 14,
+		padding_left = 4,
 		padding_right = 6,
 	},
 	label = {
@@ -23,11 +44,28 @@ local media = sbar.add("item", "center.media", {
 			size = 12,
 		},
 		color = colors.with_alpha(colors.white, 0.30),
-		padding_right = 14,
-		max_chars = 26,
+		padding_right = 6,
+		max_chars = 14,
 	},
 	update_freq = 5,
 	updates = true,
+})
+
+local next_btn = sbar.add("item", "center.media.next", {
+	position = "center",
+	icon = {
+		string = icons.media.forward,
+		font = {
+			family = settings.font.text,
+			style = settings.font.style_map["Bold"],
+			size = 12,
+		},
+		color = colors.with_alpha(colors.accent, 0.65),
+		padding_left = 6,
+		padding_right = 14,
+	},
+	label = { drawing = false },
+	click_script = "nowplaying-cli next",
 })
 
 local function set_idle()
@@ -47,6 +85,8 @@ local function set_idle()
 				color = colors.with_alpha(colors.white, 0.30),
 			},
 		})
+		prev:set({ icon = { color = colors.with_alpha(colors.accent, 0.30) } })
+		next_btn:set({ icon = { color = colors.with_alpha(colors.accent, 0.30) } })
 	end)
 end
 
@@ -71,6 +111,8 @@ local function set_playing(title, artist, app)
 			icon = { string = icon_str, font = icon_font, color = icon_color },
 			label = { string = display, color = colors.white },
 		})
+		prev:set({ icon = { color = colors.with_alpha(colors.accent, 0.85) } })
+		next_btn:set({ icon = { color = colors.with_alpha(colors.accent, 0.85) } })
 	end)
 end
 
@@ -92,13 +134,23 @@ local function poll()
 	)
 end
 
+local function poll_after(cmd)
+	sbar.exec(cmd, function()
+		sbar.exec("sleep 0.3 && true", function()
+			poll()
+		end)
+	end)
+end
+
 media:subscribe({ "routine", "system_woke" }, poll)
 media:subscribe("mouse.clicked", function()
-	sbar.exec("nowplaying-cli togglePlayPause")
-	-- poll shortly after to reflect the state change
-	sbar.exec("sleep 0.3 && sketchybar --trigger media_change 2>/dev/null", function()
-		poll()
-	end)
+	poll_after("nowplaying-cli togglePlayPause")
+end)
+prev:subscribe("mouse.clicked", function()
+	poll_after("nowplaying-cli previous")
+end)
+next_btn:subscribe("mouse.clicked", function()
+	poll_after("nowplaying-cli next")
 end)
 
 poll()
