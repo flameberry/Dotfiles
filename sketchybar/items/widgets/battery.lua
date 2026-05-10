@@ -9,7 +9,7 @@ local battery = sbar.add("item", "widgets.battery", {
 			style = settings.font.style_map["Bold"],
 			size = 14.0,
 		},
-		padding_left = 4,
+		padding_left = 8,
 		padding_right = 4,
 	},
 	label = {
@@ -19,7 +19,7 @@ local battery = sbar.add("item", "widgets.battery", {
 			size = 12.0,
 		},
 		color = colors.white,
-		padding_right = 4,
+		padding_right = 10,
 	},
 	update_freq = 30,
 })
@@ -51,37 +51,33 @@ battery:subscribe({ "routine", "power_source_change", "system_woke", "brightness
 			label = charge .. "%"
 		end
 
-		local color = colors.gold
-		local charging, _, _ = batt_info:find("AC Power")
+		local charging = batt_info:find("AC Power")
 
+		local color
 		if charging then
 			icon = icons.battery.charging
+			color = colors.accent
+		elseif found and charge > 60 then
+			icon = icons.battery._100
+			color = colors.accent
+		elseif found and charge > 40 then
+			icon = icons.battery._75
+			color = colors.gold
+		elseif found and charge > 20 then
+			icon = icons.battery._50
+			color = colors.orange
+		elseif found and charge > 10 then
+			icon = icons.battery._25
+			color = colors.orange
 		else
-			if found and charge > 80 then
-				icon = icons.battery._100
-			elseif found and charge > 60 then
-				icon = icons.battery._75
-			elseif found and charge > 40 then
-				icon = icons.battery._50
-			elseif found and charge > 20 then
-				icon = icons.battery._25
-				color = colors.orange
-			else
-				icon = icons.battery._0
-				color = colors.love
-			end
+			icon = icons.battery._0
+			color = colors.love
 		end
 
-		local lead = ""
-		if found and charge < 10 then
-			lead = "0"
-		end
+		local lead = (found and charge < 10) and "0" or ""
 
 		battery:set({
-			icon = {
-				string = icon,
-				color = color,
-			},
+			icon = { string = icon, color = color },
 			label = { string = lead .. label },
 		})
 

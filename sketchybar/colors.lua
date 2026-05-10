@@ -135,10 +135,45 @@ local themes = {
 		bg1 = 0x33ffffff,
 		bg2 = 0x55ffffff,
 	},
+	-- Dark blue-black base with teal accent — inspired by hyprland's clean aesthetic.
+	aurora = {
+		base = 0xff0f1117,
+		surface = 0xff151920,
+		overlay = 0xff1e2330,
+		muted = 0xff3d4560,
+		subtle = 0xff6b7299,
+		text = 0xffeef0f7,
+		love = 0xffff4d6d,
+		gold = 0xffffd166,
+		rose = 0xffffb3c1,
+		pine = 0xff2dd4bf,
+		foam = 0xff60a5fa,
+		iris = 0xffa78bfa,
+		highlight_low = 0xff0a0c12,
+		highlight_med = 0xff1a1e28,
+		highlight_high = 0xff252c3d,
+
+		black = 0xff0f1117,
+		white = 0xffeef0f7,
+		red = 0xffff4d6d,
+		green = 0xff2dd4bf,
+		blue = 0xff60a5fa,
+		yellow = 0xffffd166,
+		orange = 0xffff8c42,
+		magenta = 0xffa78bfa,
+		grey = 0xff3d4560,
+		transparent = 0x00000000,
+		accent = 0xff2dd4bf,
+
+		bar = { bg = 0x00000000, border = 0x00000000 },
+		popup = { bg = 0xff0f1117, border = 0xff2dd4bf },
+		bg1 = 0xff0f1117,
+		bg2 = 0xff151920,
+	},
 }
 
 -- Select the active theme here
-local active_theme = "neon" -- options: "catppuccin", "rose_pine", "rose_pine_moon", "neon"
+local active_theme = "aurora" -- options: "catppuccin", "rose_pine", "rose_pine_moon", "neon", "aurora"
 
 local theme = themes[active_theme]
 

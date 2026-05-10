@@ -1,36 +1,68 @@
 local colors = require("colors")
 
--- Left section
+-- ──────────────────────────── LEFT ────────────────────────────
 require("items.apple")
 require("items.spaces")
 
--- Center section
+-- ──────────────── CENTER — LEFT of notch ──────────────────────
 require("items.media")
 
--- Right section (Order: right to left)
--- Adding items in reverse order of their appearance from left to right.
-require("items.calendar") -- Adds widgets.calendar (Date) then widgets.time (Time)
-require("items.widgets.battery") -- Adds widgets.battery
--- require("items.widgets.cpu") -- Adds widgets.cpu
--- require("items.widgets.ram") -- Adds widgets.ram
-require("items.widgets.wifi") -- Adds widgets.network (Network speed)
-
--- Left pill
-sbar.add("bracket", { "apple.logo", "/space\\..*/" }, {
-	background = {
-		color = colors.bar.bg,
-		corner_radius = 15,
-	},
-	padding_left = 0,
-	padding_right = 0,
+-- Invisible spacer that covers the MacBook Pro notch.
+-- Adjust 'width' if items bleed under the notch:
+--   14" MBP default res  → try 200–220
+--   16" MBP default res  → try 220–250
+sbar.add("item", "center.notch", {
+	position = "center",
+	width = 210,
+	icon = { drawing = false },
+	label = { drawing = false },
+	background = { color = colors.transparent },
 })
 
--- Right pill
-sbar.add("bracket", { "/widgets\\..*/" }, {
+-- ──────────────── CENTER — RIGHT of notch ─────────────────────
+require("items.calendar")
+
+-- ─────────────────────────── RIGHT ────────────────────────────
+require("items.widgets.battery")
+require("items.widgets.wifi")
+
+-- ══════════════════════════════════════════════════════════════
+-- BRACKETS — drawn after all items are created
+-- ══════════════════════════════════════════════════════════════
+
+-- Left pill: Apple logo + Aerospace workspaces
+sbar.add("bracket", "bracket.left", { "apple.logo", "/space\\..*/" }, {
 	background = {
-		color = colors.bar.bg,
-		corner_radius = 15,
+		color = colors.bg1,
+		corner_radius = 14,
+		height = 30,
+		border_width = 0,
 	},
-	padding_left = 0,
-	padding_right = 0,
+})
+
+-- Center notch pill: media — [notch] — time + date
+-- The pill background spans both halves; the notch hardware creates the visual gap.
+sbar.add("bracket", "bracket.center", {
+	"center.media",
+	"center.notch",
+	"center.time",
+	"center.date",
+}, {
+	background = {
+		color = colors.bg1,
+		corner_radius = 14,
+		height = 30,
+		border_width = 1,
+		border_color = colors.with_alpha(colors.accent, 0.22),
+	},
+})
+
+-- Right pill: WiFi + Battery
+sbar.add("bracket", "bracket.right", { "/widgets\\.network.*/" , "widgets.battery" }, {
+	background = {
+		color = colors.bg1,
+		corner_radius = 14,
+		height = 30,
+		border_width = 0,
+	},
 })

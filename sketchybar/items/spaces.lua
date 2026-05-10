@@ -70,7 +70,7 @@ local function update_all_spaces()
 							padding_right = has_icons and 6 or 9,
 						},
 						background = {
-							color = selected and colors.magenta or colors.with_alpha(colors.white, 0.1),
+							color = selected and colors.accent or colors.with_alpha(colors.white, 0.08),
 							height = 24,
 							corner_radius = 12,
 						},
