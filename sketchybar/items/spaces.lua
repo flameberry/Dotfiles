@@ -4,9 +4,9 @@ local app_icons = require("helpers.app_icons")
 
 -- Horizontal padding (in px) on each side of a space pill. Tweak to change pill widths.
 local pill_padding = {
-	inactive = 16, -- small dark ovals (no apps + not focused)
+	inactive = 14, -- small dark ovals (no apps + not focused)
 	active_empty = 24, -- focused workspace with no apps
-	active_icons = 18, -- focused workspace with apps (padding around the app icons)
+	active_icons = 14, -- focused workspace with apps (padding around the app icons)
 }
 
 local function exec_to_table(cmd)
@@ -83,26 +83,29 @@ local function update_all_spaces()
 					local multi_icon = has_icons and icons:find(" ") ~= nil
 					local label_y = multi_icon and -1 or 0
 
+					-- Keep label drawing=true and label.padding_right=pad whenever the
+					-- workspace has apps, even when not selected. This way the right side
+					-- of the pill is always handled by label.padding_right (not icon_pr),
+					-- so the pill width snaps directly from active to inactive when the
+					-- icons string clears — no shrink-then-regrow during transition.
 					space:set({
 						drawing = should_draw,
 						label = {
 							string = selected and has_icons and icons or "",
 							color = colors.base,
-							drawing = selected and has_icons,
+							drawing = has_icons,
 							padding_left = 0,
-							padding_right = selected and has_icons and pad or 0,
+							padding_right = has_icons and pad or 0,
 							y_offset = label_y,
 						},
 						icon = {
 							string = "",
 							drawing = true,
 							padding_left = pad,
-							padding_right = (selected and has_icons) and 0 or pad,
+							padding_right = has_icons and 0 or pad,
 						},
 						background = {
 							color = selected and colors.accent or colors.with_alpha(colors.white, 0.18),
-							height = 20,
-							corner_radius = 10,
 						},
 					})
 				end
@@ -135,11 +138,11 @@ for i, workspace in ipairs(workspaces) do
 		},
 		background = {
 			color = colors.with_alpha(colors.white, 0.12),
-			corner_radius = 10,
-			height = 20,
+			corner_radius = 16,
+			height = 19,
 		},
-		padding_left = 2,
-		padding_right = 2,
+		padding_left = 6,
+		padding_right = 0,
 		drawing = false,
 		click_script = 'aerospace workspace "' .. workspace .. '"',
 	})
