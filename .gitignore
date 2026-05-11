@@ -3,6 +3,7 @@ flutter/
 configstore/
 raycast/
 sketchybar_*/
+sketchybar/*.png
 /mole/operations.log
 /mole/mole.log
 /sketchybar/sketchybar-rose-pine-ref.png
