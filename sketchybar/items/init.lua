@@ -13,7 +13,7 @@ require("items.media")
 --   16" MBP default res  → try 220–250
 sbar.add("item", "center.notch", {
 	position = "center",
-	width = 210,
+	width = 240,
 	icon = { drawing = false },
 	label = { drawing = false },
 	background = { color = colors.transparent },

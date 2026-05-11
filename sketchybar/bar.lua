@@ -1,5 +1,3 @@
-local colors = require("colors")
-
 sbar.bar({
 	topmost = "window",
 	height = 32,

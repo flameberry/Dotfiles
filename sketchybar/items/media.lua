@@ -56,7 +56,6 @@ local media = sbar.add("item", "center.media", {
 		color = colors.with_alpha(colors.white, 0.30),
 		padding_left = 4,
 		padding_right = 14,
-		max_chars = 24,
 	},
 	popup = {
 		align = "center",
@@ -69,7 +68,7 @@ local media = sbar.add("item", "center.media", {
 			height = 32,
 		},
 	},
-	update_freq = 3,
+	update_freq = 1,
 	updates = true,
 })
 
@@ -129,6 +128,17 @@ local artwork_counter = 0
 local last_label_state = nil
 local last_play_state = nil
 
+local MAX_LABEL_CHARS = 20
+
+local function truncate(s, n)
+	local len = utf8.len(s) or #s
+	if len <= n then
+		return s
+	end
+	local cut = utf8.offset(s, n) or n
+	return s:sub(1, cut - 1) .. "…"
+end
+
 local function update_artwork(title, artist)
 	local key = (title or "") .. "|" .. (artist or "")
 	if key == current_track_key then
@@ -183,7 +193,7 @@ local function set_label(text, faded, animate)
 		return
 	end
 	last_label_state = key
-	local color = faded and colors.with_alpha(colors.white, faded) or colors.white
+	local color = faded and colors.with_alpha(colors.white, faded) or 0xffffffff
 	if animate then
 		sbar.animate("tanh", 10, function()
 			media:set({ label = { string = text, color = color } })
@@ -200,11 +210,11 @@ local function set_idle()
 end
 
 local function set_track(title, artist, playing)
-	local display = (artist ~= "" and (artist .. " – ") or "") .. title
+	local display = truncate((artist ~= "" and (artist .. " – ") or "") .. title, MAX_LABEL_CHARS)
 
 	update_artwork(title, artist)
 	set_play_icon(playing)
-	set_label(display, playing and false or 0.45, true)
+	set_label(display, not playing and 0.45 or false, true)
 end
 
 local function poll()
@@ -224,7 +234,8 @@ end
 
 local function poll_after(cmd)
 	sbar.exec(cmd, function()
-		sbar.exec("sleep 0.3 && true", function()
+		poll()
+		sbar.exec("sleep 0.4 && true", function()
 			poll()
 		end)
 	end)
@@ -238,14 +249,23 @@ media:subscribe({ "routine", "system_woke", "media_change" }, poll)
 media:subscribe("mouse.clicked", toggle_popup)
 artwork:subscribe("mouse.clicked", toggle_popup)
 
-playpause:subscribe("mouse.clicked", function()
+local function optimistic_toggle()
+	if last_play_state ~= nil then
+		local now_playing = not last_play_state
+		set_play_icon(now_playing)
+		if last_label_state then
+			local text = last_label_state:sub(3)
+			last_label_state = nil
+			set_label(text, not now_playing and 0.45 or false, false)
+		end
+	end
 	poll_after("nowplaying-cli togglePlayPause")
-end)
+end
+
+playpause:subscribe("mouse.clicked", optimistic_toggle)
+popup_playpause:subscribe("mouse.clicked", optimistic_toggle)
 popup_prev:subscribe("mouse.clicked", function()
 	poll_after("nowplaying-cli previous")
-end)
-popup_playpause:subscribe("mouse.clicked", function()
-	poll_after("nowplaying-cli togglePlayPause")
 end)
 popup_next:subscribe("mouse.clicked", function()
 	poll_after("nowplaying-cli next")
