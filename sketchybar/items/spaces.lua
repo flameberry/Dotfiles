@@ -6,7 +6,7 @@ local app_icons = require("helpers.app_icons")
 local pill_padding = {
 	inactive = 14, -- small dark ovals (no apps + not focused)
 	active_empty = 24, -- focused workspace with no apps
-	active_icons = 14, -- focused workspace with apps (padding around the app icons)
+	active_icons = 18, -- focused workspace with apps (padding around the app icons)
 }
 
 local function exec_to_table(cmd)
