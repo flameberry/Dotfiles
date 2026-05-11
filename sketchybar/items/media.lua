@@ -45,6 +45,7 @@ local artwork = sbar.add("item", "center.media.artwork", {
 local media = sbar.add("item", "center.media", {
 	position = "center",
 	icon = { drawing = false },
+	scroll_texts = false,
 	label = {
 		string = "nothing playing",
 		font = {
@@ -55,7 +56,7 @@ local media = sbar.add("item", "center.media", {
 		color = colors.with_alpha(colors.white, 0.30),
 		padding_left = 4,
 		padding_right = 14,
-		max_chars = 18,
+		max_chars = 24,
 	},
 	popup = {
 		align = "center",
@@ -68,7 +69,7 @@ local media = sbar.add("item", "center.media", {
 			height = 32,
 		},
 	},
-	update_freq = 5,
+	update_freq = 3,
 	updates = true,
 })
 
@@ -125,21 +126,30 @@ local popup_next = sbar.add("item", "popup.center.media.next", {
 
 local current_track_key = nil
 local artwork_counter = 0
+local last_label_state = nil
+local last_play_state = nil
 
 local function update_artwork(title, artist)
 	local key = (title or "") .. "|" .. (artist or "")
-	if key == current_track_key then return end
+	if key == current_track_key then
+		return
+	end
 	current_track_key = key
 
 	artwork_counter = artwork_counter + 1
 	local path = string.format("/tmp/sketchybar_art_%d.jpg", artwork_counter)
 	local cmd = string.format(
 		"nowplaying-cli get artworkData 2>/dev/null | base64 -D > %q 2>/dev/null; "
-		.. "if [ -s %q ]; then sips -Z 44 %q >/dev/null 2>&1; echo ok; else rm -f %q; fi",
-		path, path, path, path
+			.. "if [ -s %q ]; then sips -Z 44 %q >/dev/null 2>&1; echo ok; else rm -f %q; fi",
+		path,
+		path,
+		path,
+		path
 	)
 	sbar.exec(cmd, function(out)
-		if current_track_key ~= key then return end
+		if current_track_key ~= key then
+			return
+		end
 		if out and out:match("ok") then
 			artwork:set({
 				drawing = true,
@@ -157,54 +167,59 @@ local function clear_artwork()
 end
 
 local function set_play_icon(playing)
+	if playing == last_play_state then
+		return
+	end
+	last_play_state = playing
 	local glyph = playing and icons.media.pause or icons.media.play
 	local color = playing and colors.accent or colors.with_alpha(colors.accent, 0.45)
 	playpause:set({ icon = { string = glyph, color = color } })
 	popup_playpause:set({ icon = { string = glyph } })
 end
 
+local function set_label(text, faded, animate)
+	local key = (faded and "f|" or "n|") .. text
+	if key == last_label_state then
+		return
+	end
+	last_label_state = key
+	local color = faded and colors.with_alpha(colors.white, faded) or colors.white
+	if animate then
+		sbar.animate("tanh", 10, function()
+			media:set({ label = { string = text, color = color } })
+		end)
+	else
+		media:set({ label = { string = text, color = color } })
+	end
+end
+
 local function set_idle()
 	clear_artwork()
 	set_play_icon(false)
-	sbar.animate("tanh", 10, function()
-		media:set({
-			label = {
-				string = "nothing playing",
-				color = colors.with_alpha(colors.white, 0.30),
-			},
-		})
-	end)
+	set_label("nothing playing", 0.30, true)
 end
 
-local function set_playing(title, artist)
+local function set_track(title, artist, playing)
 	local display = (artist ~= "" and (artist .. " – ") or "") .. title
 
 	update_artwork(title, artist)
-	set_play_icon(true)
-
-	sbar.animate("tanh", 10, function()
-		media:set({
-			label = { string = display, color = colors.white },
-		})
-	end)
+	set_play_icon(playing)
+	set_label(display, playing and false or 0.45, true)
 end
 
 local function poll()
-	sbar.exec(
-		'printf \'%s\\t%s\\t%s\' "$(nowplaying-cli get playbackRate)" "$(nowplaying-cli get title)" "$(nowplaying-cli get artist)"',
-		function(out)
-			local rate_str, title, artist = out:match("([^\t]*)\t([^\t]*)\t(.*)")
-			local rate = tonumber(rate_str) or 0
-			title = title and title:gsub("^%s*(.-)%s*$", "%1") or ""
-			artist = artist and artist:gsub("^%s*(.-)%s*$", "%1") or ""
+	sbar.exec("nowplaying-cli get playbackRate title artist", function(out)
+		local rate_str, title, artist = out:match("([^\n]*)\n([^\n]*)\n([^\n]*)")
+		local rate = tonumber(rate_str) or 0
+		title = title and title:gsub("^%s*(.-)%s*$", "%1") or ""
+		artist = artist and artist:gsub("^%s*(.-)%s*$", "%1") or ""
 
-			if rate > 0 and title ~= "" then
-				set_playing(title, artist)
-			else
-				set_idle()
-			end
+		if title ~= "" and title ~= "null" then
+			set_track(title, artist, rate > 0)
+		else
+			set_idle()
 		end
-	)
+	end)
 end
 
 local function poll_after(cmd)
@@ -219,7 +234,7 @@ local function toggle_popup()
 	media:set({ popup = { drawing = "toggle" } })
 end
 
-media:subscribe({ "routine", "system_woke" }, poll)
+media:subscribe({ "routine", "system_woke", "media_change" }, poll)
 media:subscribe("mouse.clicked", toggle_popup)
 artwork:subscribe("mouse.clicked", toggle_popup)
 

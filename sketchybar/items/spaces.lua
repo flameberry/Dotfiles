@@ -25,11 +25,61 @@ end
 
 local space_items = {}
 local space_names = {}
+local space_state = {}
+local update_pending = false
+
+local function build_space_set(icons, selected)
+	local has_icons = icons ~= ""
+	local should_draw = selected or has_icons
+
+	local pad
+	if not selected then
+		pad = pill_padding.inactive
+	elseif has_icons then
+		pad = pill_padding.active_icons
+	else
+		pad = pill_padding.active_empty
+	end
+
+	-- The space character between glyphs has different vertical metrics
+	-- than the app icons themselves, which shifts multi-icon labels visually.
+	-- Compensate only when there is more than one icon.
+	local multi_icon = has_icons and icons:find(" ") ~= nil
+	local label_y = multi_icon and -1 or 0
+
+	return {
+		drawing = should_draw,
+		label = {
+			string = selected and has_icons and icons or "",
+			color = colors.base,
+			drawing = has_icons,
+			padding_left = 0,
+			padding_right = has_icons and pad or 0,
+			y_offset = label_y,
+		},
+		icon = {
+			string = "",
+			drawing = true,
+			padding_left = pad,
+			padding_right = has_icons and 0 or pad,
+		},
+		background = {
+			color = selected and colors.accent or colors.bg2,
+		},
+	}
+end
 
 local function update_all_spaces()
+	if update_pending then
+		return
+	end
+	update_pending = true
+
 	sbar.exec(
 		"aerospace list-windows --all --format '%{workspace}|%{app-name}' && echo '---' && aerospace list-workspaces --focused",
 		function(output)
+			update_pending = false
+
 			local workspace_icons = {}
 			local seen = {}
 			local focused = ""
@@ -61,54 +111,24 @@ local function update_all_spaces()
 				end
 			end
 
+			local changed = {}
+			for ws, space in pairs(space_items) do
+				local icons = workspace_icons[ws] or ""
+				local selected = ws == focused
+				local key = (selected and "1|" or "0|") .. icons
+				if space_state[ws] ~= key then
+					space_state[ws] = key
+					changed[#changed + 1] = { space = space, icons = icons, selected = selected }
+				end
+			end
+
+			if #changed == 0 then
+				return
+			end
+
 			sbar.animate("tanh", 8, function()
-				for ws, space in pairs(space_items) do
-					local icons = workspace_icons[ws] or ""
-					local selected = ws == focused
-					local has_icons = icons ~= ""
-					local should_draw = selected or has_icons
-
-					local pad
-					if not selected then
-						pad = pill_padding.inactive
-					elseif has_icons then
-						pad = pill_padding.active_icons
-					else
-						pad = pill_padding.active_empty
-					end
-
-					-- The space character between glyphs has different vertical metrics
-					-- than the app icons themselves, which shifts multi-icon labels visually.
-					-- Compensate only when there is more than one icon.
-					local multi_icon = has_icons and icons:find(" ") ~= nil
-					local label_y = multi_icon and -1 or 0
-
-					-- Keep label drawing=true and label.padding_right=pad whenever the
-					-- workspace has apps, even when not selected. This way the right side
-					-- of the pill is always handled by label.padding_right (not icon_pr),
-					-- so the pill width snaps directly from active to inactive when the
-					-- icons string clears — no shrink-then-regrow during transition.
-					space:set({
-						drawing = should_draw,
-						label = {
-							string = selected and has_icons and icons or "",
-							color = colors.base,
-							drawing = has_icons,
-							padding_left = 0,
-							padding_right = has_icons and pad or 0,
-							y_offset = label_y,
-						},
-						icon = {
-							string = "",
-							drawing = true,
-							padding_left = pad,
-							padding_right = has_icons and 0 or pad,
-						},
-						background = {
-							-- color = selected and colors.accent or colors.with_alpha(colors.white, 0.18),
-							color = selected and colors.accent or colors.bg2,
-						},
-					})
+				for _, c in ipairs(changed) do
+					c.space:set(build_space_set(c.icons, c.selected))
 				end
 			end)
 		end
@@ -164,10 +184,9 @@ sbar.add("item", "spaces.right_pad", {
 local observer = sbar.add("item", {
 	drawing = false,
 	updates = true,
-	update_freq = 5,
 })
 
-observer:subscribe({ "aerospace_workspace_change", "front_app_switched", "routine" }, function(env)
+observer:subscribe({ "aerospace_workspace_change", "front_app_switched" }, function(env)
 	update_all_spaces()
 end)
 
