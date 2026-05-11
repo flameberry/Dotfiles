@@ -67,8 +67,10 @@ float ease(float x) {
 
 // const vec4 TRAIL_COLOR = vec4(1.0, 0.725, 0.161, 1.0);
 // const vec4 TRAIL_COLOR_ACCENT = vec4(1.0, 0., 0., 1.0);
-const vec4 TRAIL_COLOR = vec4(0.741, 0.635, 0.902, 1.0);        // muted mauve
-const vec4 TRAIL_COLOR_ACCENT = vec4(0.867, 0.471, 0.561, 1.0); // deeper rose
+// const vec4 TRAIL_COLOR        = vec4(0.769, 0.655, 0.906, 1.0); // iris   #c4a7e7
+// const vec4 TRAIL_COLOR_ACCENT = vec4(0.922, 0.435, 0.573, 1.0); // love   #eb6f92
+const vec4 TRAIL_COLOR        = vec4(0.965, 0.757, 0.467, 1.0); // gold   #f6c177
+const vec4 TRAIL_COLOR_ACCENT = vec4(0.922, 0.435, 0.573, 1.0); // love   #eb6f92
 const float DURATION = 0.3; //IN SECONDS
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
