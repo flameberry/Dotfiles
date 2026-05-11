@@ -27,7 +27,7 @@ local artwork = sbar.add("item", "center.media.artwork", {
 	background = {
 		image = {
 			string = "",
-			scale = 0.5,
+			scale = 0.23,
 			corner_radius = 4,
 		},
 		color = colors.transparent,
@@ -65,11 +65,59 @@ local media = sbar.add("item", "center.media", {
 			corner_radius = 9,
 			border_width = 1,
 			border_color = colors.popup.border,
-			height = 32,
+			height = 56,
 		},
 	},
 	update_freq = 1,
 	updates = true,
+})
+
+local popup_artwork = sbar.add("item", "popup.center.media.art", {
+	position = "popup.center.media",
+	background = {
+		image = { string = "", scale = 0.5, corner_radius = 6 },
+		color = colors.transparent,
+		border_width = 0,
+		height = 48,
+		corner_radius = 6,
+	},
+	icon = { drawing = false },
+	label = { drawing = false },
+	drawing = false,
+	padding_left = 10,
+	padding_right = 6,
+})
+
+local popup_title = sbar.add("item", "popup.center.media.title", {
+	position = "popup.center.media",
+	icon = { drawing = false },
+	label = {
+		string = "",
+		font = {
+			family = settings.font.text,
+			style = settings.font.style_map["Bold"],
+			size = 13,
+		},
+		color = 0xffffffff,
+		padding_left = 4,
+		padding_right = 4,
+	},
+})
+
+local popup_artist = sbar.add("item", "popup.center.media.artist", {
+	position = "popup.center.media",
+	icon = { drawing = false },
+	label = {
+		string = "",
+		font = {
+			family = settings.font.text,
+			style = settings.font.style_map["Semibold"],
+			size = 12,
+		},
+		color = colors.with_alpha(colors.white, 0.55),
+		padding_left = 2,
+		padding_right = 10,
+	},
 })
 
 local popup_prev = sbar.add("item", "popup.center.media.prev", {
@@ -128,7 +176,8 @@ local artwork_counter = 0
 local last_label_state = nil
 local last_play_state = nil
 
-local MAX_LABEL_CHARS = 20
+local SHOW_ARTWORK = true
+local MAX_LABEL_CHARS = SHOW_ARTWORK and 16 or 26
 
 local function truncate(s, n)
 	local len = utf8.len(s) or #s
@@ -139,18 +188,21 @@ local function truncate(s, n)
 	return s:sub(1, cut - 1) .. "…"
 end
 
-local function update_artwork(title, artist)
+local function update_track_info(title, artist)
 	local key = (title or "") .. "|" .. (artist or "")
 	if key == current_track_key then
 		return
 	end
 	current_track_key = key
 
+	popup_title:set({ label = { string = title or "" } })
+	popup_artist:set({ label = { string = artist or "" } })
+
 	artwork_counter = artwork_counter + 1
 	local path = string.format("/tmp/sketchybar_art_%d.jpg", artwork_counter)
 	local cmd = string.format(
 		"nowplaying-cli get artworkData 2>/dev/null | base64 -D > %q 2>/dev/null; "
-			.. "if [ -s %q ]; then sips -Z 44 %q >/dev/null 2>&1; echo ok; else rm -f %q; fi",
+			.. "if [ -s %q ]; then sips -Z 96 %q >/dev/null 2>&1; echo ok; else rm -f %q; fi",
 		path,
 		path,
 		path,
@@ -161,19 +213,24 @@ local function update_artwork(title, artist)
 			return
 		end
 		if out and out:match("ok") then
-			artwork:set({
-				drawing = true,
-				background = { image = { string = path } },
-			})
+			local img = { drawing = true, background = { image = { string = path } } }
+			if SHOW_ARTWORK then
+				artwork:set(img)
+			end
+			popup_artwork:set(img)
 		else
 			artwork:set({ drawing = false })
+			popup_artwork:set({ drawing = false })
 		end
 	end)
 end
 
-local function clear_artwork()
+local function clear_track_info()
 	current_track_key = nil
 	artwork:set({ drawing = false })
+	popup_artwork:set({ drawing = false })
+	popup_title:set({ label = { string = "" } })
+	popup_artist:set({ label = { string = "" } })
 end
 
 local function set_play_icon(playing)
@@ -204,15 +261,15 @@ local function set_label(text, faded, animate)
 end
 
 local function set_idle()
-	clear_artwork()
+	clear_track_info()
 	set_play_icon(false)
 	set_label("nothing playing", 0.30, true)
 end
 
 local function set_track(title, artist, playing)
-	local display = truncate((artist ~= "" and (artist .. " – ") or "") .. title, MAX_LABEL_CHARS)
+	local display = truncate(title .. (artist ~= "" and (" – " .. artist) or ""), MAX_LABEL_CHARS)
 
-	update_artwork(title, artist)
+	update_track_info(title, artist)
 	set_play_icon(playing)
 	set_label(display, not playing and 0.45 or false, true)
 end
