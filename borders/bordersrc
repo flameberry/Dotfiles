@@ -22,7 +22,7 @@ options=(
     # active_color=0xffe188fc
     # active_color=0xffc4a7e7 # Rose-pine Magenta
     # active_color=0xfff6c177 # Rose-pine Gold
-    # active_color=0xffebbcba # Rose-pine Rose
+    # active_color=0xffcf91b5 # Rose-pine Rose
     # inactive_color=0xff494d64
     # inactive_color=0xff696d84
     # inactive_color="gradient(top_left=0xffE0E0E5,bottom_right=0xffF5E8D3)"
