@@ -177,7 +177,7 @@ local last_label_state = nil
 local last_play_state = nil
 
 local SHOW_ARTWORK = true
-local MAX_LABEL_CHARS = SHOW_ARTWORK and 22 or 26
+local MAX_LABEL_CHARS = SHOW_ARTWORK and 20 or 24
 
 local function truncate(s, n)
 	local len = utf8.len(s) or #s
