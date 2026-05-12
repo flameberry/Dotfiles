@@ -47,7 +47,7 @@ local media = sbar.add("item", "center.media", {
 	icon = { drawing = false },
 	scroll_texts = false,
 	label = {
-		string = "nothing playing",
+		string = "It's pretty silent",
 		font = {
 			family = settings.font.text,
 			style = settings.font.style_map["Semibold"],
@@ -188,6 +188,18 @@ local function truncate(s, n)
 	return s:sub(1, cut - 1) .. "…"
 end
 
+-- U+2003 EM SPACE — invisible, ~"M"-width, so short titles still hold
+-- close to the full pill width and the center pill stops shifting.
+local PAD_CHAR = "\xe2\x80\x83"
+
+local function pad_to(s, n)
+	local len = utf8.len(s) or #s
+	if len < n then
+		return s .. string.rep(PAD_CHAR, n - len)
+	end
+	return s
+end
+
 local function update_track_info(title, artist)
 	local key = (title or "") .. "|" .. (artist or "")
 	if key == current_track_key then
@@ -213,11 +225,17 @@ local function update_track_info(title, artist)
 			return
 		end
 		if out and out:match("ok") then
-			local img = { drawing = true, background = { image = { string = path } } }
 			if SHOW_ARTWORK then
-				artwork:set(img)
+				artwork:set({
+					drawing = true,
+					background = { image = { drawing = true, string = path } },
+					icon = { drawing = false },
+				})
 			end
-			popup_artwork:set(img)
+			popup_artwork:set({
+				drawing = true,
+				background = { image = { drawing = true, string = path } },
+			})
 		else
 			artwork:set({ drawing = false })
 			popup_artwork:set({ drawing = false })
@@ -225,9 +243,32 @@ local function update_track_info(title, artist)
 	end)
 end
 
+local function show_idle_artwork()
+	if not SHOW_ARTWORK then
+		artwork:set({ drawing = false })
+		return
+	end
+	artwork:set({
+		drawing = true,
+		background = { image = { drawing = false } },
+		icon = {
+			drawing = true,
+			string = ":music:",
+			font = {
+				family = "sketchybar-app-font",
+				style = "Regular",
+				size = 14.0,
+			},
+			color = colors.with_alpha(colors.accent, 0.45),
+			padding_left = 4,
+			padding_right = 4,
+		},
+	})
+end
+
 local function clear_track_info()
 	current_track_key = nil
-	artwork:set({ drawing = false })
+	show_idle_artwork()
 	popup_artwork:set({ drawing = false })
 	popup_title:set({ label = { string = "" } })
 	popup_artist:set({ label = { string = "" } })
@@ -245,6 +286,7 @@ local function set_play_icon(playing)
 end
 
 local function set_label(text, faded, animate)
+	text = pad_to(text, MAX_LABEL_CHARS)
 	local key = (faded and "f|" or "n|") .. text
 	if key == last_label_state then
 		return
@@ -263,7 +305,7 @@ end
 local function set_idle()
 	clear_track_info()
 	set_play_icon(false)
-	set_label("nothing playing", 0.30, true)
+	set_label("It's pretty silent in here...", 0.30, true)
 end
 
 local function set_track(title, artist, playing)

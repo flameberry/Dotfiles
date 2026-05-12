@@ -25,7 +25,7 @@ window-padding-balance = true
 window-colorspace = "display-p3"
 copy-on-select = clipboard
 
-adjust-cell-height = 25%
+adjust-cell-height = 20%
 
 custom-shader = shaders/cursor_blaze_tapered.glsl
 # custom-shader = shaders/cursor_frozen.glsl

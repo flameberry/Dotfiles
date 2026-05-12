@@ -15,6 +15,7 @@ local weather = sbar.add("item", "center.weather", {
 			style = settings.font.style_map["Bold"],
 			size = 13.0,
 		},
+		y_offset = 1,
 	},
 	label = {
 		string = "--°",
