@@ -45,22 +45,11 @@ sbar.add("bracket", "bracket.left", { "apple.logo", "/space\\..*/", "spaces.righ
 	},
 })
 
-sbar.add("bracket", "bracket.media", {
-	"/^center\\.media.*/",
-}, {
-	background = {
-		color = colors.bg3,
-		corner_radius = 4,
-		height = 24,
-		border_width = 0,
-	},
-})
-
-sbar.add("bracket", "bracket.center", "center.notch", {})
-
 -- Center notch pill: media — [notch] — time + date
 -- The pill background spans both halves; the notch hardware creates the visual gap.
-sbar.add("bracket", "bracket.center", {
+sbar.add("bracket", "bracket.media", {
+	"/^center\\.media.*/",
+	"center.notch",
 	"center.weather",
 	"center.time",
 	"center.date",
