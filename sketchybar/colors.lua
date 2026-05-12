@@ -170,7 +170,8 @@ local themes = {
 		-- bg1 = 0xff0f1117,
 		-- bg1 = 0xff040c0c,
 		bg1 = 0xff000000,
-		bg2 = 0xff192020,
+		bg2 = 0xff1b1824,
+		bg3 = 0xff221d2e,
 	},
 }
 

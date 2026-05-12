@@ -15,7 +15,7 @@ local playpause = sbar.add("item", "center.media.playpause", {
 			size = 13,
 		},
 		color = colors.with_alpha(colors.accent, 0.45),
-		padding_left = 14,
+		padding_left = 4,
 		padding_right = 4,
 	},
 	label = { drawing = false },
@@ -55,7 +55,7 @@ local media = sbar.add("item", "center.media", {
 		},
 		color = colors.with_alpha(colors.white, 0.30),
 		padding_left = 4,
-		padding_right = 14,
+		padding_right = 4,
 	},
 	popup = {
 		align = "center",

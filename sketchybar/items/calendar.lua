@@ -5,7 +5,7 @@ local colors = require("colors")
 local date = sbar.add("item", "center.date", {
 	position = "center",
 	icon = {
-		string = os.date("%b %d %A"),
+		string = os.date("%b %d %a"),
 		color = colors.white,
 		padding_left = 0,
 		padding_right = 0,
@@ -25,7 +25,7 @@ local time = sbar.add("item", "center.time", {
 	icon = {
 		string = os.date("%H:%M"),
 		color = colors.accent,
-		padding_left = 10,
+		padding_left = 5,
 		padding_right = 5,
 		font = {
 			family = settings.font.text,
@@ -42,5 +42,5 @@ time:subscribe({ "forced", "routine", "system_woke" }, function(env)
 end)
 
 date:subscribe({ "forced", "routine", "system_woke" }, function(env)
-	date:set({ icon = { string = os.date("%b %d %A") } })
+	date:set({ icon = { string = os.date("%b %d %a") } })
 end)
