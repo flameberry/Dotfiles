@@ -9,5 +9,6 @@ sketchybar/*.png
 /sketchybar/sketchybar-rose-pine-ref.png
 /sketchybar/sketchybar-rose-pine-ref
 /ghostty/moonveil.png
+.claude/
 
 !sketchybar_stable/
