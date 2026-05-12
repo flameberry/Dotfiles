@@ -26,7 +26,13 @@ end
 local space_items = {}
 local space_names = {}
 local space_state = {}
-local update_pending = false
+local space_drawn = {}
+-- Coalesce rapid events: if an update arrives while one is in-flight, mark
+-- dirty and re-run after — never drop. Dropping caused the bracket to settle
+-- to a stale state on rapid switches; overlapping animations on top of that
+-- caused the pill bg to flicker mid-resize.
+local update_in_flight = false
+local update_dirty = false
 
 local function build_space_set(icons, selected)
 	local has_icons = icons ~= ""
@@ -70,15 +76,16 @@ local function build_space_set(icons, selected)
 end
 
 local function update_all_spaces()
-	if update_pending then
+	if update_in_flight then
+		update_dirty = true
 		return
 	end
-	update_pending = true
+	update_in_flight = true
 
 	sbar.exec(
 		"aerospace list-windows --all --format '%{workspace}|%{app-name}' && echo '---' && aerospace list-workspaces --focused",
 		function(output)
-			update_pending = false
+			update_in_flight = false
 
 			local workspace_icons = {}
 			local seen = {}
@@ -117,20 +124,52 @@ local function update_all_spaces()
 				local selected = ws == focused
 				local key = (selected and "1|" or "0|") .. icons
 				if space_state[ws] ~= key then
+					local was_drawn = space_drawn[ws] or false
+					local now_drawn = selected or icons ~= ""
 					space_state[ws] = key
-					changed[#changed + 1] = { space = space, icons = icons, selected = selected }
+					space_drawn[ws] = now_drawn
+					changed[#changed + 1] = {
+						space = space,
+						icons = icons,
+						selected = selected,
+						drawing_flipped = was_drawn ~= now_drawn,
+					}
 				end
 			end
 
-			if #changed == 0 then
-				return
-			end
-
-			sbar.animate("tanh", 8, function()
+			if #changed > 0 then
+				-- Layout changes (drawing, padding, label.string) apply instantly
+				-- so the bracket bg never gets caught half-resized when a second
+				-- switch arrives mid-animation. The accent ↔ bg2 background color
+				-- still animates so the active-state swap reads as smooth.
+				-- Skip the color animation when drawing flipped — animating from
+				-- the prior color to accent on a workspace that just appeared
+				-- causes a visible bg2 flash on the first frame.
+				local to_animate = {}
 				for _, c in ipairs(changed) do
-					c.space:set(build_space_set(c.icons, c.selected))
+					local props = build_space_set(c.icons, c.selected)
+					if c.drawing_flipped then
+						c.space:set(props)
+					else
+						local target_color = props.background.color
+						props.background = nil
+						c.space:set(props)
+						to_animate[#to_animate + 1] = { space = c.space, color = target_color }
+					end
 				end
-			end)
+				if #to_animate > 0 then
+					sbar.animate("tanh", 8, function()
+						for _, t in ipairs(to_animate) do
+							t.space:set({ background = { color = t.color } })
+						end
+					end)
+				end
+			end
+
+			if update_dirty then
+				update_dirty = false
+				update_all_spaces()
+			end
 		end
 	)
 end

@@ -7,6 +7,8 @@ font-thicken = true
 
 theme = Rose Pine 
 background = #0b0a10
+# background-opacity = 0.75
+# background-blur = 48
 
 cursor-style = block
 cursor-style-blink = false
@@ -23,7 +25,7 @@ window-padding-balance = true
 window-colorspace = "display-p3"
 copy-on-select = clipboard
 
-adjust-cell-height = 20%
+adjust-cell-height = 25%
 
 custom-shader = shaders/cursor_blaze_tapered.glsl
 # custom-shader = shaders/cursor_frozen.glsl

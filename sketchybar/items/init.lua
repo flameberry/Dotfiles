@@ -24,7 +24,9 @@ require("items.calendar")
 
 -- ─────────────────────────── RIGHT ────────────────────────────
 require("items.widgets.battery")
+require("items.widgets.volume")
 require("items.widgets.wifi")
+require("items.widgets.bluetooth")
 
 -- ══════════════════════════════════════════════════════════════
 -- BRACKETS — drawn after all items are created
@@ -56,8 +58,13 @@ sbar.add("bracket", "bracket.center", {
 	},
 })
 
--- Right pill: WiFi + Battery
-sbar.add("bracket", "bracket.right", { "/widgets\\.network.*/", "widgets.battery" }, {
+-- Right pill: WiFi + Bluetooth + Volume + Battery
+sbar.add("bracket", "bracket.right", {
+	"widgets.wifi",
+	"widgets.bluetooth",
+	"widgets.volume",
+	"widgets.battery",
+}, {
 	background = {
 		color = colors.bg1,
 		corner_radius = 16,
