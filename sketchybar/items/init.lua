@@ -32,11 +32,13 @@ require("items.widgets.bluetooth")
 -- BRACKETS — drawn after all items are created
 -- ══════════════════════════════════════════════════════════════
 
+CORNER_RADIUS = 16
+
 -- Left pill: Apple logo + Aerospace workspaces
 sbar.add("bracket", "bracket.left", { "apple.logo", "/space\\..*/", "spaces.right_pad" }, {
 	background = {
 		color = colors.bg1,
-		corner_radius = 16,
+		corner_radius = CORNER_RADIUS,
 		height = 28,
 		border_width = 0,
 	},
@@ -52,7 +54,7 @@ sbar.add("bracket", "bracket.center", {
 }, {
 	background = {
 		color = colors.bg1,
-		corner_radius = 16,
+		corner_radius = CORNER_RADIUS,
 		height = 28,
 		border_width = 0,
 	},
@@ -67,7 +69,7 @@ sbar.add("bracket", "bracket.right", {
 }, {
 	background = {
 		color = colors.bg1,
-		corner_radius = 16,
+		corner_radius = CORNER_RADIUS,
 		height = 28,
 		border_width = 0,
 	},

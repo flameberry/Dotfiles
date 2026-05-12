@@ -10,7 +10,7 @@ local volume = sbar.add("item", "widgets.volume", {
 			style = settings.font.style_map["Bold"],
 			size = 14.0,
 		},
-		color = colors.accent,
+		color = colors.green,
 		padding_left = 8,
 		padding_right = 4,
 	},
@@ -62,7 +62,5 @@ end)
 
 volume:subscribe("mouse.scrolled", function(env)
 	local delta = env.SCROLL_DELTA
-	sbar.exec(
-		"osascript -e \"set volume output volume (output volume of (get volume settings) + " .. delta .. ')"'
-	)
+	sbar.exec('osascript -e "set volume output volume (output volume of (get volume settings) + ' .. delta .. ')"')
 end)

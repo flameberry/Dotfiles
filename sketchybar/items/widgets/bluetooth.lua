@@ -27,8 +27,7 @@ local function update()
 
 		local has_connected = false
 		if on then
-			local connected_block = out:match("Connected:(.-)Not Connected:")
-				or out:match("Connected:(.-)$")
+			local connected_block = out:match("Connected:(.-)Not Connected:") or out:match("Connected:(.-)$")
 			if connected_block and connected_block:match("%S") then
 				has_connected = connected_block:match("Address:") ~= nil
 			end
@@ -38,7 +37,7 @@ local function update()
 		if not on then
 			color = colors.grey
 		elseif has_connected then
-			color = colors.accent
+			color = colors.gold
 		else
 			color = colors.white
 		end

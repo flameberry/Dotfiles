@@ -24,7 +24,7 @@ local function update()
 		wifi:set({
 			icon = {
 				string = connected and icons.wifi.connected or icons.wifi.disconnected,
-				color = connected and colors.accent or colors.grey,
+				color = connected and colors.rose or colors.grey,
 			},
 		})
 	end)
