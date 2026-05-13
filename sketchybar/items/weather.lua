@@ -6,7 +6,7 @@ local WTTR_URL = "https://wttr.in/?format=%t&m"
 local weather = sbar.add("item", "center.weather", {
 	position = "center",
 	icon = {
-		string = "􀇔",
+		string = "􀆭",
 		color = colors.accent,
 		padding_left = 5,
 		padding_right = 2,
@@ -15,7 +15,6 @@ local weather = sbar.add("item", "center.weather", {
 			style = settings.font.style_map["Bold"],
 			size = 13.0,
 		},
-		y_offset = 1,
 	},
 	label = {
 		string = "--°",

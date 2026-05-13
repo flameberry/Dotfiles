@@ -253,7 +253,7 @@ return {
 	["Termius"] = ":termius:",
 
 	-- Browsers
-	["Zen Browser"] = ":zen_browser:",
+	["Zen"] = ":zen_browser:",
 	["Floorp"] = ":floorp:",
 	["Mullvad Browser"] = ":mullvad_browser:",
 	["Helium"] = ":helium:",
