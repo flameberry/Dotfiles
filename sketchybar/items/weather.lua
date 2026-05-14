@@ -23,7 +23,7 @@ local weather = sbar.add("item", "center.weather", {
 		padding_right = 6,
 		font = {
 			family = settings.font.text,
-			style = settings.font.style_map["Semibold"],
+			style = settings.font.style_map["Bold"],
 			size = 12.0,
 		},
 	},

@@ -50,7 +50,7 @@ local media = sbar.add("item", "center.media", {
 		string = "It's pretty silent",
 		font = {
 			family = settings.font.text,
-			style = settings.font.style_map["Semibold"],
+			style = settings.font.style_map["Bold"],
 			size = 12,
 		},
 		color = colors.with_alpha(colors.white, 0.30),
@@ -111,7 +111,7 @@ local popup_artist = sbar.add("item", "popup.center.media.artist", {
 		string = "",
 		font = {
 			family = settings.font.text,
-			style = settings.font.style_map["Semibold"],
+			style = settings.font.style_map["Bold"],
 			size = 12,
 		},
 		color = colors.with_alpha(colors.white, 0.55),

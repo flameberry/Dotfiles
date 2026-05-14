@@ -1,6 +1,7 @@
 # font-family = Lilex
 # font-family = SF Mono
 # font-family = psudoFont Liga Mono
+# font-family = Mononoki Nerd Font
 font-family = JetbrainsMono Nerd Font
 font-size = 14
 # font-style = Medium
@@ -8,8 +9,6 @@ font-thicken = true
 
 theme = Rose Pine 
 background = #0b0a10
-# background-opacity = 0.8
-# background-blur = 48
 
 cursor-style = block
 cursor-style-blink = false
