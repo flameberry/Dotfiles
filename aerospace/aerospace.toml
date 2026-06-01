@@ -51,7 +51,7 @@ automatically-unhide-macos-hidden-apps = false
 
 # Keep these windows floating by default as they are generally for quick interaction
 [[on-window-detected]]
-    if.app-name-regex-substring = 'openvpn|cursor|reminders|steam|finder|spark|whatsapp|flameberry|discord|notes|quicktime|appcleaner|font|vmware|mail|font|photos|messages'
+    if.app-name-regex-substring = 'zen|openvpn|cursor|reminders|steam|finder|spark|whatsapp|flameberry|discord|notes|quicktime|appcleaner|font|vmware|mail|font|photos|messages'
     run = 'layout floating'
 
 # Possible values: (qwerty|dvorak|colemak)
@@ -72,7 +72,7 @@ automatically-unhide-macos-hidden-apps = false
     inner.vertical =   16
     outer.left =       16
     outer.bottom =     16
-    outer.top =        [{ monitor.main = 20 }, { monitor.secondary = 52 }, 24]
+    outer.top =        [{ monitor.main = 24 }, { monitor.secondary = 64 }, 24]
     outer.right =      16
 
 # Force some workspaces to be specific to the secondary monitor, specifically all alphabets

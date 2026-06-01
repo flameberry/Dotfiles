@@ -31,8 +31,11 @@ local space_drawn = {}
 -- dirty and re-run after — never drop. Dropping caused the bracket to settle
 -- to a stale state on rapid switches; overlapping animations on top of that
 -- caused the pill bg to flicker mid-resize.
-local update_in_flight = false
+-- Timestamped instead of boolean so a lost sbar.exec callback can't strand
+-- the lock; after LOCK_TIMEOUT_S the next event proceeds anyway.
+local update_in_flight_at = 0
 local update_dirty = false
+local LOCK_TIMEOUT_S = 3
 
 local function build_space_set(icons, selected)
 	local has_icons = icons ~= ""
@@ -76,16 +79,17 @@ local function build_space_set(icons, selected)
 end
 
 local function update_all_spaces()
-	if update_in_flight then
+	local now = os.time()
+	if update_in_flight_at ~= 0 and (now - update_in_flight_at) < LOCK_TIMEOUT_S then
 		update_dirty = true
 		return
 	end
-	update_in_flight = true
+	update_in_flight_at = now
 
 	sbar.exec(
 		"aerospace list-windows --all --format '%{workspace}|%{app-name}' && echo '---' && aerospace list-workspaces --focused",
 		function(output)
-			update_in_flight = false
+			update_in_flight_at = 0
 
 			local workspace_icons = {}
 			local seen = {}
@@ -223,9 +227,13 @@ sbar.add("item", "spaces.right_pad", {
 local observer = sbar.add("item", {
 	drawing = false,
 	updates = true,
+	update_freq = 5,
 })
 
-observer:subscribe({ "aerospace_workspace_change", "front_app_switched" }, function(env)
+-- routine fires every update_freq seconds — backstop against aerospace state
+-- changes (move-node-to-workspace, window close on inactive workspace) that
+-- don't trigger workspace_change or front_app_switched.
+observer:subscribe({ "aerospace_workspace_change", "front_app_switched", "routine" }, function(env)
 	update_all_spaces()
 end)
 

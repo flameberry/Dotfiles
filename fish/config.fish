@@ -94,7 +94,12 @@ fish_add_path /opt/homebrew/opt/openjdk/bin
 zoxide init fish | source
 fzf --fish | source
 
-ff
-
 # Added by Antigravity
 fish_add_path /Users/flameberry/.antigravity/antigravity/bin
+
+# Added by Antigravity IDE
+fish_add_path /Users/flameberry/.antigravity-ide/antigravity-ide/bin
+
+
+# Added by Antigravity CLI installer
+set -gx PATH "/Users/flameberry/.local/bin" $PATH
