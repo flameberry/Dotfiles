@@ -12,3 +12,4 @@ sketchybar/*.png
 .claude/
 
 !sketchybar_stable/
+/raycast-x/extensions

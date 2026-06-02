@@ -2,6 +2,12 @@ local colors = require("colors")
 local settings = require("settings")
 local app_icons = require("helpers.app_icons")
 
+-- Window manager backend. Swap to spaces_rift / spaces_aerospace and restart
+-- sketchybar to switch. Both modules expose: events, list_workspaces_cmd(),
+-- fetch_state_cmd(), click_cmd(id).
+local backend = require("items.spaces_aerospace")
+-- local backend = require("items.spaces_rift")
+
 -- Horizontal padding (in px) on each side of a space pill. Tweak to change pill widths.
 local pill_padding = {
 	inactive = 14, -- small dark ovals (no apps + not focused)
@@ -86,99 +92,96 @@ local function update_all_spaces()
 	end
 	update_in_flight_at = now
 
-	sbar.exec(
-		"aerospace list-windows --all --format '%{workspace}|%{app-name}' && echo '---' && aerospace list-workspaces --focused",
-		function(output)
-			update_in_flight_at = 0
+	sbar.exec(backend.fetch_state_cmd(), function(output)
+		update_in_flight_at = 0
 
-			local workspace_icons = {}
-			local seen = {}
-			local focused = ""
-			local parsing_windows = true
+		local workspace_icons = {}
+		local seen = {}
+		local focused = ""
+		local parsing_windows = true
 
-			for line in output:gmatch("[^\n]+") do
-				if line == "---" then
-					parsing_windows = false
-				elseif parsing_windows then
-					local ws, app = line:match("^(.-)|(.+)$")
-					if ws then
-						if not workspace_icons[ws] then
-							workspace_icons[ws] = ""
-							seen[ws] = {}
-						end
-						local lookup = app_icons[app]
-						local icon = ((lookup == nil) and app_icons["default"] or lookup)
-						if not seen[ws][icon] then
-							if workspace_icons[ws] == "" then
-								workspace_icons[ws] = icon
-							else
-								workspace_icons[ws] = workspace_icons[ws] .. " " .. icon
-							end
-							seen[ws][icon] = true
-						end
+		for line in output:gmatch("[^\n]+") do
+			if line == "---" then
+				parsing_windows = false
+			elseif parsing_windows then
+				local ws, app = line:match("^(.-)|(.+)$")
+				if ws then
+					if not workspace_icons[ws] then
+						workspace_icons[ws] = ""
+						seen[ws] = {}
 					end
-				else
-					focused = line:gsub("%s+", "")
-				end
-			end
-
-			local changed = {}
-			for ws, space in pairs(space_items) do
-				local icons = workspace_icons[ws] or ""
-				local selected = ws == focused
-				local key = (selected and "1|" or "0|") .. icons
-				if space_state[ws] ~= key then
-					local was_drawn = space_drawn[ws] or false
-					local now_drawn = selected or icons ~= ""
-					space_state[ws] = key
-					space_drawn[ws] = now_drawn
-					changed[#changed + 1] = {
-						space = space,
-						icons = icons,
-						selected = selected,
-						drawing_flipped = was_drawn ~= now_drawn,
-					}
-				end
-			end
-
-			if #changed > 0 then
-				-- Layout changes (drawing, padding, label.string) apply instantly
-				-- so the bracket bg never gets caught half-resized when a second
-				-- switch arrives mid-animation. The accent ↔ bg2 background color
-				-- still animates so the active-state swap reads as smooth.
-				-- Skip the color animation when drawing flipped — animating from
-				-- the prior color to accent on a workspace that just appeared
-				-- causes a visible bg2 flash on the first frame.
-				local to_animate = {}
-				for _, c in ipairs(changed) do
-					local props = build_space_set(c.icons, c.selected)
-					if c.drawing_flipped then
-						c.space:set(props)
-					else
-						local target_color = props.background.color
-						props.background = nil
-						c.space:set(props)
-						to_animate[#to_animate + 1] = { space = c.space, color = target_color }
+					local lookup = app_icons[app]
+					local icon = ((lookup == nil) and app_icons["default"] or lookup)
+					if not seen[ws][icon] then
+						if workspace_icons[ws] == "" then
+							workspace_icons[ws] = icon
+						else
+							workspace_icons[ws] = workspace_icons[ws] .. " " .. icon
+						end
+						seen[ws][icon] = true
 					end
 				end
-				if #to_animate > 0 then
-					sbar.animate("tanh", 8, function()
-						for _, t in ipairs(to_animate) do
-							t.space:set({ background = { color = t.color } })
-						end
-					end)
-				end
-			end
-
-			if update_dirty then
-				update_dirty = false
-				update_all_spaces()
+			else
+				focused = line:gsub("%s+", "")
 			end
 		end
-	)
+
+		local changed = {}
+		for ws, space in pairs(space_items) do
+			local icons = workspace_icons[ws] or ""
+			local selected = ws == focused
+			local key = (selected and "1|" or "0|") .. icons
+			if space_state[ws] ~= key then
+				local was_drawn = space_drawn[ws] or false
+				local now_drawn = selected or icons ~= ""
+				space_state[ws] = key
+				space_drawn[ws] = now_drawn
+				changed[#changed + 1] = {
+					space = space,
+					icons = icons,
+					selected = selected,
+					drawing_flipped = was_drawn ~= now_drawn,
+				}
+			end
+		end
+
+		if #changed > 0 then
+			-- Layout changes (drawing, padding, label.string) apply instantly
+			-- so the bracket bg never gets caught half-resized when a second
+			-- switch arrives mid-animation. The accent ↔ bg2 background color
+			-- still animates so the active-state swap reads as smooth.
+			-- Skip the color animation when drawing flipped — animating from
+			-- the prior color to accent on a workspace that just appeared
+			-- causes a visible bg2 flash on the first frame.
+			local to_animate = {}
+			for _, c in ipairs(changed) do
+				local props = build_space_set(c.icons, c.selected)
+				if c.drawing_flipped then
+					c.space:set(props)
+				else
+					local target_color = props.background.color
+					props.background = nil
+					c.space:set(props)
+					to_animate[#to_animate + 1] = { space = c.space, color = target_color }
+				end
+			end
+			if #to_animate > 0 then
+				sbar.animate("tanh", 8, function()
+					for _, t in ipairs(to_animate) do
+						t.space:set({ background = { color = t.color } })
+					end
+				end)
+			end
+		end
+
+		if update_dirty then
+			update_dirty = false
+			update_all_spaces()
+		end
+	end)
 end
 
-local workspaces = exec_to_table("aerospace list-workspaces --all")
+local workspaces = exec_to_table(backend.list_workspaces_cmd())
 
 for i, workspace in ipairs(workspaces) do
 	local space = sbar.add("item", "space." .. workspace:gsub("%s+", "_"), {
@@ -208,7 +211,7 @@ for i, workspace in ipairs(workspaces) do
 		padding_left = 6,
 		padding_right = 0,
 		drawing = false,
-		click_script = 'aerospace workspace "' .. workspace .. '"',
+		click_script = backend.click_cmd(workspace),
 	})
 
 	space_items[workspace] = space
@@ -230,10 +233,14 @@ local observer = sbar.add("item", {
 	update_freq = 5,
 })
 
--- routine fires every update_freq seconds — backstop against aerospace state
--- changes (move-node-to-workspace, window close on inactive workspace) that
--- don't trigger workspace_change or front_app_switched.
-observer:subscribe({ "aerospace_workspace_change", "front_app_switched", "routine" }, function(env)
+-- routine fires every update_freq seconds — backstop against window manager
+-- state changes (move-window, window close on inactive workspace, etc.) that
+-- don't trigger one of the push events the backend lists.
+local subscribed_events = { "routine" }
+for _, ev in ipairs(backend.events) do
+	subscribed_events[#subscribed_events + 1] = ev
+end
+observer:subscribe(subscribed_events, function(env)
 	update_all_spaces()
 end)
 
