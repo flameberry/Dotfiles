@@ -5,8 +5,8 @@ local app_icons = require("helpers.app_icons")
 -- Window manager backend. Swap to spaces_rift / spaces_aerospace and restart
 -- sketchybar to switch. Both modules expose: events, list_workspaces_cmd(),
 -- fetch_state_cmd(), click_cmd(id).
-local backend = require("items.spaces_aerospace")
--- local backend = require("items.spaces_rift")
+-- local backend = require("items.spaces_aerospace")
+local backend = require("items.spaces_rift")
 
 -- Horizontal padding (in px) on each side of a space pill. Tweak to change pill widths.
 local pill_padding = {
@@ -14,6 +14,9 @@ local pill_padding = {
 	active_empty = 24, -- focused workspace with no apps
 	active_icons = 18, -- focused workspace with apps (padding around the app icons)
 }
+
+-- Gap between the workspace number and the app icons in a focused-with-apps pill.
+local number_icon_gap = 6
 
 local function exec_to_table(cmd)
 	local handle = io.popen(cmd)
@@ -43,9 +46,10 @@ local update_in_flight_at = 0
 local update_dirty = false
 local LOCK_TIMEOUT_S = 3
 
-local function build_space_set(icons, selected)
+local function build_space_set(icons, selected, ws_label)
 	local has_icons = icons ~= ""
 	local should_draw = selected or has_icons
+	local show_number = selected and ws_label ~= nil and ws_label ~= ""
 
 	local pad
 	if not selected then
@@ -62,6 +66,15 @@ local function build_space_set(icons, selected)
 	local multi_icon = has_icons and icons:find(" ") ~= nil
 	local label_y = multi_icon and -1 or 0
 
+	local icon_padding_right
+	if has_icons and show_number then
+		icon_padding_right = number_icon_gap
+	elseif has_icons then
+		icon_padding_right = 0
+	else
+		icon_padding_right = pad
+	end
+
 	return {
 		drawing = should_draw,
 		label = {
@@ -73,10 +86,11 @@ local function build_space_set(icons, selected)
 			y_offset = label_y,
 		},
 		icon = {
-			string = "",
+			string = show_number and ws_label or "",
+			color = colors.base,
 			drawing = true,
 			padding_left = pad,
-			padding_right = has_icons and 0 or pad,
+			padding_right = icon_padding_right,
 		},
 		background = {
 			color = selected and colors.accent or colors.bg2,
@@ -140,6 +154,7 @@ local function update_all_spaces()
 					space = space,
 					icons = icons,
 					selected = selected,
+					label = backend.display_label(ws),
 					drawing_flipped = was_drawn ~= now_drawn,
 				}
 			end
@@ -155,7 +170,7 @@ local function update_all_spaces()
 			-- causes a visible bg2 flash on the first frame.
 			local to_animate = {}
 			for _, c in ipairs(changed) do
-				local props = build_space_set(c.icons, c.selected)
+				local props = build_space_set(c.icons, c.selected, c.label)
 				if c.drawing_flipped then
 					c.space:set(props)
 				else

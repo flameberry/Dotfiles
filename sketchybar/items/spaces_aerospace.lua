@@ -22,4 +22,10 @@ function M.click_cmd(workspace_id)
 	return 'aerospace workspace "' .. workspace_id .. '"'
 end
 
+-- Pill label for the focused workspace. Aerospace workspace IDs are already
+-- the user-facing names ("1", "2", "code"), so show them as-is.
+function M.display_label(workspace_id)
+	return workspace_id
+end
+
 return M

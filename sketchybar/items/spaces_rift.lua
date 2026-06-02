@@ -42,4 +42,11 @@ function M.click_cmd(workspace_id)
 	return "rift-cli execute workspace switch " .. workspace_id
 end
 
+-- Pill label for the focused workspace. Rift's keybinds, `switch_to_workspace`
+-- action, and CLI all use the 0-based `.index` directly — show it unchanged so
+-- the bar matches what you'd type in `rift-cli execute workspace switch N`.
+function M.display_label(workspace_id)
+	return workspace_id
+end
+
 return M
