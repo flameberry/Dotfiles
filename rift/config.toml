@@ -431,10 +431,10 @@ comb1 = "Alt + Shift"
 "Alt + Ctrl + 3" = { set_workspace_layout = { mode = "master_stack" } }
 "Alt + Ctrl + 4" = { set_workspace_layout = { mode = "scrolling" } }
 
-"Alt + Shift + Left" = { join_window = "left" }
-"Alt + Shift + Right" = { join_window = "right" }
-"Alt + Shift + Up" = { join_window = "up" }
-"Alt + Shift + Down" = { join_window = "down" }
+# "Alt + Shift + Left" = { join_window = "left" }
+# "Alt + Shift + Right" = { join_window = "right" }
+# "Alt + Shift + Up" = { join_window = "up" }
+# "Alt + Shift + Down" = { join_window = "down" }
 "Alt + Comma" = "toggle_stack"
 "Alt + Slash" = "toggle_orientation"
 "Alt + Ctrl + E" = "unjoin_windows"
