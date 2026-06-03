@@ -6,15 +6,15 @@ if not set -q SSH_AUTH_SOCK
 end
 
 set -x PATH "/Applications/CMake.app/Contents/bin" $PATH # CMake Path
-set -x PATH /Users/flameberry/Installations/flutter/bin $PATH
+set -x PATH "$HOME/Installations/flutter/bin" $PATH
 set -x PATH $PATH "$HOME/.pub-cache/bin"
-set -x PATH "/Users/flameberry/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zls_install" $PATH
+set -x PATH "$HOME/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zls_install" $PATH
 set -x PATH "$HOME/.cargo/bin" $PATH
 set -x PATH "/opt/homebrew/opt/postgresql@17/bin" $PATH
 set -x PATH "$HOME/.local/share/bob/nvim-bin" $PATH
 
 # Source Vulkan SDK setup
-bass source /Users/flameberry/Installations/VulkanSDK/1.4.328.1/setup-env.sh
+bass source "$HOME/Installations/VulkanSDK/1.4.328.1/setup-env.sh"
 
 # Eval Homebrew shell environment
 eval ( /opt/homebrew/bin/brew shellenv )
@@ -78,7 +78,7 @@ if status is-interactive
 end
 
 # pnpm
-set -gx PNPM_HOME /Users/flameberry/Library/pnpm
+set -gx PNPM_HOME "$HOME/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
@@ -95,11 +95,10 @@ zoxide init fish | source
 fzf --fish | source
 
 # Added by Antigravity
-fish_add_path /Users/flameberry/.antigravity/antigravity/bin
+fish_add_path "$HOME/.antigravity/antigravity/bin"
 
 # Added by Antigravity IDE
-fish_add_path /Users/flameberry/.antigravity-ide/antigravity-ide/bin
-
+fish_add_path "$HOME/.antigravity-ide/antigravity-ide/bin"
 
 # Added by Antigravity CLI installer
-set -gx PATH "/Users/flameberry/.local/bin" $PATH
+set -gx PATH "$HOME/.local/bin" $PATH
