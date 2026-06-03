@@ -13,3 +13,5 @@ sketchybar/*.png
 
 !sketchybar_stable/
 /raycast-x/extensions
+/fish/fish_variables
+/fish/conf.d/python-3.14.fish.pysave
