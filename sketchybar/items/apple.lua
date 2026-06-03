@@ -6,7 +6,7 @@ sbar.add("item", "apple.logo", {
 	position = "left",
 	background = {
 		image = {
-			string = os.getenv("HOME") .. "/.config/sketchybar/assets/blossom.png",
+			string = os.getenv("HOME") .. "/.config/sketchybar/assets/diamondRed.png",
 			scale = 0.04,
 		},
 	},

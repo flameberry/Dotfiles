@@ -206,8 +206,8 @@ local themes = {
 		bar = { bg = 0x00000000, border = 0x00000000 },
 		popup = { bg = 0xff0a0606, border = 0xffe63946 },
 		bg1 = 0xff000000,
-		bg2 = 0xff1a0a0a,
-		bg3 = 0xff2a0A0A,
+		bg2 = 0xff200a0a,
+		bg3 = 0xff2a0a0a,
 	},
 }
 
