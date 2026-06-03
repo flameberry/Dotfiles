@@ -53,7 +53,8 @@ local media = sbar.add("item", "center.media", {
 			style = settings.font.style_map["Bold"],
 			size = 12,
 		},
-		color = colors.with_alpha(colors.white, 0.30),
+		-- color = colors.with_alpha(colors.white, 0.30),
+		color = colors.white,
 		padding_left = 4,
 		padding_right = 4,
 	},
@@ -305,7 +306,7 @@ end
 local function set_idle()
 	clear_track_info()
 	set_play_icon(false)
-	set_label("It's pretty silent in here...", 0.30, true)
+	set_label("It's pretty silent in here...", 0.5, true)
 end
 
 local function set_track(title, artist, playing)
@@ -313,7 +314,7 @@ local function set_track(title, artist, playing)
 
 	update_track_info(title, artist)
 	set_play_icon(playing)
-	set_label(display, not playing and 0.45 or false, true)
+	set_label(display, not playing and 0.5 or false, true)
 end
 
 local function poll()

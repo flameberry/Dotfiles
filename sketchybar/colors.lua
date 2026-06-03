@@ -173,10 +173,46 @@ local themes = {
 		bg2 = 0xff1b1824,
 		bg3 = 0xff221d2e,
 	},
+	-- Crimson red base with cyan accent — tuned to the Gojo (JJK) wallpaper.
+	gojo = {
+		base = 0xff0a0606,
+		surface = 0xff140a0a,
+		overlay = 0xff1f1414,
+		muted = 0xff5a3030,
+		subtle = 0xff8a5050,
+		text = 0xfff5ebe0,
+		love = 0xffe63946,
+		gold = 0xfff4c95d,
+		rose = 0xffe85a6e,
+		pine = 0xff4ec6e0,
+		foam = 0xff7ddfff,
+		iris = 0xffd97aaa,
+		highlight_low = 0xff080404,
+		highlight_med = 0xff1a0e0e,
+		highlight_high = 0xff2a1414,
+
+		black = 0xff0a0606,
+		white = 0xfff5ebe0,
+		red = 0xffe63946,
+		green = 0xff8ac35a,
+		blue = 0xff4ec6e0,
+		yellow = 0xfff4c95d,
+		orange = 0xffe87655,
+		magenta = 0xffd97aaa,
+		grey = 0xff5a3030,
+		transparent = 0x00000000,
+		accent = 0xffe63946,
+
+		bar = { bg = 0x00000000, border = 0x00000000 },
+		popup = { bg = 0xff0a0606, border = 0xffe63946 },
+		bg1 = 0xff000000,
+		bg2 = 0xff1a0a0a,
+		bg3 = 0xff2a0A0A,
+	},
 }
 
 -- Select the active theme here
-local active_theme = "aurora" -- options: "catppuccin", "rose_pine", "rose_pine_moon", "neon", "aurora"
+local active_theme = "gojo" -- options: "catppuccin", "rose_pine", "rose_pine_moon", "neon", "aurora", "gojo"
 
 local theme = themes[active_theme]
 
