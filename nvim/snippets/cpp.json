@@ -1,0 +1,7 @@
+{
+  "LeetCode Fast I/O": {
+    "prefix": "fastio",
+    "body": ["ios_base::sync_with_stdio(false);", "cin.tie(NULL);", "$0"],
+    "description": "Fast I/O for competitive programming in C++"
+  }
+}

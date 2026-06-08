@@ -5,8 +5,8 @@ local app_icons = require("helpers.app_icons")
 -- Window manager backend. Swap to spaces_rift / spaces_aerospace and restart
 -- sketchybar to switch. Both modules expose: events, list_workspaces_cmd(),
 -- fetch_state_cmd(), click_cmd(id).
--- local backend = require("items.spaces_aerospace")
-local backend = require("items.spaces_rift")
+local backend = require("items.spaces_aerospace")
+-- local backend = require("items.spaces_rift")
 
 -- Horizontal padding (in px) on each side of a space pill. Tweak to change pill widths.
 local pill_padding = {

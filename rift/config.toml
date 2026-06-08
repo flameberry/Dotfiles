@@ -16,7 +16,7 @@ animation_fps = 100.0
 #   and you must toggle activation via a keybind (toggle_space_activated).
 # - If false, spaces are managed by default and you can disable specific ones.
 # Default is true; uncomment to change.
-#default_disable = false
+default_disable = false
 
 # Mouse/Focus behavior
 # - focus_follows_mouse: moving the mouse into a window focuses it
@@ -448,20 +448,20 @@ comb1 = "Alt + Shift"
 "Alt + Shift + Equal" = "resize_window_grow"
 "Alt + Shift + Minus" = "resize_window_shrink"
 
-# Move mouse cursor to display by index (0-based) or UUID
-# Examples:
-# "Alt + Shift + A" = { move_mouse_to_display = 0 }
-# "Alt + Shift + S" = { move_mouse_to_display = 1 }
-# "Alt + Shift + D" = { move_mouse_to_display = "e9a4f5a1-2f8b-45c1-9f4e-5a6b7c8d9e0f" }
-# Focus another display (direction/index/uuid)
-# "Alt + Shift + F" = { focus_display = "right" }
+# Move the focused window to another display
+"Alt + Ctrl + Left"  = { move_window_to_display = { selector = "left" } }
+"Alt + Ctrl + Right" = { move_window_to_display = { selector = "right" } }
+"Alt + Ctrl + Up"    = { move_window_to_display = { selector = "up" } }
+"Alt + Ctrl + Down"  = { move_window_to_display = { selector = "down" } }
 
-# Move a window to a display (by index, UUID, or direction)
-# "Alt + Ctrl + Up" = { move_window_to_display = { selector = "up" } }
-# "Alt + Ctrl + Down" = { move_window_to_display = { selector = "down" } }
-# "Alt + Ctrl + Left" = { move_window_to_display = { selector = "left" } }
-# "Alt + Ctrl + Right" = { move_window_to_display = { selector = "right" } }
-# "Alt + Ctrl + A" = { move_window_to_display = { selector = 0 } }
+# Move keyboard focus to another display (no window movement)
+"comb1 + Ctrl + Left"  = { focus_display = "left" }
+"comb1 + Ctrl + Right" = { focus_display = "right" }
+
+# Jump the cursor to a specific display by 0-based index
+# 0 = Built-in Retina, 1 = LS27A600U (per rift-cli query displays)
+"comb1 + Ctrl + 1" = { move_mouse_to_display = 0 }
+"comb1 + Ctrl + 2" = { move_mouse_to_display = 1 }
 
 # if mission control is enabled
 # this will show an exploded view of the windows in the active workspace
