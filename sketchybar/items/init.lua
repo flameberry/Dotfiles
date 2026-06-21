@@ -26,6 +26,7 @@ require("items.calendar")
 -- ─────────────────────────── RIGHT ────────────────────────────
 require("items.widgets.battery")
 require("items.widgets.volume")
+-- require("items.widgets.cpu")
 require("items.widgets.wifi")
 require("items.widgets.bluetooth")
 
@@ -66,6 +67,9 @@ sbar.add("bracket", "bracket.media", {
 sbar.add("bracket", "bracket.right", {
 	"widgets.wifi",
 	"widgets.bluetooth",
+	-- "widgets.cpu",
+	-- "widgets.cpu.percent",
+	-- "widgets.cpu.caption",
 	"widgets.volume",
 	"widgets.battery",
 }, {

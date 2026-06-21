@@ -3,8 +3,10 @@
 # font-family = psudoFont Liga Mono
 # font-family = Mononoki Nerd Font
 font-family = JetbrainsMono Nerd Font
-font-size = 14
 # font-style = Medium
+
+# font-family = Cascadia Mono
+font-size = 14
 font-thicken = true
 
 theme = Rose Pine 
@@ -25,7 +27,8 @@ window-padding-balance = true
 window-colorspace = "display-p3"
 copy-on-select = clipboard
 
-adjust-cell-height = 15%
+adjust-cell-height = 20%
+adjust-cell-width = 5%
 
 custom-shader = shaders/cursor_blaze_tapered.glsl
 # custom-shader = shaders/cursor_frozen.glsl

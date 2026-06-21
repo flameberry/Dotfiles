@@ -51,7 +51,7 @@ automatically-unhide-macos-hidden-apps = false
 
 # Keep these windows floating by default as they are generally for quick interaction
 [[on-window-detected]]
-    if.app-name-regex-substring = 'openvpn|cursor|reminders|steam|finder|spark|whatsapp|flameberry|discord|notes|quicktime|appcleaner|font|vmware|mail|font|photos|messages'
+    if.app-name-regex-substring = 'openvpn|cursor|reminders|steam|spark|whatsapp|flameberry|discord|notes|quicktime|appcleaner|font|vmware|mail|font|photos|messages'
     run = 'layout floating'
 
 # Possible values: (qwerty|dvorak|colemak)
@@ -121,10 +121,10 @@ automatically-unhide-macos-hidden-apps = false
     alt-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
-    alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
-    alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
-    alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
+    alt-h = 'focus --boundaries-action stop left'
+    alt-j = 'focus --boundaries-action stop down'
+    alt-k = 'focus --boundaries-action stop up'
+    alt-l = 'focus --boundaries-action stop right'
 
     alt-f = 'fullscreen'
 

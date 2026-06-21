@@ -1,6 +1,6 @@
 # My MacOS configuration files
 
-## Current WIP Setup (Ghostty + Rift + SketchyBar + JankyBorders)
+## Current WIP Setup (Ghostty + OmniWM + SketchyBar + JankyBorders)
 
 ![Setup Screenshot](./screenshots/ss1.png)
 
