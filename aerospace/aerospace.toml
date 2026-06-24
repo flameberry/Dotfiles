@@ -72,7 +72,7 @@ automatically-unhide-macos-hidden-apps = false
     inner.vertical =   16
     outer.left =       16
     outer.bottom =     16
-    outer.top =        [{ monitor.main = 24 }, { monitor.secondary = 56 }, 24]
+    outer.top =        [{ monitor.main = 20 }, { monitor.secondary = 56 }, 24]
     outer.right =      16
 
 # Force some workspaces to be specific to the secondary monitor, specifically all alphabets

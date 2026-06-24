@@ -24,12 +24,18 @@
 --
 -- Live updates: OmniWM does not fire sketchybar triggers on its own, so this
 -- module starts a long-lived `omniwmctl watch` at load that fires the custom
--- trigger below on every active-workspace / windows-changed event. The launch is
--- idempotent — any prior watcher for these channels is killed first — so
--- reloading sketchybar (or swapping back to this backend) never stacks watchers.
--- `front_app_switched` is a built-in sketchybar event covering app focus / icon
--- changes. Without the watcher, the 5s `routine` backstop in spaces.lua is the
--- only update path (workspace switches just lag up to 5s).
+-- trigger below on every active-workspace (workspace switch) and windows-changed
+-- (window opened/closed/moved) event. The launch is idempotent — any prior
+-- watcher is killed first — so reloading sketchybar (or swapping back to this
+-- backend) never stacks watchers.
+--
+-- CPU NOTE: the `windows-changed` channel makes OmniWM do continuous
+-- window-inventory refresh while subscribed — it was once measured adding a
+-- sustained ~11–17% to OmniWM. Re-added by request; if OmniWM CPU climbs and
+-- this watcher is the cause (rule out the Quake terminal first — see memory),
+-- drop back to just `active-workspace`. `front_app_switched` is a built-in
+-- sketchybar event covering app focus. Watcher dies when OmniWM restarts (IPC
+-- token rotates); it respawns on the next sketchybar reload.
 
 local M = {}
 
@@ -40,7 +46,7 @@ M.events = { "omniwm_workspace_changed", "front_app_switched" }
 -- stdin, so no wrapper script is needed. Detached via a backgrounded subshell so
 -- os.execute returns immediately.
 os.execute(
-	"pkill -f 'omniwmctl watch active-workspace,windows-changed' 2>/dev/null; "
+	"pkill -f 'omniwmctl watch active-workspace' 2>/dev/null; "
 		.. "(omniwmctl watch active-workspace,windows-changed "
 		.. "--exec sketchybar --trigger omniwm_workspace_changed >/dev/null 2>&1 &)"
 )

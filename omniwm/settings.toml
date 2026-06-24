@@ -27,7 +27,7 @@ maxTotalBytes = 67108864
 [dwindle]
 defaultSplitRatio = 1.0
 moveToRootStable = true
-singleWindowAspectRatio = "fill"
+singleWindowAspectRatio = "1920x900"
 smartSplit = false
 splitWidthMultiplier = 1.0
 useGlobalGaps = true
@@ -37,20 +37,20 @@ crossesMonitorAtEdge = false
 followsMouse = true
 followsWindowToMonitor = false
 moveCrossesMonitorAtEdge = false
-moveMouseToFocusedWindow = false
+moveMouseToFocusedWindow = true
 
 [gaps]
 size = 16.0
 
 [gaps.outer]
-bottom = 0.0
-left = 0.0
-right = 0.0
+bottom = 16.0
+left = 16.0
+right = 16.0
 top = 34.0
 
 [general]
 animationsEnabled = true
-defaultLayoutType = "niri"
+defaultLayoutType = "dwindle"
 hotkeysEnabled = true
 ipcEnabled = true
 preventSleepEnabled = false
@@ -82,7 +82,7 @@ singleWindowAspectRatio = "column_width"
 [quakeTerminal]
 animationDuration = 0.2
 autoHide = false
-enabled = true
+enabled = false
 heightPercent = 50.0
 monitorMode = "focusedWindow"
 opacity = 1.0
@@ -296,11 +296,11 @@ binding = "Unassigned"
 id = "focusPrevious"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Left Bracket"
 id = "focusDownOrLeft"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Right Bracket"
 id = "focusUpOrRight"
 
 [[hotkeys]]
@@ -756,7 +756,7 @@ binding = "Unassigned"
 id = "toggleHiddenBar"
 
 [[hotkeys]]
-binding = "Option+Grave"
+binding = "Control+Grave"
 id = "toggleQuakeTerminal"
 
 [[hotkeys]]
@@ -769,7 +769,7 @@ id = "toggleOverview"
 
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "1"
 
 [workspaces.monitorAssignment]
@@ -777,7 +777,7 @@ type = "main"
 
 [[workspaces]]
 id = "454CECD4-5E9D-4ED1-95D7-979D48817F5F"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "2"
 
 [workspaces.monitorAssignment]
@@ -785,7 +785,7 @@ type = "main"
 
 [[workspaces]]
 id = "BEB842B5-E894-4791-9FD1-397C3CDD3538"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "3"
 
 [workspaces.monitorAssignment]
@@ -793,7 +793,7 @@ type = "main"
 
 [[workspaces]]
 id = "248AA883-2261-4D45-943C-79C0E46A232B"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "4"
 
 [workspaces.monitorAssignment]
@@ -801,7 +801,7 @@ type = "main"
 
 [[workspaces]]
 id = "8B8C45D6-CE9E-41D9-BD50-BE4989D5E3DE"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "5"
 
 [workspaces.monitorAssignment]
@@ -809,7 +809,7 @@ type = "main"
 
 [[workspaces]]
 id = "5953F2BF-A378-4266-91B2-287174C4FA4D"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "6"
 
 [workspaces.monitorAssignment]
@@ -817,7 +817,7 @@ type = "main"
 
 [[workspaces]]
 id = "A7D5E104-6985-4516-8ED5-07F144F2A33D"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "7"
 
 [workspaces.monitorAssignment]
@@ -825,7 +825,7 @@ type = "secondary"
 
 [[workspaces]]
 id = "A5AB19F6-04BD-4E86-98BB-ED42A91108AD"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "8"
 
 [workspaces.monitorAssignment]
@@ -833,7 +833,7 @@ type = "secondary"
 
 [[workspaces]]
 id = "F40CD83F-DEE4-4C34-8E4A-044023C4C19F"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "9"
 
 [workspaces.monitorAssignment]
