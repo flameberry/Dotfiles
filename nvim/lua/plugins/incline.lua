@@ -22,7 +22,10 @@ return {
           margin = { horizontal = 1, vertical = 1 },
         },
         hide = {
-          cursorline = true,
+          -- "smart" hides only when the cursor/selection is actually under the
+          -- label (top-right), not whenever it's on the same screen line — so
+          -- the label stays visible with the cursor on the first line.
+          cursorline = "smart",
           only_win = false,
         },
         render = function(props)
