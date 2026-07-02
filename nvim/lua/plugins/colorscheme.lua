@@ -71,8 +71,9 @@ local config = {
     CmpItemKind = { bg = "base" }, -- Opaque nvim-cmp kind icons
     CurSearch = { fg = "base", bg = "leaf", inherit = false },
     Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
-    TreesitterContext = { bg = "surface" },
-    TreesitterContextLineNumber = { bg = "surface", fg = "rose" },
+    -- TreesitterContext = { bg = "surface" },
+    -- TreesitterContextLineNumber = { bg = "surface", fg = "rose" },
+    TreesitterContextLineNumber = { bg = "base2", fg = "rose" },
     OutlineNormalBg = { bg = "base2" },
     -- StatusLine = { bg = "base" },
   },

@@ -36,21 +36,22 @@ useGlobalGaps = true
 crossesMonitorAtEdge = false
 followsMouse = true
 followsWindowToMonitor = false
+lockModifier = "off"
 moveCrossesMonitorAtEdge = false
-moveMouseToFocusedWindow = true
+moveMouseToFocusedWindow = false
 
 [gaps]
 size = 16.0
 
 [gaps.outer]
-bottom = 16.0
-left = 16.0
-right = 16.0
+bottom = 0.0
+left = 0.0
+right = 0.0
 top = 34.0
 
 [general]
 animationsEnabled = true
-defaultLayoutType = "dwindle"
+defaultLayoutType = "niri"
 hotkeysEnabled = true
 ipcEnabled = true
 preventSleepEnabled = false
@@ -701,6 +702,14 @@ id = "resizeShrink.down"
 
 [[hotkeys]]
 binding = "Unassigned"
+id = "resizeFocusedWindow.grow"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "resizeFocusedWindow.shrink"
+
+[[hotkeys]]
+binding = "Unassigned"
 id = "preselect.left"
 
 [[hotkeys]]
@@ -769,7 +778,7 @@ id = "toggleOverview"
 
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "1"
 
 [workspaces.monitorAssignment]
@@ -777,7 +786,7 @@ type = "main"
 
 [[workspaces]]
 id = "454CECD4-5E9D-4ED1-95D7-979D48817F5F"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "2"
 
 [workspaces.monitorAssignment]
@@ -817,7 +826,7 @@ type = "main"
 
 [[workspaces]]
 id = "A7D5E104-6985-4516-8ED5-07F144F2A33D"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "7"
 
 [workspaces.monitorAssignment]
