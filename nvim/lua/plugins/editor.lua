@@ -39,7 +39,7 @@ return {
       options = {
         globalstatus = true,
         component_separators = "",
-        section_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
       },
       sections = {
         lualine_a = {
@@ -48,14 +48,14 @@ return {
               --  
               return " " .. require("lualine.components.mode")():gsub("%s+", "")
             end,
-            separator = { left = "" },
+            separator = { right = "" },
             right_padding = 2,
           },
         },
         lualine_c = { { "filename", path = 1 } },
         lualine_y = { "progress" },
         lualine_z = {
-          { "location", separator = { right = "" }, left_padding = 2 },
+          { "location", separator = { left = "" }, left_padding = 2 },
         },
       },
     },

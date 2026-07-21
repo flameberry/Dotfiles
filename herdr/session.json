@@ -1,0 +1,360 @@
+{
+  "version": 3,
+  "workspaces": [
+    {
+      "id": "w4",
+      "custom_name": null,
+      "identity_cwd": "/Users/flameberry/.config",
+      "public_pane_numbers": {
+        "24": 12,
+        "1": 6,
+        "20": 11
+      },
+      "next_public_pane_number": 13,
+      "public_tab_numbers": [
+        6,
+        11,
+        12
+      ],
+      "next_public_tab_number": 13,
+      "tabs": [
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 1
+          },
+          "panes": {
+            "1": {
+              "cwd": "/Users/flameberry/.config"
+            }
+          },
+          "zoomed": false,
+          "focused": 1,
+          "root_pane": 1
+        },
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 20
+          },
+          "panes": {
+            "20": {
+              "cwd": "/Users/flameberry/.config",
+              "agent_session": {
+                "source": "herdr:claude",
+                "agent": "claude",
+                "kind": "id",
+                "value": "b61c3e9e-5296-4b9c-a2ed-c8278ec968f6"
+              }
+            }
+          },
+          "zoomed": false,
+          "focused": 20,
+          "root_pane": 20
+        },
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 24
+          },
+          "panes": {
+            "24": {
+              "cwd": "/Users/flameberry/.config"
+            }
+          },
+          "zoomed": false,
+          "focused": 24,
+          "root_pane": 24
+        }
+      ],
+      "active_tab": 2
+    },
+    {
+      "id": "w7",
+      "custom_name": null,
+      "identity_cwd": "/Users/flameberry/Developer/IITB/SMUtilResearch/temp/BulletServe",
+      "public_pane_numbers": {
+        "3": 6,
+        "21": 12,
+        "4": 7,
+        "22": 13,
+        "2": 2,
+        "5": 4
+      },
+      "next_public_pane_number": 14,
+      "public_tab_numbers": [
+        2,
+        6,
+        7,
+        4,
+        10,
+        11
+      ],
+      "next_public_tab_number": 12,
+      "tabs": [
+        {
+          "custom_name": "BulletServe",
+          "layout": {
+            "Pane": 2
+          },
+          "panes": {
+            "2": {
+              "cwd": "/Users/flameberry/Developer/IITB/SMUtilResearch/temp/BulletServe"
+            }
+          },
+          "zoomed": false,
+          "focused": 2,
+          "root_pane": 2
+        },
+        {
+          "custom_name": "fable",
+          "layout": {
+            "Pane": 3
+          },
+          "panes": {
+            "3": {
+              "cwd": "/Users/flameberry/Developer/IITB/SMUtilResearch",
+              "agent_session": {
+                "source": "herdr:claude",
+                "agent": "claude",
+                "kind": "id",
+                "value": "e326449f-ffcf-4893-8e68-eb2165eb528f"
+              }
+            }
+          },
+          "zoomed": false,
+          "focused": 3,
+          "root_pane": 3
+        },
+        {
+          "custom_name": "opus",
+          "layout": {
+            "Pane": 4
+          },
+          "panes": {
+            "4": {
+              "cwd": "/Users/flameberry/Developer/IITB/SMUtilResearch",
+              "agent_session": {
+                "source": "herdr:claude",
+                "agent": "claude",
+                "kind": "id",
+                "value": "dc8274be-1d17-43dc-9219-7d5b16e97e6c"
+              }
+            }
+          },
+          "zoomed": false,
+          "focused": 4,
+          "root_pane": 4
+        },
+        {
+          "custom_name": "Walkthrough",
+          "layout": {
+            "Pane": 5
+          },
+          "panes": {
+            "5": {
+              "cwd": "/Users/flameberry/Developer/IITB/SMUtilResearch"
+            }
+          },
+          "zoomed": false,
+          "focused": 5,
+          "root_pane": 5
+        },
+        {
+          "custom_name": "KV cache layout",
+          "layout": {
+            "Pane": 21
+          },
+          "panes": {
+            "21": {
+              "cwd": "/Users/flameberry/Developer/IITB/SMUtilResearch"
+            }
+          },
+          "zoomed": false,
+          "focused": 21,
+          "root_pane": 21
+        },
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 22
+          },
+          "panes": {
+            "22": {
+              "cwd": "/Users/flameberry/Developer/IITB/SMUtilResearch"
+            }
+          },
+          "zoomed": false,
+          "focused": 22,
+          "root_pane": 22
+        }
+      ],
+      "active_tab": 0
+    },
+    {
+      "id": "w6",
+      "custom_name": null,
+      "identity_cwd": "/Users/flameberry/Developer/Flameberry/RustBasedCCompiler",
+      "public_pane_numbers": {
+        "6": 1,
+        "8": 5,
+        "7": 4,
+        "9": 6
+      },
+      "next_public_pane_number": 10,
+      "public_tab_numbers": [
+        1,
+        4,
+        5,
+        6
+      ],
+      "next_public_tab_number": 10,
+      "tabs": [
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 6
+          },
+          "panes": {
+            "6": {
+              "cwd": "/Users/flameberry/Developer/Flameberry/RustBasedCCompiler"
+            }
+          },
+          "zoomed": false,
+          "focused": 6,
+          "root_pane": 6
+        },
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 7
+          },
+          "panes": {
+            "7": {
+              "cwd": "/Users/flameberry/Developer/Flameberry/RustBasedCCompiler"
+            }
+          },
+          "zoomed": false,
+          "focused": 7,
+          "root_pane": 7
+        },
+        {
+          "custom_name": "claude",
+          "layout": {
+            "Pane": 8
+          },
+          "panes": {
+            "8": {
+              "cwd": "/Users/flameberry/Developer/Flameberry/RustBasedCCompiler",
+              "agent_session": {
+                "source": "herdr:claude",
+                "agent": "claude",
+                "kind": "id",
+                "value": "e2c65c50-bd14-45c7-8a7b-5ea1dd53ebcd"
+              }
+            }
+          },
+          "zoomed": false,
+          "focused": 8,
+          "root_pane": 8
+        },
+        {
+          "custom_name": "Backend Plan",
+          "layout": {
+            "Pane": 9
+          },
+          "panes": {
+            "9": {
+              "cwd": "/Users/flameberry/Developer/Flameberry/RustBasedCCompiler"
+            }
+          },
+          "zoomed": false,
+          "focused": 9,
+          "root_pane": 9
+        }
+      ],
+      "active_tab": 0
+    },
+    {
+      "id": "w8",
+      "custom_name": null,
+      "identity_cwd": "/Users/flameberry/Developer/TestArea/Leetcode",
+      "public_pane_numbers": {
+        "11": 3,
+        "10": 1
+      },
+      "next_public_pane_number": 4,
+      "public_tab_numbers": [
+        1,
+        3
+      ],
+      "next_public_tab_number": 4,
+      "tabs": [
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 10
+          },
+          "panes": {
+            "10": {
+              "cwd": "/Users/flameberry/Developer/TestArea/Leetcode"
+            }
+          },
+          "zoomed": false,
+          "focused": 10,
+          "root_pane": 10
+        },
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 11
+          },
+          "panes": {
+            "11": {
+              "cwd": "/Users/flameberry/Developer/TestArea/Leetcode"
+            }
+          },
+          "zoomed": false,
+          "focused": 11,
+          "root_pane": 11
+        }
+      ],
+      "active_tab": 0
+    },
+    {
+      "id": "w9",
+      "custom_name": null,
+      "identity_cwd": "/Users/flameberry/Developer/Flameberry/FlameberryEngine",
+      "public_pane_numbers": {
+        "23": 1
+      },
+      "next_public_pane_number": 2,
+      "public_tab_numbers": [
+        1
+      ],
+      "next_public_tab_number": 2,
+      "tabs": [
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 23
+          },
+          "panes": {
+            "23": {
+              "cwd": "/Users/flameberry/Developer/Flameberry/FlameberryEngine"
+            }
+          },
+          "zoomed": false,
+          "focused": 23,
+          "root_pane": 23
+        }
+      ],
+      "active_tab": 0
+    }
+  ],
+  "active": 0,
+  "selected": 0,
+  "sidebar_width": 26,
+  "sidebar_section_split": 0.5,
+  "collapsed_space_keys": []
+}

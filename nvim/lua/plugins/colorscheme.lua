@@ -1,3 +1,15 @@
+-- rose-pine ties italics to a broad set of groups. @variable alone matches
+-- almost every identifier, so `styles.italic = true` italicizes whole files.
+-- Strip italic from these high-frequency syntax groups in before_highlight,
+-- leaving it only where it carries meaning: comments and markup emphasis
+-- (@markup.italic, @text.emphasis, htmlItalic) keep their italics.
+local no_italic = {
+  ["Comment"] = true,
+  ["@variable"] = true,
+  ["@variable.parameter"] = true,
+  ["@property"] = true,
+}
+
 local config = {
   variant = "auto", -- auto, main, moon, or dawn
   dark_variant = "main", -- main, moon, or dawn
@@ -15,7 +27,7 @@ local config = {
 
   styles = {
     bold = true,
-    italic = false,
+    italic = true, -- on globally; noisy groups are stripped in before_highlight
     transparency = true,
   },
 
@@ -72,22 +84,22 @@ local config = {
     CurSearch = { fg = "base", bg = "leaf", inherit = false },
     Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
     -- TreesitterContext = { bg = "surface" },
-    -- TreesitterContextLineNumber = { bg = "surface", fg = "rose" },
     TreesitterContextLineNumber = { bg = "base2", fg = "rose" },
+    -- Separator is the context float's bottom border, so it follows FloatBorder
+    -- (base2) unless set here. Pin the bg to base so it reads against the editor.
+    TreesitterContextSeparator = { fg = "highlight_med", bg = "none" },
     OutlineNormalBg = { bg = "base2" },
-    -- StatusLine = { bg = "base" },
+    WinBar = { bg = "base2" }, -- dropbar.nvim renders into the winbar
+    WinBarNC = { bg = "base2" },
+    -- Bold plain variables (locals). Merges onto rose-pine's @variable so the
+    -- fg (text) is kept; before_highlight still strips its italic.
+    ["@lsp.type.variable"] = { fg = "text", bold = true },
   },
 
   before_highlight = function(group, highlight, palette)
-    -- Disable all undercurls
-    -- if highlight.undercurl then
-    --   highlight.undercurl = false
-    -- end
-    --
-    -- Change palette colour
-    -- if highlight.fg == palette.pine then
-    --   highlight.fg = palette.foam
-    -- end
+    if no_italic[group] then
+      highlight.italic = false
+    end
   end,
 }
 

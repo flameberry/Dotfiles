@@ -1,6 +1,7 @@
 return {
   {
     "b0o/incline.nvim",
+    enabled = true,
     event = "VeryLazy",
     config = function()
       local palette = require("rose-pine.palette")
@@ -20,6 +21,9 @@ return {
         window = {
           padding = 0,
           margin = { horizontal = 1, vertical = 1 },
+          -- Above treesitter-context's zindex (20) so the label stays visible on
+          -- the separator row instead of being hidden behind the context float.
+          zindex = 25,
         },
         hide = {
           -- "smart" hides only when the cursor/selection is actually under the
@@ -68,7 +72,7 @@ return {
             { "  ", guibg = base_bg },
             { icon .. " ", guifg = icon_color, guibg = base_bg },
             { filename, guifg = base_fg, guibg = base_bg, gui = props.focused and "bold" or "none" },
-            modified and { "  ", guifg = colors.modified, guibg = base_bg } or "",
+            modified and { " ●", guifg = colors.modified, guibg = base_bg } or "",
             { " ", guibg = base_bg },
           }
 
@@ -83,10 +87,10 @@ return {
         end,
       })
 
-      -- Keep incline below the treesitter-context lines.
-      -- The context is a float anchored `relative = "win"` to its parent window
-      -- (flagged via `w:treesitter_context`), sitting at the top. We offset
-      -- incline's top margin by that block's height (context rows + separator).
+      -- Pin incline to the treesitter-context separator's row. The context is a
+      -- float anchored `relative = "win"` to its parent (flagged via
+      -- `w:treesitter_context`) sitting at the top; its separator is that
+      -- float's bottom border. Z-order is handled by window.zindex above.
       local function is_empty_border_piece(piece)
         if piece == nil or piece == "" then
           return true
@@ -97,33 +101,32 @@ return {
         return false
       end
 
-      local function ts_context_offset(win)
-        local max_h, has_sep = 0, false
+      -- A float's border is drawn outside its content area, so with the context
+      -- anchored at `cfg.row` the bottom border lands on `cfg.row + cfg.height`.
+      -- Returns nil when there's no context, or it renders without a separator.
+      local function ts_context_sep_row(win)
+        local sep_row = nil
         for _, w in ipairs(vim.api.nvim_list_wins()) do
           local ok, cfg = pcall(vim.api.nvim_win_get_config, w)
           if ok and cfg.relative == "win" and cfg.win == win then
             local wv = vim.w[w]
             if wv and (wv.treesitter_context or wv.treesitter_context_line_number) then
-              max_h = math.max(max_h, cfg.height or 0)
               -- A bottom border (indices 5-7) is the context separator line.
-              if type(cfg.border) == "table" then
-                if
-                  not (
-                    is_empty_border_piece(cfg.border[5])
-                    and is_empty_border_piece(cfg.border[6])
-                    and is_empty_border_piece(cfg.border[7])
-                  )
-                then
-                  has_sep = true
-                end
+              if
+                type(cfg.border) == "table"
+                and not (
+                  is_empty_border_piece(cfg.border[5])
+                  and is_empty_border_piece(cfg.border[6])
+                  and is_empty_border_piece(cfg.border[7])
+                )
+              then
+                local row = (cfg.row or 0) + (cfg.height or 0)
+                sep_row = math.max(sep_row or 0, row)
               end
             end
           end
         end
-        if max_h == 0 then
-          return 0
-        end
-        return max_h + (has_sep and 1 or 0)
+        return sep_row
       end
 
       local incline = require("incline")
@@ -131,8 +134,8 @@ return {
 
       -- incline derives each window's top row from a single *global* margin, so
       -- it can't offset per-window. Instead we wrap the per-winline row function
-      -- (which knows its own `target_win`) to push it below that window's own
-      -- treesitter-context. The method table is shared by all winline instances
+      -- (which knows its own `target_win`) to pin it to that window's own
+      -- context separator. The method table is shared by all winline instances
       -- via their metatable, so patching it once affects every window.
       local patched = false
       local function patch_winline()
@@ -153,14 +156,14 @@ return {
         end
         local orig = Winline.get_win_geom_row
         Winline.get_win_geom_row = function(self)
-          local row = orig(self)
-          local off = ts_context_offset(self.target_win)
-          if off > 0 and vim.api.nvim_win_is_valid(self.target_win) then
-            -- keep the label on-screen for very short windows
-            off = math.min(off, math.max(0, vim.api.nvim_win_get_height(self.target_win) - 1))
-            return row + off
+          local sep_row = ts_context_sep_row(self.target_win)
+          if sep_row and vim.api.nvim_win_is_valid(self.target_win) then
+            -- Absolute placement, so the configured vertical margin is bypassed
+            -- while the context is up — that's what keeps it on the exact row.
+            local max_row = math.max(0, vim.api.nvim_win_get_height(self.target_win) - 1)
+            return math.min(sep_row, max_row)
           end
-          return row
+          return orig(self)
         end
         patched = true
         return true

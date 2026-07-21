@@ -10,13 +10,13 @@ mode = "dark"
 
 [borders]
 enabled = false
-width = 5.0
+width = 2.0
 
 [borders.color]
 alpha = 1.0
-blue = 0.0
-green = 0.0
-red = 0.0
+blue = 0.6296056509017944
+green = 0.30027052760124207
+red = 0.9862868189811707
 
 [clipboard]
 historyEnabled = false
@@ -105,11 +105,16 @@ enabled = false
 height = 24.0
 hideEmptyWorkspaces = true
 labelFontSize = 12.0
+notchActiveZoneWidth = 180.0
 notchAware = true
+notchMode = "moveBelowMenuBar"
 position = "overlappingMenuBar"
 reserveLayoutSpace = false
+revealHoldMilliseconds = 200.0
+revealModifier = "off"
 showFloatingWindows = true
 showLabels = true
+systemStatsButton = false
 windowLevel = "popup"
 xOffset = 63.0
 yOffset = 0.0
@@ -741,7 +746,7 @@ binding = "Unassigned"
 id = "rescueOffscreenWindows"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Control+Space"
 id = "toggleFocusedWindowFloating"
 
 [[hotkeys]]
@@ -776,6 +781,10 @@ id = "toggleWorkspaceLayout"
 binding = "Option+Shift+O"
 id = "toggleOverview"
 
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleSystemStats"
+
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
 layoutType = "niri"
@@ -794,7 +803,7 @@ type = "main"
 
 [[workspaces]]
 id = "BEB842B5-E894-4791-9FD1-397C3CDD3538"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "3"
 
 [workspaces.monitorAssignment]
@@ -802,7 +811,7 @@ type = "main"
 
 [[workspaces]]
 id = "248AA883-2261-4D45-943C-79C0E46A232B"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "4"
 
 [workspaces.monitorAssignment]
@@ -810,7 +819,7 @@ type = "main"
 
 [[workspaces]]
 id = "8B8C45D6-CE9E-41D9-BD50-BE4989D5E3DE"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "5"
 
 [workspaces.monitorAssignment]
@@ -818,7 +827,7 @@ type = "main"
 
 [[workspaces]]
 id = "5953F2BF-A378-4266-91B2-287174C4FA4D"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "6"
 
 [workspaces.monitorAssignment]
@@ -834,7 +843,7 @@ type = "secondary"
 
 [[workspaces]]
 id = "A5AB19F6-04BD-4E86-98BB-ED42A91108AD"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "8"
 
 [workspaces.monitorAssignment]
@@ -842,7 +851,7 @@ type = "secondary"
 
 [[workspaces]]
 id = "F40CD83F-DEE4-4C34-8E4A-044023C4C19F"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "9"
 
 [workspaces.monitorAssignment]

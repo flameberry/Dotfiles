@@ -4,9 +4,9 @@
 # font-family = Mononoki Nerd Font
 # font-family = Menlo
 # font-family = Cascadia Mono
-# font-family = JetbrainsMono Nerd Font
+font-family = JetbrainsMono Nerd Font
 # font-family = Inconsolata
-font-family = Fantasque Sans Mono
+# font-family = Fantasque Sans Mono
 
 # font-family = Iosevka
 # font-style = Extended
@@ -14,7 +14,7 @@ font-family = Fantasque Sans Mono
 # font-style-italic = Extended Italic
 # font-style-bold-italic = Bold Extended Italic
 
-font-size = 17
+font-size = 15
 font-thicken = true
 
 theme = Rose Pine 
@@ -29,17 +29,17 @@ macos-titlebar-style = hidden
 mouse-hide-while-typing = true
 
 window-padding-x = 10 
-window-padding-y = 10
+window-padding-y = 6 
 window-padding-balance = true
 
 window-colorspace = "display-p3"
 copy-on-select = clipboard
 
-adjust-cell-height = 25%
+adjust-cell-height = 10%
 adjust-cell-width = 5%
 
-# custom-shader = shaders/cursor_blaze_tapered.glsl
-custom-shader = shaders/cursor_blaze_no_trail.glsl
+custom-shader = shaders/cursor_blaze_tapered.glsl
+# custom-shader = shaders/cursor_blaze_no_trail.glsl
 # custom-shader = shaders/cursor_frozen.glsl
 
 macos-icon-frame = chrome

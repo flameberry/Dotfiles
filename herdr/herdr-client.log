@@ -1,0 +1,78 @@
+2026-07-08T16:08:41.259597Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=7663
+2026-07-08T16:08:41.259669Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-08T16:08:41.495113Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-08T17:43:11.591521Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=42586
+2026-07-08T17:43:11.592075Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-08T17:43:11.708568Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-08T18:44:54.046374Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=42586
+2026-07-08T18:48:35.742572Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=76941
+2026-07-08T18:48:35.742771Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-08T18:48:35.876569Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-11T12:07:43.465350Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=3724
+2026-07-11T12:07:43.465928Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-11T12:07:43.698711Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-11T12:12:37.847216Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=8961
+2026-07-11T12:12:37.847426Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-11T12:12:37.973634Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-14T09:29:44.543573Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=8961
+2026-07-14T09:32:12.248991Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=22853
+2026-07-14T09:32:12.249319Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-14T09:32:12.421359Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-14T16:38:45.095017Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=22853
+2026-07-15T07:28:49.713686Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=11460
+2026-07-15T07:28:49.714262Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-15T07:28:49.963411Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-16T13:34:49.447173Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=11460
+2026-07-16T13:35:05.348909Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=78315
+2026-07-16T13:35:05.349102Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-16T13:35:05.440034Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-17T16:46:29.886544Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=39690
+2026-07-17T16:46:29.887357Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-17T16:46:30.126418Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-18T06:02:35.080207Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=39690
+2026-07-18T06:02:40.057994Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=22246
+2026-07-18T06:02:40.058058Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-18T06:02:40.197181Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-18T13:48:19.847570Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=22246
+2026-07-18T13:48:24.901580Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=10088
+2026-07-18T13:48:24.901630Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-18T13:48:25.141964Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-18T13:49:32.204577Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=10088
+2026-07-18T13:49:48.977025Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=10950
+2026-07-18T13:49:48.977093Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-18T13:49:49.193984Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-19T10:03:57.102407Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=10950
+2026-07-19T10:04:46.668958Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=73674
+2026-07-19T10:04:46.669159Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-19T10:04:46.676393Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-19T16:56:27.488667Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=73674
+2026-07-19T17:02:01.747061Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=7043
+2026-07-19T17:02:01.747364Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-19T17:02:01.837908Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-19T17:05:33.268665Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=7043
+2026-07-19T17:05:41.215472Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=9040
+2026-07-19T17:05:41.215541Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-19T17:05:41.424936Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-19T17:05:44.742551Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=9040
+2026-07-19T17:11:04.657262Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=16259
+2026-07-19T17:11:04.657523Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-19T17:11:04.779525Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-19T17:59:10.196965Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=16259
+2026-07-19T17:59:58.854135Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=37775
+2026-07-19T17:59:58.854195Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-19T17:59:58.932238Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-19T19:26:54.605744Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=37775
+2026-07-19T19:34:26.232325Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=97996
+2026-07-19T19:34:26.232531Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-19T19:34:26.243697Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-20T14:05:38.243848Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=97996
+2026-07-20T14:23:36.627429Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=61441
+2026-07-20T14:23:36.627815Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-20T14:23:36.814020Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-21T16:06:21.453102Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=29176
+2026-07-21T16:06:21.453290Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-21T16:06:21.475029Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
+2026-07-21T17:25:18.001223Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=29176
+2026-07-21T17:25:21.308682Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=61377
+2026-07-21T17:25:21.308779Z  INFO herdr::client: connecting to server path=/Users/flameberry/.config/herdr/herdr-client.sock
+2026-07-21T17:25:21.321576Z  INFO herdr::client: handshake succeeded version=16 encoding=SemanticFrame
