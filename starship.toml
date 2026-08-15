@@ -1,129 +1,61 @@
-format = """
-[](fg:#ffffff)\
-$os\
-[](fg:#ffffff bg:c2)\
-$directory\
-[](fg:c2 bg:#303030)\
-$git_branch\
-$fill\
-$nodejs\
-$dotnet\
-$python\
-$java\
-$c\
-$cmd_duration\
-$shell\
-[](fg:c4 bg:c2)\
-$time\
-[](fg:c2 bg:c1)\
-$username\
-[](fg:#004480)\
-[─╮](fg:c4)\
-$line_break\
-$character\
-"""
+# Starship port of the fish "arrow" prompt (fish/functions/fish_prompt.fish)
+#
+#   ➜  config git:(dev) ✗
+#
+#   arrow      bold green, bold red on non-zero exit status
+#   cwd        bold cyan, basename only
+#   git:(...)  bold blue parens, bold red branch (or short sha when detached)
+#   ✗          bold yellow, shown when the repo has staged or unstaged changes
 
-palette = 'main'
-add_newline = true
+format = "$character  $directory$git_branch$git_commit$hg_branch${custom.git_dirty} "
 
-[palettes.main]
-c1 = '#004480' # blue light
-c2 = '#002240' # blue dark
-c3 = '#c6e7ff' # blue extra light
-c4 = '#303030' # gray
-c5 = '#808080' # gray light
+add_newline = false
 
-[os]
-format = '[$symbol ](fg:#000000 bg:#ffffff)'
-disabled = false
+# ➜ — green on success, red on failure. The fish prompt swaps this for "#"
+# when running as root; starship has no per-user character, so it stays ➜.
+[character]
+format = "$symbol"
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
 
-[os.symbols]
-Alpine = ''
-Amazon = ''
-Android = ''
-Arch = ''
-CentOS = ''
-Debian = ''
-EndeavourOS = ''
-Fedora = ''
-FreeBSD = ''
-Garuda = ''
-Gentoo = ''
-Linux = ''
-Macos = ''
-Manjaro = ''
-Mariner = ''
-Mint = ''
-NetBSD = ''
-NixOS = ''
-OpenBSD = '' # ''
-OpenCloudOS = '☁️'
-openEuler = ''
-openSUSE = ''
-OracleLinux = '⊂⊃'
-Pop = '' # ''
-Raspbian = ''
-Redhat = ''
-RedHatEnterprise = ''
-Solus = '' # ' '
-SUSE = ''
-Ubuntu = ''
-Unknown = ''
-Windows = ''
-
+# prompt_pwd | path basename — only the final path component
 [directory]
-format = '[ 󰷏 $path ](fg:c3 bg:c2 italic)'
-truncation_length = 2
+style = "bold cyan"
+truncation_length = 1
+truncation_symbol = ""
+truncate_to_repo = false
+read_only = ""
+read_only_style = ""
+format = "[$path]($style)"
 
 [git_branch]
-format = '[ 󰘬 $branch ](fg:#808080 bg:c4)'
+format = '[ git:\(](bold blue)[$branch](bold red)[\)](bold blue)'
+only_attached = true
 
-[nodejs]
-format = '[ $symbol$version ](fg:#ffffff bg:c4)'
+# Detached HEAD falls back to the short sha, like _git_branch_name does
+[git_commit]
+only_detached = true
+tag_disabled = true
+format = '[ git:\(](bold blue)[$hash](bold red)[\)](bold blue)'
 
-[dotnet]
-format = '[ $symbol$tfm ](fg:#ffffff bg:c4)'
-symbol = ' .NET '
+[hg_branch]
+disabled = false
+format = '[ hg:\(](bold blue)[$branch](bold red)[\)](bold blue)'
+truncation_symbol = ""
 
-[python]
-format = '[ $symbol$version ](fg:#ffffff bg:c4)'
-symbol = ' '
+# _is_git_dirty: staged changes against HEAD, or unstaged changes in the
+# worktree. Untracked files do not count as dirty.
+[custom.git_dirty]
+description = "✗ when the repo has staged or unstaged changes"
+when = "! git diff-index --cached --quiet HEAD -- >/dev/null 2>&1 || ! git diff --no-ext-diff --quiet --exit-code >/dev/null 2>&1"
+command = "echo ✗"
+require_repo = true
+shell = ["sh"]
+format = "[ $output](bold yellow)"
 
-[java]
-format = '[ $symbol$version ](fg:#ffffff bg:c4)'
-symbol = ' '
-
-[c]
-format = '[ $symbol$version ](fg:#ffffff bg:c4)'
-symbol = ' '
-
-[fill]
-style = 'fg:c5 bg:c4'
-symbol = '.'
+# Everything else the arrow prompt does not show
+[git_status]
+disabled = true
 
 [cmd_duration]
-min_time = 500
-format = '[ $duration ](fg:yellow bg:c4 bold)'
-
-[shell]
-format = '[  $indicator ](c5 bg:c4)'
-unknown_indicator = 'shell'
-powershell_indicator = 'powershell'
-fish_indicator = 'fish'
-disabled = false
-
-[time]
-disabled = false
-format = '[ $time ](fg:c3 bg:c2)'
-time_format = '󰦖 %H:%M'
-
-[username]
-format = '[  $user ](fg:#ffffff bg:c1)'
-show_always = true
-
-[character]
-format = """
-[┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯](fg:c4)
-[╰──$symbol](fg:c4) """
-success_symbol = '[≫](fg:#ffffff)'
-error_symbol = '[×](bold red)'
+disabled = true

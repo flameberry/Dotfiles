@@ -20,7 +20,7 @@ bass source "$HOME/Installations/VulkanSDK/1.4.328.1/setup-env.sh"
 eval ( /opt/homebrew/bin/brew shellenv )
 
 # Starship prompt
-starship init fish | source
+# starship init fish | source
 
 # ${UserConfigDir}/fish/config.fish
 set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense' # optional
@@ -33,6 +33,8 @@ set -x COLORTERM truecolor
 set -Ux EDITOR nvim
 set -gx VISUAL nvim
 set -gx BAT_THEME "Catppuccin Mocha"
+set -gx SNACKS_KITTY 1
+set -gx SNACKS_SSH 1
 
 # FZF Config
 set -g FZF_DEFAULT_COMMAND "fd -H -E '.git'"
@@ -102,3 +104,5 @@ fish_add_path "$HOME/.antigravity-ide/antigravity-ide/bin"
 
 # Added by Antigravity CLI installer
 set -gx PATH "$HOME/.local/bin" $PATH
+
+ff

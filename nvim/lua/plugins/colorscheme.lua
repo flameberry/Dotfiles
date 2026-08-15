@@ -10,6 +10,8 @@ local no_italic = {
   ["@property"] = true,
 }
 
+local transparency = false
+
 local config = {
   variant = "auto", -- auto, main, moon, or dawn
   dark_variant = "main", -- main, moon, or dawn
@@ -73,10 +75,10 @@ local config = {
   },
 
   highlight_groups = {
-    Normal = { bg = "base" }, -- Transparent editor
-    NormalFloat = { bg = "base2" },
+    Normal = { bg = transparency and "None" or "base" }, -- Transparent editor
+    NormalFloat = { bg = transparency and "None" or "base2" },
     WinSeparator = { fg = "base" }, -- border contrast
-    FloatBorder = { fg = "highlight_med", bg = "base2" }, -- Transparent border for most floats
+    FloatBorder = { fg = "highlight_med", bg = transparency and "None" or "base2" }, -- Transparent border for most floats
     Pmenu = { bg = "base" }, -- Opaque completion menu
     PmenuSel = { bg = "overlay" }, -- Opaque selected item
     CmpItemMenu = { bg = "base" }, -- Opaque nvim-cmp menu
@@ -84,16 +86,16 @@ local config = {
     CurSearch = { fg = "base", bg = "leaf", inherit = false },
     Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
     -- TreesitterContext = { bg = "surface" },
-    TreesitterContextLineNumber = { bg = "base2", fg = "rose" },
+    TreesitterContextLineNumber = { bg = transparency and "None" or "base2", fg = "rose" },
     -- Separator is the context float's bottom border, so it follows FloatBorder
     -- (base2) unless set here. Pin the bg to base so it reads against the editor.
     TreesitterContextSeparator = { fg = "highlight_med", bg = "none" },
-    OutlineNormalBg = { bg = "base2" },
+    OutlineNormalBg = { bg = transparency and "None" or "base2" },
     WinBar = { bg = "base2" }, -- dropbar.nvim renders into the winbar
     WinBarNC = { bg = "base2" },
     -- Bold plain variables (locals). Merges onto rose-pine's @variable so the
     -- fg (text) is kept; before_highlight still strips its italic.
-    ["@lsp.type.variable"] = { fg = "text", bold = true },
+    -- ["@lsp.type.variable"] = { fg = "text", bold = true },
   },
 
   before_highlight = function(group, highlight, palette)

@@ -2,12 +2,14 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "source": "arch2",
-    "type": "auto",
     "padding": {
+      "left": 0,
       "top": 1,
-      "left": 4,
+      "bottom": 1,
     },
+    "width": 32,
+    "source": "/Users/flameberry/.config/fastfetch/giorno.png",
+    "type": "kitty",
   },
   "display": {
     "separator": " ",
@@ -21,11 +23,6 @@
       "key": "│ {#31} user    {#keys}│",
       "type": "title",
       "format": "{user-name}",
-    },
-    {
-      "key": "│ {#32}󰇅 hname   {#keys}│",
-      "type": "title",
-      "format": "{host-name}",
     },
     {
       "key": "│ {#33}󰅐 uptime  {#keys}│",
@@ -48,8 +45,17 @@
       "type": "de",
     },
     {
+      "key": "│ {#33}󰍛 cpu     {#keys}│",
+      "type": "cpu",
+      "showPeCoreCount": true,
+    },
+    {
       "key": "│ {#37}󰊄 gpu     {#keys}│",
       "type": "gpu",
+    },
+    {
+      "key": "│ {#38}󰃮 battery {#keys}│",
+      "type": "battery",
     },
     {
       "key": "│ {#39}󰍹 display {#keys}│",
@@ -70,20 +76,6 @@
     {
       "key": "│ {#32} shell   {#keys}│",
       "type": "shell",
-    },
-    {
-      "key": "│ {#33}󰍛 cpu     {#keys}│",
-      "type": "cpu",
-      "showPeCoreCount": true,
-    },
-    {
-      "key": "│ {#34}󰉉 disk    {#keys}│",
-      "type": "disk",
-      "folders": "/",
-    },
-    {
-      "key": "│ {#36} memory  {#keys}│",
-      "type": "memory",
     },
     {
       "key": "│ {#38}󰈔 font    {#keys}│",

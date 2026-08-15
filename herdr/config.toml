@@ -1,7 +1,15 @@
 onboarding = false
+
 [theme]
 name = "rose-pine"
 auto_switch = false
+
+# [theme.custom]
+# panel_bg = "transparent"
+# surface0 = "transparent"
+
+[ui]
+prompt_new_tab_name = false
 
 [ui.toast]
 delivery = "terminal"
@@ -11,3 +19,4 @@ prefix = "ctrl+a"
 
 [experimental]
 pane_history = true
+kitty_graphics = true

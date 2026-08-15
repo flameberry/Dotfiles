@@ -5,15 +5,23 @@ local app_icons = require("helpers.app_icons")
 -- Window manager backend. Swap to spaces_aerospace / spaces_omniwm and restart
 -- sketchybar to switch. All modules expose: events, list_workspaces_cmd(),
 -- fetch_state_cmd(), click_cmd(id), display_label(id).
--- local backend = require("items.spaces_aerospace")
-local backend = require("items.spaces_omniwm")
+local backend = require("items.spaces_aerospace")
+-- local backend = require("items.spaces_omniwm")
+
+-- Height of every pill. Inactive pills are pinned to this width too, so they
+-- render as perfect circles.
+local pill_height = 19
 
 -- Horizontal padding (in px) on each side of a space pill. Tweak to change pill widths.
+-- Inactive pills have no padding — their width is fixed to pill_height instead.
 local pill_padding = {
-	inactive = 14, -- small dark ovals (no apps + not focused)
 	active_empty = 24, -- focused workspace with no apps
 	active_icons = 18, -- focused workspace with apps (padding around the app icons)
 }
+
+-- Workspace number color inside an inactive circle (active pills use colors.base
+-- on the accent background).
+local inactive_number_color = colors.text
 
 -- Gap between the workspace number and the app icons in a focused-with-apps pill.
 local number_icon_gap = 6
@@ -49,12 +57,37 @@ local LOCK_TIMEOUT_S = 3
 local function build_space_set(icons, selected, ws_label)
 	local has_icons = icons ~= ""
 	local should_draw = selected or has_icons
-	local show_number = selected and ws_label ~= nil and ws_label ~= ""
+	local show_number = ws_label ~= nil and ws_label ~= ""
+
+	-- Inactive pill: a circle with just the workspace number in it. The icon is
+	-- given a fixed width equal to the pill height (and centered inside it) so
+	-- the pill stays square regardless of how wide the number renders.
+	if not selected then
+		return {
+			drawing = should_draw,
+			label = {
+				string = "",
+				drawing = false,
+				padding_left = 0,
+				padding_right = 0,
+			},
+			icon = {
+				string = show_number and ws_label or "",
+				color = inactive_number_color,
+				drawing = true,
+				width = pill_height,
+				align = "center",
+				padding_left = 0,
+				padding_right = 0,
+			},
+			background = {
+				color = colors.bg2,
+			},
+		}
+	end
 
 	local pad
-	if not selected then
-		pad = pill_padding.inactive
-	elseif has_icons then
+	if has_icons then
 		pad = pill_padding.active_icons
 	else
 		pad = pill_padding.active_empty
@@ -75,10 +108,12 @@ local function build_space_set(icons, selected, ws_label)
 		icon_padding_right = pad
 	end
 
+	-- Active pill: width follows its content, so undo the fixed icon width the
+	-- inactive circle sets.
 	return {
-		drawing = should_draw,
+		drawing = true,
 		label = {
-			string = selected and has_icons and icons or "",
+			string = has_icons and icons or "",
 			color = colors.base,
 			drawing = has_icons,
 			padding_left = 0,
@@ -89,11 +124,13 @@ local function build_space_set(icons, selected, ws_label)
 			string = show_number and ws_label or "",
 			color = colors.base,
 			drawing = true,
+			width = "dynamic",
+			align = "center",
 			padding_left = pad,
 			padding_right = icon_padding_right,
 		},
 		background = {
-			color = selected and colors.accent or colors.bg2,
+			color = colors.accent,
 		},
 	}
 end
@@ -220,8 +257,10 @@ for i, workspace in ipairs(workspaces) do
 		},
 		background = {
 			color = colors.bg2,
-			corner_radius = 16,
-			height = 19,
+			-- >= pill_height/2 so both the wide active pill and the square
+			-- inactive one come out fully rounded.
+			corner_radius = math.ceil(pill_height / 2),
+			height = pill_height,
 		},
 		padding_left = 6,
 		padding_right = 0,

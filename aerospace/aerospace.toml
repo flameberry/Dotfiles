@@ -1,6 +1,9 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
+# Config schema version. See: https://nikitabobko.github.io/AeroSpace/guide#config-version
+config-version = 2
+
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
@@ -44,14 +47,24 @@ default-root-container-orientation = 'auto'
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# Focus follows mouse: focus automatically follows the window under the cursor.
+# New in config-version = 2. See: https://nikitabobko.github.io/AeroSpace/guide#focus-follows-mouse
+focus-follows-mouse.enabled = true
+
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
 
+# List of workspaces that should stay alive even when they contain no windows.
+# Only available since 'config-version = 2'. In v1 these were inferred from key
+# bindings; v2 requires them to be listed explicitly (mirrors the bindings below).
+persistent-workspaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9',
+                         'A', 'B', 'C', 'D', 'E']
+
 # Keep these windows floating by default as they are generally for quick interaction
 [[on-window-detected]]
-    if.app-name-regex-substring = 'openvpn|reminders|steam|spark|whatsapp|flameberry|discord|notes|quicktime|appcleaner|font|vmware|mail|font|photos|messages'
+    if.app-name-regex-substring = 'openvpn|reminders|steam|whatsapp|flameberry|discord|notes|quicktime|appcleaner|font|vmware|mail|font|photos|messages'
     run = 'layout floating'
 
 # Possible values: (qwerty|dvorak|colemak)
@@ -70,10 +83,10 @@ automatically-unhide-macos-hidden-apps = false
 [gaps]
     inner.horizontal = 16
     inner.vertical =   16
-    outer.left =       16
-    outer.bottom =     8 
-    outer.top =        [{ monitor.main = 20 }, { monitor.secondary = 56 }, 24]
-    outer.right =      16
+    outer.left =       12
+    outer.bottom =     12 
+    outer.top =        [{ monitor.main = 16 }, { monitor.secondary = 54 }, 24]
+    outer.right =      12
 
 # Force some workspaces to be specific to the secondary monitor, specifically all alphabets
 [workspace-to-monitor-force-assignment]
