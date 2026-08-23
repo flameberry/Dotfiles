@@ -98,5 +98,13 @@
       "key": "╰───────────╯",
       "type": "custom",
     },
+    {
+      "type": "custom",
+      "format": "{#33}“Kono Giorno Giovanna ni wa yume ga aru”",
+    },
+    {
+      "type": "custom",
+      "format": "{#90}                     — Giorno Giovanna",
+    },
   ],
 }

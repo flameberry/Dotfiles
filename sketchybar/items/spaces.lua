@@ -5,8 +5,8 @@ local app_icons = require("helpers.app_icons")
 -- Window manager backend. Swap to spaces_aerospace / spaces_omniwm and restart
 -- sketchybar to switch. All modules expose: events, list_workspaces_cmd(),
 -- fetch_state_cmd(), click_cmd(id), display_label(id).
-local backend = require("items.spaces_aerospace")
--- local backend = require("items.spaces_omniwm")
+-- local backend = require("items.spaces_aerospace")
+local backend = require("items.spaces_omniwm")
 
 -- Height of every pill. Inactive pills are pinned to this width too, so they
 -- render as perfect circles.

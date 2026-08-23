@@ -49,7 +49,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # Focus follows mouse: focus automatically follows the window under the cursor.
 # New in config-version = 2. See: https://nikitabobko.github.io/AeroSpace/guide#focus-follows-mouse
-focus-follows-mouse.enabled = true
+focus-follows-mouse.enabled = false
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
