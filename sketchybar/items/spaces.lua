@@ -35,8 +35,8 @@ local pill_padding = {
 	active_icons = 18, -- focused workspace with apps (padding around the app icons)
 }
 
--- Workspace number color inside an inactive circle (active pills use colors.base
--- on the accent background).
+-- Workspace number color inside an inactive circle (active pills use
+-- colors.space_active_fg on the colors.space_active background).
 local inactive_number_color = colors.text
 
 -- Gap between the workspace number and the app icons in a focused-with-apps pill.
@@ -118,7 +118,7 @@ local function build_space_set(icons, selected, ws_label)
 		drawing = true,
 		label = {
 			string = has_icons and icons or "",
-			color = colors.base,
+			color = colors.space_active_fg,
 			drawing = has_icons,
 			padding_left = 0,
 			padding_right = has_icons and pad or 0,
@@ -126,7 +126,7 @@ local function build_space_set(icons, selected, ws_label)
 		},
 		icon = {
 			string = show_number and ws_label or "",
-			color = colors.base,
+			color = colors.space_active_fg,
 			drawing = true,
 			width = "dynamic",
 			align = "center",
@@ -134,7 +134,7 @@ local function build_space_set(icons, selected, ws_label)
 			padding_right = icon_padding_right,
 		},
 		background = {
-			color = colors.accent,
+			color = colors.space_active,
 		},
 	}
 end
@@ -239,10 +239,10 @@ local function update_all_spaces()
 		if #changed > 0 then
 			-- Layout changes (drawing, padding, label.string) apply instantly
 			-- so the bracket bg never gets caught half-resized when a second
-			-- switch arrives mid-animation. The accent ↔ bg2 background color
+			-- switch arrives mid-animation. The space_active ↔ bg2 background color
 			-- still animates so the active-state swap reads as smooth.
 			-- Skip the color animation when drawing flipped — animating from
-			-- the prior color to accent on a workspace that just appeared
+			-- the prior color to space_active on a workspace that just appeared
 			-- causes a visible bg2 flash on the first frame.
 			local to_animate = {}
 			for _, c in ipairs(changed) do
@@ -319,7 +319,7 @@ for i = 1, MAX_SLOTS do
 
 	-- Hover brightens the pill's current state colour. It can't use
 	-- utils.hover_brighten, which assumes a fixed base: background.color here is
-	-- state (accent when focused, bg2 otherwise) and is rewritten on every
+	-- state (space_active when focused, bg2 otherwise) and is rewritten on every
 	-- workspace switch, so hover has to read the live value out of
 	-- slot_base_color rather than capturing one at setup.
 	local index = i

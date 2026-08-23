@@ -220,6 +220,13 @@ local themes = {
 		-- for a single uninterrupted slab instead.
 		bar = { bg = 0xff000000, border = 0xff2a1414, blur = 0 },
 		popup = { bg = 0xff0a0606, border = 0xffe63946 },
+		-- Focused workspace pill. Deliberately much darker than `accent`: accent
+		-- is used as a *foreground* colour elsewhere (weather, media, calendar)
+		-- where it has to stay bright against the black bar, so the pill gets its
+		-- own deep oxblood instead of dragging accent down with it. Foreground on
+		-- this pill is `text`, not `base` — near-black on this fill measures
+		-- ~2.4:1, well under legible, while `text` sits around 9:1.
+		space_active = 0xff5c1019,
 		bg1 = 0xff140a0a,
 		bg2 = 0xff200a0a,
 		bg3 = 0xff2a0a0a,
@@ -230,6 +237,11 @@ local themes = {
 local active_theme = "gojo" -- options: "catppuccin", "rose_pine", "rose_pine_moon", "neon", "aurora", "gojo"
 
 local theme = themes[active_theme]
+
+-- Only the gojo theme defines a dedicated focused-workspace colour; every other
+-- theme keeps the old behaviour of reusing its accent for that pill.
+theme.space_active = theme.space_active or theme.accent
+theme.space_active_fg = theme.space_active_fg or (theme.space_active == theme.accent and theme.base or theme.text)
 
 theme.with_alpha = function(color, alpha)
 	if alpha > 1.0 or alpha < 0.0 then
