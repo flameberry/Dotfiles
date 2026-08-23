@@ -34,7 +34,9 @@ require("items.widgets.bluetooth")
 -- BRACKETS — drawn after all items are created
 -- ══════════════════════════════════════════════════════════════
 
-CORNER_RADIUS = 16
+-- Match the bar's own radius (set in bar.lua) so all three groups read as
+-- panels inset into the bar instead of pills sitting on top of it.
+CORNER_RADIUS = BAR_CORNER_RADIUS
 
 -- Left pill: Apple logo + Aerospace workspaces
 sbar.add("bracket", "bracket.left", { "apple.logo", "/space\\..*/", "spaces.right_pad" }, {
@@ -57,7 +59,7 @@ sbar.add("bracket", "bracket.media", {
 }, {
 	background = {
 		color = colors.bg3,
-		corner_radius = 4,
+		corner_radius = CORNER_RADIUS,
 		height = 24,
 		border_width = 0,
 	},

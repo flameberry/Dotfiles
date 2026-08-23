@@ -203,9 +203,24 @@ local themes = {
 		transparent = 0x00000000,
 		accent = 0xffe63946,
 
-		bar = { bg = 0xff000000, border = 0xff2a1414 },
+		-- Fully opaque: black bar, no transparency anywhere.
+		--
+		-- blur stays 0 and should not be re-enabled. sketchybar 2.24's
+		-- blur_radius does not clip to the bar — measured against an unblurred
+		-- capture it bleeds ~26pt below the bar at radius 40 and still ~17pt at
+		-- radius 8, and upward into the y_offset gap as well. A flush bar
+		-- (y_offset/margin/corner_radius all 0) bleeds the same 26pt, so the blur
+		-- region itself is oversized rather than the floating geometry being at
+		-- fault. Any non-zero value smears the wallpaper in a band under the bar.
+		--
+		-- bg1 is deliberately NOT 0xff000000. It used to be, which made it
+		-- identical to the bar and left bracket.left/right invisible — two of the
+		-- three groups had backgrounds that could never be seen. It is now one
+		-- step up from black so the groups read as panels; set it to 0xff000000
+		-- for a single uninterrupted slab instead.
+		bar = { bg = 0xff000000, border = 0xff2a1414, blur = 0 },
 		popup = { bg = 0xff0a0606, border = 0xffe63946 },
-		bg1 = 0xff000000,
+		bg1 = 0xff140a0a,
 		bg2 = 0xff200a0a,
 		bg3 = 0xff2a0a0a,
 	},
