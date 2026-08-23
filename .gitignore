@@ -16,3 +16,8 @@ sketchybar/*.png
 /fish/fish_variables
 /fish/conf.d/python-3.14.fish.pysave
 /com.nvidia.devtools
+/herdr/herdr-client.log
+/herdr/herdr-server.log
+/herdr/release-notes.json
+/herdr/session-history.json
+/herdr/session.json
