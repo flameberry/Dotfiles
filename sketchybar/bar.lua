@@ -1,10 +1,16 @@
+local colors = require("colors")
+
 LAYOUT_FULL = true
 
 sbar.bar({
 	topmost = "window",
 	height = 32,
-	color = LAYOUT_FULL and 0xff000000 or 0x00000000,
-	border_width = 0,
+	-- Full layout paints the bar itself; the floating layout leaves the bar
+	-- invisible and lets the item brackets carry the background. Both pull from
+	-- the active theme so switching themes actually moves the bar colour.
+	color = LAYOUT_FULL and colors.bar.bg or colors.transparent,
+	border_width = 0, -- set to 1 to make border_color visible
+	border_color = colors.bar.border,
 	shadow = LAYOUT_FULL,
 	position = "top",
 	sticky = true,

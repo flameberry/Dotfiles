@@ -165,7 +165,7 @@ local themes = {
 		transparent = 0x00000000,
 		accent = 0xffeb96b9,
 
-		bar = { bg = 0x00000000, border = 0x00000000 },
+		bar = { bg = 0xff0f1117, border = 0xff252c3d },
 		popup = { bg = 0xff0f1117, border = 0xffeb96b9 },
 		-- bg1 = 0xff0f1117,
 		-- bg1 = 0xff040c0c,
@@ -203,7 +203,7 @@ local themes = {
 		transparent = 0x00000000,
 		accent = 0xffe63946,
 
-		bar = { bg = 0x00000000, border = 0x00000000 },
+		bar = { bg = 0xff000000, border = 0xff2a1414 },
 		popup = { bg = 0xff0a0606, border = 0xffe63946 },
 		bg1 = 0xff000000,
 		bg2 = 0xff200a0a,
@@ -222,5 +222,25 @@ theme.with_alpha = function(color, alpha)
 	end
 	return (color & 0x00ffffff) | (math.floor(alpha * 255.0) << 24)
 end
+
+-- Blend a colour toward white, preserving alpha. Used for hover states: an item
+-- that already has a background lights that background up rather than growing a
+-- border, so the pill keeps its shape and only its brightness changes.
+theme.brighten = function(color, amount)
+	local a = color & 0xff000000
+	local r = (color >> 16) & 0xff
+	local g = (color >> 8) & 0xff
+	local b = color & 0xff
+	r = math.floor(r + (255 - r) * amount)
+	g = math.floor(g + (255 - g) * amount)
+	b = math.floor(b + (255 - b) * amount)
+	return a | (r << 16) | (g << 8) | b
+end
+
+-- How far a hovered background is lifted toward white.
+theme.hover_amount = 0.22
+
+-- Hover chip for items that have no background of their own to brighten.
+theme.hover = theme.with_alpha(theme.white, 0.14)
 
 return theme

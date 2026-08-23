@@ -16,7 +16,13 @@ local bluetooth = sbar.add("item", "widgets.bluetooth", {
 		padding_right = 4,
 	},
 	label = { drawing = false },
-	update_freq = 3,
+	-- `system_profiler SPBluetoothDataType` costs ~170ms per call — at the
+	-- previous 3s cadence that was roughly 5% of a core, permanently, to watch a
+	-- state that changes a handful of times a day. The responsiveness that
+	-- actually matters comes from the event subscriptions below, not this
+	-- backstop: volume_change fires on audio-route changes, so headphones
+	-- connecting still updates the glyph near-instantly.
+	update_freq = 30,
 	updates = true,
 })
 

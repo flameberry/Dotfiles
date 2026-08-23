@@ -1,3 +1,4 @@
+local utils = require("utils")
 local colors = require("colors")
 local settings = require("settings")
 local icons = require("icons")
@@ -69,6 +70,17 @@ local media = sbar.add("item", "center.media", {
 			height = 56,
 		},
 	},
+	-- DO NOT raise this to "let media_change do the work". It can't:
+	-- sketchybar's `media_change` never fires on macOS 26 (measured — zero
+	-- events across a pause and a play), because the MediaRemote now-playing
+	-- notification API it depends on is entitlement-gated on modern macOS.
+	-- Reading state still works, which is why nowplaying-cli does, but nothing
+	-- pushes. This poll is therefore the *only* thing keeping the label live,
+	-- and at 10s the lag was plainly visible.
+	--
+	-- The cost is smaller than the wall-clock time suggests: one call is ~100ms
+	-- wall but only ~10ms of CPU (the rest is IPC wait), so 1s ticks cost on the
+	-- order of 1% of one core.
 	update_freq = 1,
 	updates = true,
 })
@@ -172,8 +184,22 @@ local popup_next = sbar.add("item", "popup.center.media.next", {
 	click_script = "nowplaying-cli next",
 })
 
+-- Artwork is written to disk for sketchybar to load. This used to use a
+-- monotonic counter (/tmp/sketchybar_art_1.jpg, _2, _3 ...) so that a slow
+-- `nowplaying-cli` callback could never land on a path a newer track had already
+-- overwritten — correct, but nothing ever deleted the old files, so /tmp grew by
+-- one JPEG per track change forever (411 files / 2.1 MB when this was found).
+--
+-- Two alternating slots keep the same guarantee with a fixed footprint:
+-- sketchybar loads the image into memory at set-time, so the only path that must
+-- stay untouched is the one currently on screen, and a 2-slot ping-pong never
+-- writes to that one. The glob below also sweeps up the legacy numbered files.
+os.execute("rm -f /tmp/sketchybar_art_*.jpg 2>/dev/null")
+
+local ART_SLOTS = { "/tmp/sketchybar_art_a.jpg", "/tmp/sketchybar_art_b.jpg" }
+local art_slot = 0
+
 local current_track_key = nil
-local artwork_counter = 0
 local last_label_state = nil
 local last_play_state = nil
 
@@ -254,8 +280,8 @@ local function update_track_info(title, artist)
 	popup_title:set({ label = { string = title or "" } })
 	popup_artist:set({ label = { string = artist or "" } })
 
-	artwork_counter = artwork_counter + 1
-	local path = string.format("/tmp/sketchybar_art_%d.jpg", artwork_counter)
+	art_slot = art_slot % #ART_SLOTS + 1
+	local path = ART_SLOTS[art_slot]
 	local cmd = string.format(
 		"nowplaying-cli get artworkData 2>/dev/null | base64 -D > %q 2>/dev/null; "
 			.. "if [ -s %q ]; then sips -Z 96 %q >/dev/null 2>&1; echo ok; else rm -f %q; fi",
@@ -419,3 +445,11 @@ media:subscribe("mouse.exited.global", function()
 end)
 
 poll()
+
+-- All three of these toggle the popup, so all three get the same hover chip.
+-- The artwork's chip is mostly covered once album art loads, but its neighbours
+-- lighting up already reads as "this group is clickable" — and while idle (the
+-- :music: glyph, no image) the chip behind it shows through.
+utils.hover_lift(playpause, { height = 22, corner_radius = 11 })
+utils.hover_lift(media, { height = 22, corner_radius = 6 })
+utils.hover_lift(artwork, { height = 22, corner_radius = 4 })

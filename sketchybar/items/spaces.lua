@@ -3,10 +3,26 @@ local settings = require("settings")
 local app_icons = require("helpers.app_icons")
 
 -- Window manager backend. Swap to spaces_aerospace / spaces_omniwm and restart
--- sketchybar to switch. All modules expose: events, list_workspaces_cmd(),
--- fetch_state_cmd(), click_cmd(id), display_label(id).
+-- sketchybar to switch. All modules expose: events, fetch_state_cmd(),
+-- click_cmd(id), display_label(id), and optionally ensure_watcher().
 -- local backend = require("items.spaces_aerospace")
 local backend = require("items.spaces_omniwm")
+
+-- Workspace pills are drawn from a fixed pool of pre-created items rather than
+-- one item per workspace discovered at startup.
+--
+-- Why: sketchybar resolves bracket membership when the bracket is created, and
+-- bracket.left is built in items/init.lua during config load. An item added
+-- later would render outside the left pill's background. The old code therefore
+-- had to know every workspace up front — it ran a blocking io.popen at load and
+-- never looked again, so adding or removing an OmniWM workspace left the bar
+-- silently wrong until a full sketchybar reload.
+--
+-- The pool sidesteps both problems: every slot exists (hidden) before the
+-- bracket is built, and update_all_spaces reassigns slots to workspaces as the
+-- set changes. Slots are handed out in the backend's display order, so a
+-- workspace appearing in the middle just shifts the assignments right.
+local MAX_SLOTS = 16
 
 -- Height of every pill. Inactive pills are pinned to this width too, so they
 -- render as perfect circles.
@@ -26,24 +42,12 @@ local inactive_number_color = colors.text
 -- Gap between the workspace number and the app icons in a focused-with-apps pill.
 local number_icon_gap = 6
 
-local function exec_to_table(cmd)
-	local handle = io.popen(cmd)
-	if not handle then
-		return {}
-	end
-	local result = handle:read("*a")
-	handle:close()
-	local lines = {}
-	for line in result:gmatch("[^\n]+") do
-		lines[#lines + 1] = line
-	end
-	return lines
-end
-
-local space_items = {}
-local space_names = {}
-local space_state = {}
-local space_drawn = {}
+local slots = {} -- slot index -> sbar item
+local slot_ws = {} -- slot index -> workspace id currently shown there (or nil)
+local slot_state = {} -- slot index -> last rendered state key
+local slot_drawn = {} -- slot index -> whether the pill was visible
+local slot_base_color = {} -- slot index -> pill's current *state* bg colour
+local slot_hovered = {} -- slot index -> pointer is currently over the pill
 -- Coalesce rapid events: if an update arrives while one is in-flight, mark
 -- dirty and re-run after — never drop. Dropping caused the bracket to settle
 -- to a stale state on rapid switches; overlapping animations on top of that
@@ -146,15 +150,17 @@ local function update_all_spaces()
 	sbar.exec(backend.fetch_state_cmd(), function(output)
 		update_in_flight_at = 0
 
+		-- Three sections, "---" separated: windows, workspace list, focused id.
 		local workspace_icons = {}
 		local seen = {}
+		local workspaces = {}
 		local focused = ""
-		local parsing_windows = true
+		local section = 1
 
 		for line in output:gmatch("[^\n]+") do
 			if line == "---" then
-				parsing_windows = false
-			elseif parsing_windows then
+				section = section + 1
+			elseif section == 1 then
 				local ws, app = line:match("^(.-)|(.+)$")
 				if ws then
 					if not workspace_icons[ws] then
@@ -172,28 +178,61 @@ local function update_all_spaces()
 						seen[ws][icon] = true
 					end
 				end
+			elseif section == 2 then
+				workspaces[#workspaces + 1] = line:gsub("%s+", "")
 			else
 				focused = line:gsub("%s+", "")
 			end
 		end
 
+		-- A backend hiccup (window manager restarting, IPC not yet up) yields an
+		-- empty list. Keep the current pills rather than blanking the bar; the
+		-- next tick recovers.
+		if #workspaces == 0 then
+			if update_dirty then
+				update_dirty = false
+				update_all_spaces()
+			end
+			return
+		end
+
+		-- Reconcile the slot pool against the live workspace list. Reassigning a
+		-- slot invalidates its cached state so the pill is rebuilt below.
+		for i = 1, MAX_SLOTS do
+			local ws = workspaces[i]
+			if slot_ws[i] ~= ws then
+				slot_ws[i] = ws
+				slot_state[i] = nil
+				if ws then
+					slots[i]:set({ click_script = backend.click_cmd(ws) })
+				else
+					slots[i]:set({ drawing = false })
+					slot_drawn[i] = false
+				end
+			end
+		end
+
 		local changed = {}
-		for ws, space in pairs(space_items) do
-			local icons = workspace_icons[ws] or ""
-			local selected = ws == focused
-			local key = (selected and "1|" or "0|") .. icons
-			if space_state[ws] ~= key then
-				local was_drawn = space_drawn[ws] or false
-				local now_drawn = selected or icons ~= ""
-				space_state[ws] = key
-				space_drawn[ws] = now_drawn
-				changed[#changed + 1] = {
-					space = space,
-					icons = icons,
-					selected = selected,
-					label = backend.display_label(ws),
-					drawing_flipped = was_drawn ~= now_drawn,
-				}
+		for i = 1, MAX_SLOTS do
+			local ws = slot_ws[i]
+			if ws then
+				local icons = workspace_icons[ws] or ""
+				local selected = ws == focused
+				local key = (selected and "1|" or "0|") .. icons
+				if slot_state[i] ~= key then
+					local was_drawn = slot_drawn[i] or false
+					local now_drawn = selected or icons ~= ""
+					slot_state[i] = key
+					slot_drawn[i] = now_drawn
+					changed[#changed + 1] = {
+						slot = i,
+						space = slots[i],
+						icons = icons,
+						selected = selected,
+						label = backend.display_label(ws),
+						drawing_flipped = was_drawn ~= now_drawn,
+					}
+				end
 			end
 		end
 
@@ -208,13 +247,23 @@ local function update_all_spaces()
 			local to_animate = {}
 			for _, c in ipairs(changed) do
 				local props = build_space_set(c.icons, c.selected, c.label)
+
+				-- Remember the state colour separately from the colour actually
+				-- shown: if the pointer is sitting on this pill while its state
+				-- changes, it must land on the brightened variant, and
+				-- mouse.exited must later restore the state colour, not the
+				-- brightened one.
+				local base = props.background.color
+				slot_base_color[c.slot] = base
+				local shown = slot_hovered[c.slot] and colors.brighten(base, colors.hover_amount) or base
+
 				if c.drawing_flipped then
+					props.background.color = shown
 					c.space:set(props)
 				else
-					local target_color = props.background.color
 					props.background = nil
 					c.space:set(props)
-					to_animate[#to_animate + 1] = { space = c.space, color = target_color }
+					to_animate[#to_animate + 1] = { space = c.space, color = shown }
 				end
 			end
 			if #to_animate > 0 then
@@ -233,10 +282,11 @@ local function update_all_spaces()
 	end)
 end
 
-local workspaces = exec_to_table(backend.list_workspaces_cmd())
-
-for i, workspace in ipairs(workspaces) do
-	local space = sbar.add("item", "space." .. workspace:gsub("%s+", "_"), {
+-- Create the pool up front, all hidden, so every slot is inside bracket.left
+-- when items/init.lua builds it. Slots stay unnamed by workspace: the mapping
+-- lives in slot_ws and is rewritten whenever the workspace set changes.
+for i = 1, MAX_SLOTS do
+	local space = sbar.add("item", "space.slot." .. i, {
 		icon = {
 			font = { family = settings.font.text, style = settings.font.style_map["Bold"], size = 12 },
 			string = "",
@@ -265,11 +315,27 @@ for i, workspace in ipairs(workspaces) do
 		padding_left = 6,
 		padding_right = 0,
 		drawing = false,
-		click_script = backend.click_cmd(workspace),
 	})
 
-	space_items[workspace] = space
-	space_names[i] = space.name
+	-- Hover brightens the pill's current state colour. It can't use
+	-- utils.hover_brighten, which assumes a fixed base: background.color here is
+	-- state (accent when focused, bg2 otherwise) and is rewritten on every
+	-- workspace switch, so hover has to read the live value out of
+	-- slot_base_color rather than capturing one at setup.
+	local index = i
+	slot_base_color[i] = colors.bg2
+	space:subscribe("mouse.entered", function()
+		slot_hovered[index] = true
+		space:set({
+			background = { color = colors.brighten(slot_base_color[index], colors.hover_amount) },
+		})
+	end)
+	space:subscribe({ "mouse.exited", "mouse.exited.global" }, function()
+		slot_hovered[index] = false
+		space:set({ background = { color = slot_base_color[index] } })
+	end)
+
+	slots[i] = space
 end
 
 -- Invisible spacer that extends the left bracket background past the last space,
@@ -294,10 +360,24 @@ local subscribed_events = { "routine" }
 for _, ev in ipairs(backend.events) do
 	subscribed_events[#subscribed_events + 1] = ev
 end
+-- Backends that push events via a helper process expose ensure_watcher() to
+-- respawn it if it died (OmniWM rotates its IPC token on restart, which kills
+-- the watcher). Piggy-backs on the routine tick, throttled — the check is a
+-- process spawn, and the 5s routine is already the fallback if it has died.
+local WATCH_CHECK_INTERVAL_S = 30
+local last_watch_check = os.time()
+
 observer:subscribe(subscribed_events, function(env)
+	if backend.ensure_watcher then
+		local now = os.time()
+		if now - last_watch_check >= WATCH_CHECK_INTERVAL_S then
+			last_watch_check = now
+			backend.ensure_watcher()
+		end
+	end
 	update_all_spaces()
 end)
 
 update_all_spaces()
 
-return space_names
+return slots

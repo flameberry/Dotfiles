@@ -834,7 +834,7 @@ binding = "Unassigned"
 id = "toggleHiddenBarPanel"
 
 [[hotkeys]]
-binding = "Control+Grave"
+binding = "Unassigned"
 id = "toggleQuakeTerminal"
 
 [[hotkeys]]

@@ -1,8 +1,8 @@
-require("utils")
+local utils = require("utils")
 local colors = require("colors")
 local icons = require("icons")
 
-sbar.add("item", "apple.logo", {
+local apple = sbar.add("item", "apple.logo", {
 	position = "left",
 	background = {
 		image = {
@@ -32,3 +32,5 @@ sbar.add("item", {
 		color = colors.with_alpha(colors.white, 0.3),
 	},
 })
+
+utils.hover_lift(apple, { height = 22, corner_radius = 11 })

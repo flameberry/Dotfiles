@@ -1,3 +1,4 @@
+local utils = require("utils")
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
@@ -53,13 +54,18 @@ battery:subscribe({ "routine", "power_source_change", "system_woke", "brightness
 
 		local charging = batt_info:find("AC Power")
 
+		-- Colour ladder. The accent can't carry "healthy": in several themes
+		-- accent, red and love are the *same* value, so an accent-coloured full
+		-- battery was indistinguishable from a critical one. Green reads as
+		-- healthy, and red now means exactly one thing here — under 10%.
+		-- Charging takes cyan so it stays separable from a merely-full green.
 		local color
 		if charging then
 			icon = icons.battery.charging
-			color = colors.accent
+			color = colors.blue
 		elseif found and charge > 60 then
 			icon = icons.battery._100
-			color = colors.accent
+			color = colors.green
 		elseif found and charge > 40 then
 			icon = icons.battery._75
 			color = colors.gold
@@ -71,7 +77,7 @@ battery:subscribe({ "routine", "power_source_change", "system_woke", "brightness
 			color = colors.orange
 		else
 			icon = icons.battery._0
-			color = colors.love
+			color = colors.red
 		end
 
 		local lead = (found and charge < 10) and "0" or ""
@@ -80,10 +86,6 @@ battery:subscribe({ "routine", "power_source_change", "system_woke", "brightness
 			icon = { string = icon, color = color },
 			label = { string = lead .. label },
 		})
-
-		if charging then
-			sbar.exec("sketchybar --set " .. battery.name .. " icon.symbol_anim=pulse")
-		end
 	end)
 end)
 
@@ -99,3 +101,5 @@ battery:subscribe("mouse.clicked", function(env)
 		end)
 	end
 end)
+
+utils.hover_lift(battery)
