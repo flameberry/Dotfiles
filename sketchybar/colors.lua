@@ -213,11 +213,10 @@ local themes = {
 		-- region itself is oversized rather than the floating geometry being at
 		-- fault. Any non-zero value smears the wallpaper in a band under the bar.
 		--
-		-- bg1 is deliberately NOT 0xff000000. It used to be, which made it
-		-- identical to the bar and left bracket.left/right invisible — two of the
-		-- three groups had backgrounds that could never be seen. It is now one
-		-- step up from black so the groups read as panels; set it to 0xff000000
-		-- for a single uninterrupted slab instead.
+		-- bg1 (bracket.left / bracket.right) is intentionally transparent: the
+		-- outer two groups sit directly on the black bar with no panel behind
+		-- them, so only the workspace pills and the center media bracket carry
+		-- fill. Set it to 0xff140a0a to bring the side panels back.
 		bar = { bg = 0xff000000, border = 0xff2a1414, blur = 0 },
 		popup = { bg = 0xff0a0606, border = 0xffe63946 },
 		-- Focused workspace pill. Deliberately much darker than `accent`: accent
@@ -227,7 +226,7 @@ local themes = {
 		-- this pill is `text`, not `base` — near-black on this fill measures
 		-- ~2.4:1, well under legible, while `text` sits around 9:1.
 		space_active = 0xff5c1019,
-		bg1 = 0xff140a0a,
+		bg1 = 0x00000000,
 		bg2 = 0xff200a0a,
 		bg3 = 0xff2a0a0a,
 	},
